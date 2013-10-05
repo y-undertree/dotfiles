@@ -1,11 +1,11 @@
 cd ~/dotfiles
 
-## vim
+### not file exsist symboic create 
 
-* make
-* git submodule init
-* git submodule update
+    sh symbolic_link.sh
 
-## git
+### Vundle
 
-* sh git_config_symbolic_link.sh
+    git submodule init
+    git submodule update
+
