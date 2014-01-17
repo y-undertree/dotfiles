@@ -1,4 +1,6 @@
 "---------------------------- vim setting-----------------------------
+
+colorscheme molokai
 syntax on
 set incsearch
 set hidden
@@ -23,7 +25,6 @@ set showmatch
 set smartcase
 set smartindent
 set wildmenu
-
 
 " --------------------- Vundle setting ----------------------"
 set nocompatible               " be iMproved
