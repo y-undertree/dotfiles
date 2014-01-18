@@ -13,6 +13,7 @@ ui = auto
 st = status
 sh = show
 sb = show-branch
+br = branch
 rema = rebase origin/master master
 ci = commit
 cmt = commit -v
