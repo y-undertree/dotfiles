@@ -25,6 +25,7 @@ set showmatch
 set smartcase
 set smartindent
 set wildmenu
+set noautoindent
 
 " --------------------- Vundle setting ----------------------"
 set nocompatible               " be iMproved
