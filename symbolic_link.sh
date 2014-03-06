@@ -13,7 +13,9 @@ done
 
 # git complete
 echo "source /usr/share/doc/git-1.7.1/contrib/completion/git-completion.bash" >> ~/.bash_profile
+echo "source /usr/share/doc/git-1.8.2.1/contrib/completion/git-prompt.sh" >> ~/.bash_profile
+echo "source /usr/share/doc/git-1.8.2.1/contrib/completion/git-completion.bash" >> ~/.bash_profile
 
 # branch 補完
-GIT_PS1_SHOWDIRTYSTATE=true
-export PS1='\[\033[32m\]\u@\h\[\033[00m\]:\[\033[34m\]\w\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
+echo "GIT_PS1_SHOWDIRTYSTATE=true" >> ~/.bash_profile
+echo "export PS1='\[\033[32m\]\u@\h\[\033[00m\]:\[\033[34m\]\w\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '" >> ~/.bash_profile
