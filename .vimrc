@@ -140,3 +140,17 @@ function! MyMode()
     return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
+"--- php syntax error checker --
+""
+" PHP Lint
+nmap ,l :call PHPLint()<CR>
+
+""
+" PHPLint
+"
+" @author halt feits <halt.feits at gmail.com>
+"
+function PHPLint()
+  let result = system( &ft . ' -l ' . bufname(""))
+  echo result
+endfunction
