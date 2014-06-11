@@ -10,7 +10,7 @@ autocrlf = false
 ui = auto
 
 [alias]
-st = status
+st = status -sb 
 sh = show
 sb = show-branch
 br = branch
@@ -31,4 +31,9 @@ lg = log --graph --all --color --pretty='%x09%h %cn%x09%s %Cred%d'
 l = log
 m = checkout master
 ituja = log --patch -S
+pushd = git push origin develop
+pulld = git pull origin develop
+pushm = git push origin master
+pullm = git pull origin master
+nmerge = merge --no-ff
 
