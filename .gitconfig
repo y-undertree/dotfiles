@@ -28,12 +28,12 @@ ds = diff -C --stat
 dsp = diff -C --stat -p
 dw = diff -C --color-words
 lg = log --graph --all --color --pretty='%x09%h %cn%x09%s %Cred%d'
-l = log
+log = log --stat
 m = checkout master
 ituja = log --patch -S
-pushd = git push origin develop
-pulld = git pull origin develop
-pushm = git push origin master
-pullm = git pull origin master
+pushd = push origin develop
+pulld = pull origin develop
+pushm = push origin master
+pullm = pull origin master
 nmerge = merge --no-ff
-
+tag = tag -ln
