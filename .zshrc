@@ -48,7 +48,7 @@ then
 fi
 
 # rust
-export PATH="/usr/local/opt/openssl@1.1/bin:/Users/kinoshityasunori/.cargo/bin:$PATH"
+export PATH="/usr/local/opt/openssl@1.1/bin:$HOME/.cargo/bin:$PATH"
 export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
 export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
 export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
@@ -59,9 +59,9 @@ export PATH=$PATH:`npm bin -g`
 autoload -Uz compinit && compinit
 
 # Zplugin
-source '/Users/kinoshityasunori/.zplugin/bin/zplugin.zsh'
-zcompile ~/.zplugin/bin/zplugin.zsh
-autoload -Uz _zplugin
+source "$HOME/.zinit/bin/zplugin.zsh"
+zcompile ~/.zinit/bin/zplugin.zsh
+autoload -Uz _zinit
 autoload -Uz cdr 
 autoload -Uz add-zsh-hook
 autoload -Uz chpwd
@@ -69,41 +69,41 @@ autoload -Uz chpwd_recent_dirs
 
 if [[ "${+_comps}" == 1 ]]
 then
-  _comps[zplugin]=_zplugin
+  _comps[zinit]=_zinit
 fi
 
-zplugin ice pick''
-zplugin light 'zsh-users/zsh-completions'
+zinit ice pick''
+zinit light 'zsh-users/zsh-completions'
 
-zplugin cdreplay -q
+zinit cdreplay -q
 
-zplugin ice wait'1' atload'_zsh_highlight'
-zplugin light 'zdharma/fast-syntax-highlighting'
+zinit ice wait'1' atload'_zsh_highlight'
+zinit light 'zdharma/fast-syntax-highlighting'
 # コマンドをサジェストするプラグインを遅延ロードします。
-zplugin ice wait'1' atload'_zsh_autosuggest_start'
-zplugin light 'zsh-users/zsh-autosuggestions'
+zinit ice wait'1' atload'_zsh_autosuggest_start'
+zinit light 'zsh-users/zsh-autosuggestions'
 
-zplugin ice pick'k.sh'
-zplugin light 'supercrabtree/k'
+zinit ice pick'k.sh'
+zinit light 'supercrabtree/k'
 
-zplugin light zsh-users/zsh-history-substring-search
+zinit light zsh-users/zsh-history-substring-search
 
-zplugin light mollifier/anyframe
+zinit light mollifier/anyframe
 
-#zplugin light mollifier/cd-gitroot
+#zinit light mollifier/cd-gitroot
 
-zplugin light willghatch/zsh-cdr
-zplugin ice pick'init.sh'
-zplugin light b4b4r07/enhancd
+zinit light willghatch/zsh-cdr
+zinit ice pick'init.sh'
+zinit light b4b4r07/enhancd
 
-zplugin light jcorbin/zsh-git
-#zplugin load plugins/git
-zplugin light peterhurford/git-aliases.zsh
-#zplugin light marzocchi/zsh-notify
-zplugin ice pick"async.zsh" src"pure.zsh"; zplugin light sindresorhus/pure
+zinit light jcorbin/zsh-git
+#zinit load plugins/git
+zinit light peterhurford/git-aliases.zsh
+#zinit light marzocchi/zsh-notify
+zinit ice pick"async.zsh" src"pure.zsh"; zinit light sindresorhus/pure
 #zplug "docker/cli", use:"contrib/completion/zsh/_docker"
-zplugin ice pick'zshrc'
-zplugin light 'tcnksm/docker-alias'
+zinit ice pick'zshrc'
+zinit light 'tcnksm/docker-alias'
 
 # notify
 #export SYS_NOTIFIER="/usr/local/bin/terminal-notifier"
