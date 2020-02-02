@@ -9,3 +9,6 @@ cd ~/dotfiles
     git submodule init
     git submodule update
 
+### zsh module
+
+https://github.com/zdharma/zinit#quick-start
