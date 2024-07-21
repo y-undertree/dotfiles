@@ -1,0 +1,7 @@
+#!/bin/zsh
+show_snippets() {
+    local snippets=$(cat ~/.zsh_snippets | fzf | cut -d':' -f2-)
+    LBUFFER="${LBUFFER}${snippets}"
+    zle reset-prompt
+}
+zle -N show_snippets

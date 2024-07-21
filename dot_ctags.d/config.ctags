@@ -1,0 +1,69 @@
+--languages=ruby,javascript,typescript,rspec,php,go
+--ruby-kinds=-A
+--rspec-kinds=-c-i
+--javascript-kinds=-p-G-S-M-g
+
+--langdef=less
+--langmap=less:.less
+--regex-less=/^[ \t&]*#([A-Za-z0-9_-]+)/\1/i,id,ids/
+--regex-less=/^[ \t&]*\.([A-Za-z0-9_-]+)/\1/c,class,classes/
+--regex-less=/^[ \t]*(([A-Za-z0-9_-]+[ \t\n,]+)+)\{/\1/t,tag,tags/
+--regex-less=/^[ \t]*@media\s+([A-Za-z0-9_-]+)/\1/m,media,medias/
+--regex-less=/^[ \t]*(@[A-Za-z0-9_-]+):/\1/v,variable,variables/
+--regex-less=/\/\/[ \t]*(FIXME|TODO)[ \t]*\:*(.*)/\1/T,Tag,Tags/
+
+--langmap=vim:+(vimrc)
+
+--langdef=dockerfile
+--langmap=dockerfile:+(Dockerfile)
+--regex-dockerfile=/^(FROM|MAINTAINER|RUN|CMD|LABEL|EXPOSE|ENV|ADD|COPY|ENTRYPOINT|VOLUME|USER|WORKDIR|ARG|ONBUILD|STOPSIGNAL|HEALTHCHECK|SHELL)/\1/d,dockerfile,dockerfiles/
+
+--regex-ruby=/(^|[:;])[ \t]*([A-Z][[:alnum:]_]+) *=/\2/c,class,constant/
+--regex-ruby=/(^|[:;])[ \t]*([:upper:][[:alnum:]_]+) *=/\2/v,variable/
+--regex-ruby=/(^|;)[ \t]*(has_many|belongs_to|has_one|has_and_belongs_to_many)\(? *:([[:alnum:]_]+)/\3/f/
+--regex-ruby=/(^|;)[ \t]*(named_)?scope\(? *:([[:alnum:]_]+)/\3/f/
+--regex-ruby=/(^|;)[ \t]*expose\(? *:([[:alnum:]_]+)/\2/f/
+--regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2/f/
+--regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2!/f/
+--regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2?/f/
+
+--exclude=*.min.*
+--exclude=*.spec.*
+--exclude=*.test.*
+--exclude=*.stories.*
+--exclude=*.tar.*
+--exclude=.*bundle.*
+--exclude=*vendor/bundle/*
+--exclude=*db/migrate/*
+--exclude=*\.history/*
+--exclude=.Master
+--exclude=.bak
+--exclude=.cache
+--exclude=.class
+--exclude=.csproj
+--exclude=.csproj.user
+--exclude=.dll
+--exclude=.map
+--exclude=.pdb
+--exclude=.pyc
+--exclude=.sln
+--exclude=.swp
+--exclude=.tmp
+--exclude=bower_components
+--exclude=coverage
+--exclude=cscope.*
+--exclude=dist
+--exclude=min
+--exclude=node_modules
+--exclude=tags
+--exclude=test
+--exclude=tests
+--exclude=vendor
+--exclude=.git
+--exclude=public
+
+--recurse=yes
+--sort=yes
+--append=yes
+--tag-relative=yes
+--extras=+{reference}

@@ -1,0 +1,2 @@
+short:-G	long:--ghq	desc:Show ghq path	func:ghq list --full-path	condition:which ghq
+short:-M	long:--myconfig	desc:Show My Config Files	func:find ~/.config -type d -not -path '*/tmux/plugins/*' -not -path '*/karabiner/*' -not -path '*/configstore/*' -not -path '*/prefix/*' -not -path '*/nvim/.git*'

@@ -1,0 +1,243 @@
+{
+	"Expect to": {
+		"scope": "ruby",
+		"prefix": "ex",
+		"body": [
+			"expect(${1:actual}).to ${2:expected}"
+		],
+		"description": "RSpec expect to"
+	},
+
+	"Expect to not": {
+		"scope": "ruby",
+		"prefix": "exn",
+		"body": [
+			"expect(${1:actual}).to_not ${2:expected}"
+		],
+		"description": "RSpec expect to not"
+	},
+
+	"Expect block to": {
+		"scope": "ruby",
+		"prefix": "exb",
+    "body": "expect {\n\t${1:actual\n}.to ${2:expected}",
+		"description": "RSpec expect block to"
+	},
+
+	"Expect block to not": {
+		"scope": "ruby",
+		"prefix": "exbn",
+		"body": "expect {\n\t${1:actual\n}.to_not ${2:expected}",
+		"description": "RSpec expect block to not"
+	},
+
+	"Let": {
+		"scope": "ruby",
+		"prefix": "let",
+    "body": "let(:${1:symbol}) {\n\t${2:value}\n}",
+		"description": "RSpec let"
+	},
+
+	"Feature scenario block": {
+		"scope": "ruby",
+		"prefix": "scn",
+		"body": "scenario \"$1\" do\n\t$2\nend",
+		"description": "RSpec feature scenario block"
+	},
+
+	"Describe block": {
+		"scope": "ruby",
+		"prefix": "desc",
+		"body": "describe \"$1\" do\n\t$2\nend",
+		"description": "RSpec describe block"
+	},
+
+	"Context block": {
+		"scope": "ruby",
+		"prefix": "cxt",
+		"body": "context \"$1\" do\n\t$2\nend",
+		"description": "RSpec context block"
+	},
+
+	"Before block": {
+		"scope": "ruby",
+		"prefix": "bef",
+		"body": "before do\n\t$1\nend",
+		"description": "RSpec before block"
+	},
+
+	"It": {
+		"scope": "ruby",
+		"prefix": "it",
+		"body": "it \"$1\" do\n\t$2\nend",
+		"description": "RSpec it"
+	},
+
+	"Visit link": {
+		"scope": "ruby",
+		"prefix": "vis",
+		"body": "visit \"$1\"",
+		"description": "Capybara visit link"
+	},
+
+	"Within block": {
+		"scope": "ruby",
+		"prefix": "within",
+		"body": "within \"$1\" do\n\t$2\nend",
+		"description": "RSpec within block"
+	},
+
+	"Have content": {
+		"scope": "ruby",
+		"prefix": "hc",
+		"body": "have_content \"$1\"",
+		"description": "Capybara have content"
+	},
+
+	"Have link": {
+		"scope": "ruby",
+		"prefix": "hl",
+		"body": "have_link \"$1\"${2:, href: \"$3\"}",
+		"description": "Capybara have link"
+	},
+
+	"Have field": {
+		"scope": "ruby",
+		"prefix": "hf",
+		"body": "have_field \"$1\"${2:, with: \"$3\"}",
+		"description": "Capybara have field"
+	},
+
+	"Have current path": {
+		"scope": "ruby",
+		"prefix": "hcp",
+		"body": "have_current_path \"$1\"",
+		"description": "Capybara have current path"
+	},
+
+	"Fill in input with value": {
+		"scope": "ruby",
+		"prefix": "fi",
+		"body": "fill_in \"$1\", with: \"$2\"",
+		"description": "Capybara fill in text input"
+	},
+
+	"Choose radio input": {
+		"scope": "ruby",
+		"prefix": "cho",
+		"body": "choose \"$1\"",
+		"description": "Capybara choose radio input"
+	},
+
+	"Check box": {
+		"scope": "ruby",
+		"prefix": "chk",
+		"body": "check \"$1\"",
+		"description": "Capybara check checkbox"
+	},
+
+	"Select from menu": {
+		"scope": "ruby",
+		"prefix": "sel",
+		"body": "select \"$1\", from: \"$2\"",
+		"description": "Capybara select from menu"
+	},
+
+	"Click button": {
+		"scope": "ruby",
+		"prefix": "clb",
+		"body": "click_button \"$1\"",
+		"description": "Capybara click button"
+	},
+
+	"Click link": {
+		"scope": "ruby",
+		"prefix": "cll",
+		"body": "click_link \"$1\"",
+		"description": "Capybara click link"
+	},
+
+	"Be truthy": {
+		"scope": "ruby",
+		"prefix": "bt",
+		"body": "be_truthy",
+		"description": "RSpec be truthy"
+	},
+
+	"Be falsy": {
+		"scope": "ruby",
+		"prefix": "bf",
+		"body": "be_falsy",
+		"description": "RSpec be falsy"
+	},
+
+	"Be valid": {
+		"scope": "ruby",
+		"prefix": "bv",
+		"body": "be_valid",
+		"description": "RSpec be valid"
+	},
+
+	"Be empty": {
+		"scope": "ruby",
+		"prefix": "be",
+		"body": "be_empty",
+		"description": "RSpec be empty"
+	},
+
+	"Route to": {
+		"scope": "ruby",
+		"prefix": "rto",
+		"body": "route_to(\n\tcontroller: \"$1\",\n\taction: \"$2\"\n)",
+		"description": "RSpec route to"
+	},
+
+	"Have HTTP status": {
+		"scope": "ruby",
+		"prefix": "hhs",
+		"body": "have_http_status($1)",
+		"description": "RSpec have HTTP status"
+	},
+
+	"Be success": {
+		"scope": "ruby",
+		"prefix": "bs",
+		"body": "be_success",
+		"description": "RSpec be success"
+	},
+
+	"FactoryBot.create": {
+		"scope": "ruby",
+		"prefix": "fbc",
+		"body": "FactoryBot.create(:$1)",
+		"description": "FactoryBot create"
+	},
+
+	"FactoryBot.build": {
+		"scope": "ruby",
+		"prefix": "fbb",
+		"body": "FactoryBot.build(:$1)",
+		"description": "FactoryBot build"
+	},
+
+	"FactoryBot.attributes_for": {
+		"scope": "ruby",
+		"prefix": "fba",
+		"body": "FactoryBot.attributes_for(:$1)",
+		"description": "FactoryBot attributes for"
+	},
+
+	"FactoryBot trait": {
+		"scope": "ruby",
+		"prefix": "tr",
+		"body": "trait :$1 do\n\t$2\nend",
+		"description": "FactoryBot trait"
+	},
+
+	"Save and open page": {
+		"scope": "ruby",
+		"prefix": "sop",
+		"body": "save_and_open_page",
+		"description": "Launchy save and open page"
+	}
+}

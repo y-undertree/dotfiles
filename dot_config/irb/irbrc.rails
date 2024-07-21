@@ -1,0 +1,30 @@
+class MyIrb
+  class << self
+    def declared_callbacks(model)
+      instance = model.new rescue nil
+      declared_names = ActiveRecord::Callbacks::CALLBACKS.map {|n| n.to_s.split("_").last }.uniq
+      callbacks = {}
+      declared_names.map do |name|
+        callbacks[name] = []
+          model.send("_#{name}_callbacks").map do |cb|
+          next if cb.filter.to_s =~ /(activerecord|\Aautosave)/
+          if cb&.filter.is_a?(Proc)
+            instance_method = cb.filter
+          else
+            instance_method = (instance.nil?)? nil : instance.method(cb.filter)
+          end
+          declared = {
+            name: "#{cb.kind}_#{cb.name}",
+            filter: cb.filter,
+            if: cb.instance_variable_get(:@if),
+            unless: instance_variable_get(:@unless),
+            location: instance_method&.source_location&.join(":")
+          }
+          callbacks[name] << declared
+        end
+      end
+
+       puts JSON.pretty_generate(callbacks)
+    end
+  end
+end

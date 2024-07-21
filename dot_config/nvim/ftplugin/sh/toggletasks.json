@@ -1,0 +1,8 @@
+{
+  "tasks": [
+    {
+      "name": "run bash",
+      "cmd": "sh ${file}"
+    }
+  ]
+}

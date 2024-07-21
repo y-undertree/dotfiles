@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# commit_id="$1"
+# default_branch=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+# pr_number=$(git log --merges --oneline --reverse --ancestry-path $commit_id...$default_branch | grep 'Merge pull request #' | head -n 1 | awk '{print $5}' | sed 's/#//')
+#
+# if [ -z "$pr_number" ]; then
+#     echo "No related pull request found."
+#     exit 1
+# fi
+#
+# gh pr view "$pr_number" --web
+
+commit_id="$1"
+repo=$(gh repo view --json nameWithOwner -q .nameWithOwner)
+pr_url=$(gh api -X GET /repos/$repo/commits/$commit_id/pulls \
+    --jq '.[0].html_url' \
+    --header 'Accept: application/vnd.github.groot-preview+json')
+
+if [ -z "$pr_url" ]; then
+    echo "No related pull request found or error occurred."
+    gh browse $commit_id
+    exit 1
+fi
+
+open "$pr_url"

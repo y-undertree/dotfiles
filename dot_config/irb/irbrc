@@ -1,0 +1,63 @@
+# encoding: utf-8
+
+def suggest(lib)
+  begin
+    require lib
+    yield if block_given?
+  rescue LoadError
+    puts "#{lib} not available. expect run: gem install #{lib}"
+  end
+end
+
+# IRB settings
+suggest 'syntax_suggest'
+suggest 'irb'
+suggest 'irb/completion'
+suggest 'rubygems'
+suggest 'irbtools'
+suggest 'pp'
+suggest 'benchmark'
+suggest 'puts_debugger'
+suggest 'repl_type_completor'
+
+IRB.conf[:USE_AUTOCOMPLETE] = true
+IRB.conf[:IRB_USE_AUTOCOMPLETE] = true
+IRB.conf[:NO_COLOR] = false
+IRB.conf[:IRB_COMPLETOR] = 'type'
+IRB.conf[:AUTO_INDENT]  = true
+IRB.conf[:BACK_TRACE_LIMIT] = 16
+IRB.conf[:EVAL_HISTORY] = 50
+IRB.conf[:INSPECT_MODE] = :pp
+IRB.conf[:SAVE_HISTORY] = 100000
+IRB.conf[:USE_READLINE] = true
+IRB.conf[:USE_TRACER] = true
+#IRB.conf[:VERBOSE] = true
+#IRB.conf[:DEBUG_LEVEL] = 1
+#IRB.conf[:ECHO] = nil
+
+# https://onk.hatenablog.jp/entry/2022/10/10/003542
+IRB::Context.prepend(Module.new{
+  def evaluate(line, *, **)
+    case line
+    when /\A\$ /
+      line.replace("show_source #{line.sub(/\A\$ /, '').strip.dump}\n")
+    end
+    super
+  end
+})
+
+relative_path = './'
+if defined? Rails
+  IRB.conf[:PROMPT][:RAILS] = IRB.conf[:PROMPT][:DEFAULT].dup
+  IRB.conf[:PROMPT][:RAILS].merge!({
+    :PROMPT_I => "#{Rails.env}(%m):%03n:%i>\n"
+  })
+  IRB.conf[:PROMPT_MODE] = :RAILS
+
+  railsrc = File.join(ENV["XDG_CONFIG_HOME"], 'irb', 'irbrc.rails')
+  load railsrc if File.exist? railsrc
+  relative_path = Rails.root.to_s
+end
+
+localsrc = File.join('.irbrc.local')
+load localsrc if File.exist? localsrc

@@ -1,0 +1,70 @@
+{
+  "language": "en",
+  "languageSettings": [
+    {
+      "dictionaries": [
+        "lua"
+      ],
+      "languageId": "lua",
+      "locale": "*",
+      "ignoreRegExpList": [
+        "/require.*/"
+      ]
+    },
+    {
+      "dictionaries": [
+        "vim"
+      ],
+      "languageId": "vim",
+      "locale": "*",
+      "ignoreRegExpList": [
+        "/Plug .*/"
+      ]
+    }
+  ],
+  "dictionaries": [
+    "en-gb",
+    "aws",
+    "typescript",
+    "node",
+    "go",
+    "php",
+    "python",
+    "html",
+    "css",
+    "bash",
+    "fonts",
+    "filetypes",
+    "npm",
+    "softwareTerms",
+    "companies",
+    "misc",
+    "lua",
+    "vim",
+    "user"
+  ],
+  "allowCompoundWords": true,
+  "ignorePaths": [
+    "node_modules/**"
+  ],
+  "dictionaryDefinitions": [
+    {
+      "path": "~/.config/cspell/dotfiles.txt",
+      "description": "dotfiles dictionary",
+      "name": "dotfiles"
+    },
+    {
+      "path": "~/.local/share/cspell/user.txt",
+      "description": "User local dictionary",
+      "name": "user"
+    },
+    {
+      "path": "~/.local/share/cspell/vim.txt.gz",
+      "description": "Vim Script Language dictionary",
+      "name": "vim"
+    }
+  ],
+  "words": [
+    "rubocop"
+  ]
+}

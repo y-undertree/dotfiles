@@ -1,0 +1,40 @@
+# custom setings
+
+set diff-highlight = true
+
+# custom command
+bind generic	P !@git-pr-find %(commit)
+bind generic	O !@gh browse %(commit)
+bind generic	+ !git commit --amend --verbose
+bind generic  - ?git checkout -
+bind main   	B !git rebase -i %(commit)
+bind main   	Y	!git pbcopy %(commit)
+bind main     ! ?git revert %(commit)
+bind main   	K	?git cherry-pick %(commit)
+bind main    <Esc>K ?git cherry-pick -n %(commit)
+bind main     = ?git checkout %(branch)
+bind main    <Esc>= ?git checkout %(commit)
+bind main     T ?git tag "%(prompt Enter tag name: )" %(commit)
+bind diff   	B !git rebase -i %(commit)
+bind diff     K ?git cherry-pick %(commit)
+bind diff    <Esc>K ?git cherry-pick -n %(commit)
+bind refs     D ?git branch -d %(branch)
+bind refs     x ?sh -c "git branch --merged | grep -vE '^\\*|master$|develop$' | xargs -I % git branch -d %"
+bind refs	    =	?git checkout %(branch)
+bind refs	    !	?git branch -D %(branch)
+bind refs     T ?git tag "%(prompt Enter tag name: )" %(branch)
+bind stage    Y @bash -c "echo -n '%(file)' | pbcopy"
+bind stage  	C	!git commit --verbose
+bind status   Y @bash -c "echo -n '%(file)' | pbcopy"
+bind status   x ?git clean -d -f
+bind status   D ?git clean -d -f -- %(file)
+bind status  	C	!git commit --verbose
+bind stash    D ?git stash drop %(stash)
+bind stash    A	?git stash apply %(stash)
+bind stash    P	?git stash pop %(stash)
+bind stash    !	?git stash drop %(stash)
+bind tree     Y @bash -c "echo -n '%(file)' | pbcopy"
+bind tree     D ?git rm %(file)
+bind blob     Y @bash -c "echo -n '%(file)' | pbcopy"
+bind reflog  	=	?git checkout %(branch)
+bind reflog  	!	?git reset --hard %(commit)

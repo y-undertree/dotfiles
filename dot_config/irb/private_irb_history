@@ -1,0 +1,396 @@
+require irbtools
+ls
+ll
+ls
+ls
+[1,2,3].map {|x| puts x}
+def sample
+puts 123
+end
+sample
+howtocall String#gsub
+howtocall Devise#password
+$ ls
+$ top
+ri String#gsub
+ri String#gsub
+source_doc String#gsub
+show_doc String#gsub
+ri String#gsub
+RubyVersion
+RubyEngine
+colorize
+colorize(puts 123)
+pa 123
+benchmark do
+2+3+4+4
+end
+benchmark do
+2+3+4+4
+end.to_i
+benchmark do
+100000.times {|i| puts i }
+end
+__FILE__
+
+{}.except
+$ {}.except
+help Hash#select
+irb Hash#select
+ls
+methods
+self
+$ select
+fd 0
+fd 0
+fg 0
+jobs
+kill 1
+job
+jobs
+[1,2,3,4].select {|x| x == 4}
+_
+_
+_.each do
+_ << 1
+end
+begin
+_.each do
+_ << 1
+end
+end
+_
+irb Sidekiq:Queue
+ls
+$ find_job
+self
+help
+help select
+fg 0
+jobs
+irb [1+2]
+ls
+self
+help select
+help Hash#select
+help
+$ Sidekiq::Queue
+Sidekiq::Queue
+Sidekiq
+Sidekiq::Queue
+Sidekiq::Queue
+require 'sidekiq'
+$ Hash#select
+$ ERB
+measure
+1+2
+MyIrb
+MyIrb
+puts Benchmark.measure { "a"*1_000_000_000 }
+$ Benchmark.meaure
+show-source Benchmark.meaure
+help Benchmark.meaure
+help Benchmark.measure
+help Benchmark#measure
+help Benchmark.measure { 1+2}
+puts Benchmark.measure { "a"*1_000_000_000 }
+require 'benchmark'\
+n = 5000000\
+Benchmark.bm do |x|\
+  x.report { for i in 1..n; a = "1"; end }\
+  x.report { n.times do   ; a = "1"; end }\
+  x.report { 1.upto(n) do ; a = "1"; end }\
+end
+require 'benchmark'\
+n = 5000000\
+Benchmark.bm do |x|\
+  x.report { for i in 1..n; a = "1"; end }\
+  x.report { n.times do   ; a = "1"; end }\
+  x.report { 1.upto(n) do ; a = "1"; end }\
+end
+require 'benchmark'\
+n = 5000000\
+Benchmark.bm do |x|\
+  x.report { for i in 1..n; a = "1"; end }\
+  x.report { n.times do   ; a = "1"; end }\
+  x.report { 1.upto(n) do ; a = "1"; end }\
+end
+require 'benchmark'\
+n = 5000000\
+Benchmark.bm(7) do |x|\
+  x.report("for:")   { for i in 1..n; a = "1"; end }\
+  x.report("times:") { n.times do   ; a = "1"; end }\
+  x.report("upto:")  { 1.upto(n) do ; a = "1"; end }\
+end
+help Benchmark#ips
+ls Sidekiq
+CallClang::Example.hi
+CallClang::Example.new.hi
+CallClang::Example.new.hi
+CallClang::Example.new.blank?
+"".blank?
+" ".blank?
+" ".blank?
+" ".blank?
+"   ".blank?
+".blank?
+"".blank_as?
+"".blank_as?
+"".blank_as?
+"   ".blank?
+"   ".blank_as?
+"   ".blank_as?
+"   ".blank?
+"   ".blank_as?
+"   ".hi
+"   ".blank_as?
+"   ".hi
+"   ".hi
+CallClang::Example.new.blank?
+CallClang::Example.hi
+CallClang::Example.new.hi
+puts "hello ruby"
+puts "123"
+:q
+puts "hello ruby"
+puts "hello ruby"
+puts "hello ruby"
+puts "hello ruby"
+puts "hello ruby"
+puts "hello ruby"
+3
+4
+5
+6
+7
+puts "hello 4"
+llo 4
+puts "hello 3"
+puts "hello 4"
+puts "hello 5"
+puts "hello 6"
+puts "hello 7"
+puts "hello ruby"
+puts "hello ruby"
+puts "hello ruby"
+puts "hello ruby"
+puts "hello 2"
+puts "hello 3"
+puts "hello 4"
+puts "hello 5"
+puts "hello 6"
+puts "hello 7"
+puts "hello 3"
+puts "hello 4"
+puts "hello 2"
+puts "hello 3"
+puts "hello 3"
+puts "hello 4"
+puts "hello 3"
+puts "hello 4"
+puts "hello 5"
+puts "hello 6"
+puts "hello 4"
+puts "hello 5"
+puts "hello 6"
+puts "hello 4"
+puts "hello 5"
+puts "hello 6"
+puts "hello 7"
+puts "hello 5"
+uts "hello 4"
+ts "hello 4"
+p
+ts "hello 4"
+p
+puts
+a
+puts "hello 4"
+puts "hello 5"
+puts "hello 6"
+puts "hello 3"
+puts "hello 4"
+puts "hello 3"
+puts "hello 4"
+puts "hello 5"
+puts "hello 7"
+puts "hello 3"
+puts "hello 3"
+puts "hello 4"
+puts "hello 5"
+end
+puts "hello 6"
+s "hello 4"
+puts "hello 5"
+puts "hello 6"
+puts "hello 7"
+"hello 5"
+puts "hello 6"
+puts "hello 7"
+d
+puts "hello 4"
+puts "hello 5"
+puts "hello 6"
+puts "hello 4"
+puts "hello 5"
+puts "hello 4"
+puts "hello 5"
+puts "hello 6"
+puts "hello 7"
+def example(user)
+puts "hello 7"
+def example(user)
+puts "hello 7"
+def example(user)
+puts "hello 7"
+def example(user)
+puts user
+puts "hello 7"
+def example(user)
+end
+def example(user)\
+  puts "example method"\
+  puts user\
+end
+def example(user)\
+  puts "example method"\
+  puts user\
+end
+def example(user)
+puts "example method"
+puts user
+end
+def example(user)
+puts "example method"
+puts user
+end
+def example(user)
+puts "hello 4"
+puts "hello 4"
+puts "hello 5"
+puts "hello 6"
+puts "hello 7"
+puts "hello 4"
+puts "hello 5"
+puts "hello 3"
+puts "hello 4"
+puts "hello 3"
+puts "hello 4"
+puts "hello 5"
+puts "hello 6"
+puts "hello 7"
+def example(user)
+end
+def example(user)
+def example(user)
+puts "example method"
+puts user
+end
+def example(user)
+puts "example method"
+puts user
+end
+puts "hello 5"
+def example(user)
+puts "example method"
+puts user
+end
+def example(user)
+puts "hello 4"
+puts "hello 5"
+puts "hello 6"
+puts "hello 7"
+def example(user)
+puts "hello 4"
+puts "hello 5"
+puts "hello 3"
+puts "hello 4"
+puts "hello 5"
+puts "hello 6"
+puts "hello 7"
+def example(user)
+puts "hello 3"
+puts "hello 4"
+puts "hello 5"
+puts "hello 6"
+puts "hello 7"
+def example(user)
+def example(user)
+puts "example method"
+puts user
+end
+def example(user)
+puts "hello 4"
+puts "hello 5"
+puts "hello 6"
+puts "hello 7"
+def example(user)
+puts "hello 4"
+puts "hello 4"
+puts "hello 5"
+puts "hello 6"
+puts "hello 7"
+def example(user)
+def example(user)
+puts "example method"
+puts user
+end
+def example(user)
+puts "example method"
+puts user
+end
+def example(user)
+puts "example method"
+puts user
+end
+def example(user)
+puts "example method"
+puts user
+end
+puts "hello 3"
+puts "hello 5"
+puts "hello 6"
+def example(user)
+puts "hello 7"
+def example(user)
+puts "example method"
+puts user
+end
+puts "hello 6"
+puts "hello 4"
+puts "hello 5"
+puts "hello 6"
+puts "hello 7"
+def example(user)
+puts "hello 4"
+puts "hello 5"
+puts "hello 6"
+puts "hello 7"
+def example(user)
+puts "example method"
+puts user
+end
+def example(user)
+puts "example method"
+puts user
+end
+puts "hello 4"
+puts "hello 5"
+puts "hello 6"
+puts "hello 5"
+puts "hello 6"
+puts "hello 3"
+puts "hello 4"
+puts "hello 5"
+puts "hello 6"
+def example(user)
+puts "example method"
+puts user
+end
+pd 'sample' 
+pd 'header', h: true
+pd 'header', f: true
+pd 'header', c: true
+pd 'header', w: true
+pd 'header', c: 3 w: true
+pd 'header', c: 3, w: true

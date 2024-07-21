@@ -1,0 +1,32 @@
+{
+  "tasks": [
+    {
+      "name": "run ruby",
+      "cmd": "ruby ${file}"
+    },
+    {
+      "name": "bundle install",
+      "cmd": "bundle install"
+    },
+    {
+      "name": "db:migrate",
+      "cmd": "bin/rake db:migrate"
+    },
+    {
+      "name": "rubocop run at pre-commit",
+      "cmd": "git diff --name-only HEAD | grep 'rb' | xargs bundle exec rubocop -A"
+    },
+    {
+      "name": "rubocop run at pre-push",
+      "cmd": "git diff --name-only origin/HEAD...HEAD | grep 'rb' | xargs bundle exec rubocop -A"
+    },
+    {
+      "name": "rspec run at pre-commit",
+      "cmd": "git diff --name-only HEAD | grep 'spec.rb' | xargs bundle exec rspec"
+    },
+    {
+      "name": "rspec run at pre-push",
+      "cmd": "git diff --name-only origin/HEAD...HEAD | grep 'spec.rb' | xargs bundle exec rspec"
+    }
+  ]
+}

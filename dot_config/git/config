@@ -1,0 +1,108 @@
+[user]
+  name = y.kinoshita
+  email = undertree.ys@gmail.com
+
+[core]
+  autocrlf = false
+  ignorecase = false
+  difftool = true
+  pager = delta
+  editor = /usr/local/bin/nvim
+
+[color]
+  ui = true
+
+[alias]
+  st = status -sb
+  sh = show
+  sb = show-branch
+  br = branch
+  rema = rebase origin/master master
+  ci = commit -v
+  cma = commit -a -v
+  co = checkout
+  cl = clone
+  dc = diff --cached
+  df = diff
+  d = diff -C
+  ds = diff -C --stat
+  dsp = diff -C --stat -p
+  dw = diff -C --color-words
+  lg = log --graph --all --color --pretty='%x09%h %cn%x09%s %Cred%d'
+  log = log --stat
+  m = checkout master
+  ituja = log --patch -S
+  pushd = push origin develop
+  pulld = pull origin develop
+  pushm = push origin master
+  pullm = pull origin master
+  nmerge = merge --no-ff
+  tag = tag -ln
+  pr = pull-request
+  open = browse
+  merge-self-force = merge -X ours
+  merge-force = merge -X theirs
+  pbcopy = !printf "$1" | pbcopy
+  dft = difftool
+  dlog = "!f() { GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
+
+[interactive]
+  diffFilter = delta --color-only --features=interactive
+
+[delta]
+  navigate = true
+  line-numbers = true
+  hyperlinks = true
+  hyperlinks-file-link-format = "file-line://{path}:{line}"
+  ; features = decorations
+
+[color "diff-highlight"]
+  oldNormal = red bold
+  oldHighlight = red bold 52
+  newNormal = green bold
+  newHighlight = green bold 22
+[color "diff"]
+  meta = 11
+  frag = magenta bold
+  func = 146 bold
+  commit = yellow bold
+  old = red bold
+  new = green bold
+  whitespace = red reverse
+  indentHeuristic = true
+
+[filter "media"]
+  clean = git-media-clean %f
+  smudge = git-media-smudge %f
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  required = true
+  process = git-lfs filter-process
+
+[merge]
+  ff = false
+  tool = smerge
+  conflictStyle = zdiff3
+
+[mergetool]
+  prompt = false
+  keepBackup = false
+
+[mergetool "smerge"]
+  cmd = smerge mergetool "$BASE" "$LOCAL" "$REMOTE" -o "$MERGED"
+
+[pull]
+  ff = only
+
+[diff]
+  indentHeuristic = true
+  colorMoved = default
+  tool = difftastic
+
+[difftool]
+  prompt = false
+
+
+[difftool "difftastic"]
+  cmd = difft "$LOCAL" "$REMOTE"

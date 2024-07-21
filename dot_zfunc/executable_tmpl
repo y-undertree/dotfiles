@@ -1,0 +1,73 @@
+function tmpl() {
+  typeset -a subcommands
+  environment=$2
+
+
+  # -h, --helpしたら呼ぶ
+  help() {
+    return
+  }
+
+  set-variable() {
+  }
+
+  command1() {
+  }
+
+  command2() {
+  }
+
+  # while [ $1 ]; do
+  case $1 in
+      -h|--help)
+          help
+          return
+          ;;
+      *)
+          subcommands=($subcommands[*] $1)
+          ;;
+  esac
+  # done
+
+  if (( $#subcommands == 0 )); then
+      echo "select subcommand!!"
+      return
+  fi
+
+  set-variable
+
+  for subcommand in $subcommands; do
+      if type $subcommand > /dev/null 2>&1; then
+          $subcommand
+      else
+          echo "No such subcommand \"$subcommand\""
+      fi
+  done
+}
+
+_tmpl_cmd() {
+  # 補完のための便利な関数_arguments
+  _arguments \
+      '(- *)'{-h,--help}'[show help]' \
+      '1:subcommand:->subcommand' \
+      '2: :->complete_list' \
+
+  case $state in
+      subcommand)
+          _values \
+              'subcommand' \
+              'add-context[kube switch context]' \
+              'attach[kube attach]'
+          ;;
+      complete_list)
+        _values \
+              'complete_list' \
+              'A' \
+              'B' \
+              'C' \
+          ;;
+  esac
+}
+
+compdef _tmpl_cmd tmpl
+tmpl "$@"

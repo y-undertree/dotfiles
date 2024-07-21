@@ -1,0 +1,8 @@
+{
+  "tasks": [
+    {
+      "name": "sql formatter",
+      "cmd": "sql-formatter -c ~/.config/sql-formatter/mysql.json ${file} -o ${file}"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+awk:'{print $1}'
+fzf:--prompt ""
+fzf:--preview
+fzf:--preview-window=down:40%
+printf:printf "\e[33m${1}\e[m\n"

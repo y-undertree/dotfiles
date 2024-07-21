@@ -1,0 +1,17 @@
+.terminal {
+  border-left: 1px solid #0fa;
+  //padding-left: 1em;
+}
+
+.terminal:not(.focus) {
+  border-color: transparent;
+}
+
+.monaco-editor {
+  border-left: 1px solid #0fa;
+  //padding-left: 1em;
+}
+
+.monaco-editor:not(.focused) {
+  border-color: transparent;
+}

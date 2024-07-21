@@ -1,0 +1,79 @@
+export XDG_CONFIG_HOME="${HOME}/.config"
+
+# mycli
+export LESS="-XFR" # 折返しなし
+export LESS="-SRXF" # 折返しあり
+
+#export LANG=ja_JP.UTF-8
+# goaccess時に指定が必要
+export LANG=en_US.utf-8
+export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:$PATH"
+export GREP_OPTIONS='--color=auto'
+
+# php install
+#export PHP_RPATHS="$(brew --prefix bzip2)"
+#export PHP_BUILD_CONFIGURE_OPTS="--with-bz2=$(brew --prefix bzip2) --with-iconv=$(brew --prefix libiconv) --with-tidy=$(brew --prefix tidy-html5) --with-external-pcre=$(brew --prefix pcre2) --with-zip --enable-intl --with-pear"
+#export PKG_CONFIG_PATH="/usr/local/opt/krb5/lib/pkgconfig:/usr/local/opt/icu4c/lib/pkgconfig:/usr/local/opt/libedit/lib/pkgconfig:/usr/local/opt/libjpeg/lib/pkgconfig:/usr/local/opt/libpng/lib/pkgconfig:/usr/local/opt/libxml2/lib/pkgconfig:/usr/local/opt/libzip/lib/pkgconfig:/usr/local/opt/oniguruma/lib/pkgconfig:/usr/local/opt/openssl@1.1/lib/pkgconfig:/usr/local/opt/tidy-html5/lib/pkgconfig"
+
+# imagemagick6
+# export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/opt/libffi/lib/pkgconfig
+export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"
+
+# mysqll
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+
+# Default Editor
+export EDITOR='nvim'
+export VISUAL='nvim'
+#export EDITOR='subl -w'
+
+# gnu project
+export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+
+# github
+export PATH="/usr/local/bin/git:$PATH"
+
+# anyenv
+# export RUBY_CONFIGURE_OPTS="--with-readline-dir=$(brew --prefix readline)"
+# export PATH="$HOME/.anyenv/bin:$PATH"
+# 参考: https://naoblo.net/archives/1046
+# update: `anyenv init - --no-rehash >  ~/.zsh/rc/60_anyenv.rc.zsh`
+#if [ -f ~/.zsh/rc/60_anyenv.rc.zsh ]; then
+#    source ~/.zsh/rc/60_anyenv.rc.zsh
+#else
+#    anyenv init - --no-rehash >  ~/.zsh/rc/60_anyenv.rc.zsh
+#fi
+
+# asdf from anyenv
+. $(brew --prefix)/opt/asdf/libexec/asdf.sh
+
+# direnv
+eval "$(direnv hook zsh)"
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="${HOME}/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+
+# pnpm
+export PNPM_HOME="${HOME}/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
+
+# sublime text command
+export PATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin:$PATH"
+
+# ctags
+alias ctags="`brew --prefix`/opt/universal-ctags/bin/ctags"
+
+# my script
+export PATH="${HOME}/.zsh/rc/scripts:$PATH"
+
+export CC=/usr/local/Cellar/gcc/13.2.0/bin/gcc-13
+
+export PATH="$(brew --prefix git)/bin:${PATH}"
+export PATH="$(brew --prefix git)/share/git-core/contrib/diff-highlight:${PATH}"
+export ASDF_GOLANG_MOD_VERSION_ENABLED=true
+
+export VACUUM="${XDG_CONFIG_HOME}/vacuum/vacuum.conf.yaml"
+export RUBY_DEBUG_INIT_SCRIPT="${XDG_CONFIG_HOME}/rdbg/rdbgrc"

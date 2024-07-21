@@ -1,0 +1,7 @@
+-L
+--smart-case
+--max-filesize=50M
+--max-columns=500
+--max-columns-preview
+--engine=auto
+--crlf
