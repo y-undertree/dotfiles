@@ -106,3 +106,16 @@ git config --global core.editor "which output command path"
 sublime mergeを使う. sublime mergeのcliの準備をしておく必要がある
 
 https://www.sublimemerge.com/docs/command_line
+
+## chezmoi
+
+ref: https://www.chezmoi.io/user-guide/command-overview/
+reference: https://www.chezmoi.io/reference/commands
+
+### about
+
+- `re-add` で管理しているファイルをすべて追加する
+- `apply -v` でローカルファイルに反映する 
+    - `-n` でdry-run
+- `update` でまとめて反映まで可能
+
