@@ -1528,13 +1528,6 @@ local plugins = {
       require("NeoComposer").setup()
     end,
   },
-  -- {
-  --   "previm/previm",
-  --   ft = { "markdown", "text", "pandoc" },
-  --   config = function()
-  --     vim.cmd [[g:previm_open_cmd = 'open -a /Applications/Google\ Chrome.app']] -- for macOS
-  --   end,
-  -- },
   {
     "scottmckendry/cyberdream.nvim",
     enabled = false,
