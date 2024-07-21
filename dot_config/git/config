@@ -106,3 +106,5 @@
 
 [difftool "difftastic"]
   cmd = difft "$LOCAL" "$REMOTE"
+[init]
+	defaultBranch = main
