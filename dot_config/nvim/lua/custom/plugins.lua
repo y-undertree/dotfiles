@@ -911,7 +911,8 @@ local plugins = {
 
       vim.keymap.set("n", "<leader>hs", function() toggle_telescope(harpoon:list()) end, { desc = "Open harpoon window" })
       vim.keymap.set("n", "<leader>ha", function() harpoon:list():add() end, { desc = "add file harpoon" })
-      vim.keymap.set("n", "<leader>hl", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = "harpoon menu" })
+      vim.keymap.set("n", "<leader>hl", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
+        { desc = "harpoon menu" })
     end,
     dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" }
   },
@@ -1613,7 +1614,75 @@ local plugins = {
       position = "bottom",
       width = 60
     }
-  }
+  },
+  {
+    'xvzc/chezmoi.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+        pattern = { os.getenv("HOME") .. "/.local/share/chezmoi/*" },
+        callback = function()
+          vim.schedule(require("chezmoi.commands.__edit").watch)
+        end,
+      })
+      require("chezmoi").setup {
+        -- your configurations
+      }
+    end
+  },
+  {
+    "rcarriga/nvim-notify",
+    config = function()
+      vim.notify = require("notify")
+      require("notify").setup {
+        -- your configurations
+      }
+    end
+  },
+  {
+    'b0o/incline.nvim',
+    event = 'VeryLazy',
+    config = function()
+      local helpers = require 'incline.helpers'
+      local navic = require 'nvim-navic'
+      local devicons = require 'nvim-web-devicons'
+      require('incline').setup {
+        window = {
+          padding = 0,
+          margin = { horizontal = 0, vertical = 0 },
+        },
+        render = function(props)
+          local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ':~:.')
+          if filename == '' then
+            filename = '[No Name]'
+          end
+          local ft_icon, ft_color = devicons.get_icon_color(filename)
+          local modified = vim.bo[props.buf].modified
+          local res = {
+            ft_icon and { ' ', ft_icon, ' ', guibg = ft_color, guifg = helpers.contrast_color(ft_color) } or '',
+            ' ',
+            { filename, gui = modified and 'bold,italic' or 'bold' },
+            guibg = '#44406e',
+          }
+          if props.focused then
+            for _, item in ipairs(navic.get_data(props.buf) or {}) do
+              table.insert(res, {
+                { ' > ',     group = 'NavicSeparator' },
+                { item.icon, group = 'NavicIcons' .. item.type },
+                { item.name, group = 'NavicText' },
+              })
+            end
+          end
+          table.insert(res, ' ')
+          return res
+        end,
+      }
+    end,
+    dependencies = {
+      { "SmiteshP/nvim-navic" },
+      { "nvim-tree/nvim-web-devicons" },
+    },
+  },
 }
 
 return plugins

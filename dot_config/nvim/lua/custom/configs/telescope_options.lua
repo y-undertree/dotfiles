@@ -103,6 +103,8 @@ local options = {
     "macros",
     "smart_open",
     "yank_history",
+    "chezmoi",
+    "notify",
   },
   extensions = {
     ["telescope-alternate"] = {

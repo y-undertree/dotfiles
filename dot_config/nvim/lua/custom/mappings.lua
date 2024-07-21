@@ -149,6 +149,7 @@ M.telescope = {
     ["<leader>dd"] = { "<cmd> DevdocsOpen <CR>", "devdoc open" },
     ["<leader>mc"] = { "<cmd> Telescope macros <CR>", "macros list" },
     ["<leader>yk"] = { "<cmd> Telescope yank_history <CR>", "yank history" },
+    ["<leader>cz"] = { "<cmd> lua require('telescope').extensions.chezmoi.find_files()<cr>", "chezmoi find files" },
   },
   x = {
     ["gl"] = { [[:lua require("telescope-live-grep-args.shortcuts").grep_visual_selection()<cr>]], "live grep" },
