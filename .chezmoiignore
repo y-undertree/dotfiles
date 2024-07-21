@@ -1,3 +1,7 @@
 NvChad.md
 README.md
 key.txt.age
+.config/alacritty/alacritty/alacritty.yml.*.bak
+.config/irb/irb_history
+.config/nvim/.git
+.config/nvim/.github
