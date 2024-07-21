@@ -36,15 +36,19 @@ local cspell = require('cspell')
 -- https://github.com/davidmh/cspell.nvim
 local cspell_config = {
   find_json = function()
-    return cspell_files.config
-  end,
-}
-local cspell_config_for_action = {
-  find_json = function()
     return cspell_files.user
   end,
 }
-
+-- local cspell_config = {
+--   find_json = function()
+--     return cspell_files.config
+--   end,
+-- }
+-- local cspell_config_for_action = {
+--   find_json = function()
+--     return cspell_files.user
+--   end,
+-- }
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
 local sources = {
   -- b.diagnostics.jsonlint,
@@ -55,7 +59,7 @@ local sources = {
   -- b.diagnostics.yamllint,
   -- cspell
   cspell.code_actions.with({ config = cspell_config }),
-  cspell.diagnostics.with({ config = cspell_config_for_action }),
+  cspell.diagnostics.with({ config = cspell_config }),
 }
 
 null_ls.setup {
