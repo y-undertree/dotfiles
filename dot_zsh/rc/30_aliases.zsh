@@ -25,3 +25,4 @@ alias tigs='tig status'
 alias tb='tig blame'
 alias lzd='lazydocker'
 alias doc='tldr'
+alias fm=yazi

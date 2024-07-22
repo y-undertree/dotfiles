@@ -6,3 +6,5 @@ key.txt.age
 .config/nvim/.git
 .config/nvim/.github
 .zsh/rc/00_secret_env.zsh
+.zsh/rc/60_anyenv.rc.zsh
+decrypt-private-key.sh

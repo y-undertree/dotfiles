@@ -69,7 +69,10 @@ alias ctags="`brew --prefix`/opt/universal-ctags/bin/ctags"
 # my script
 export PATH="${HOME}/.zsh/rc/scripts:$PATH"
 
-export CC=/usr/local/Cellar/gcc/13.2.0/bin/gcc-13
+# export CC=/usr/local/Cellar/gcc/13.2.0/bin/gcc-13
+
+# cargo path for rust
+export PATH="${HOME}/.cargo/bin:$PATH"
 
 export PATH="$(brew --prefix git)/bin:${PATH}"
 export PATH="$(brew --prefix git)/share/git-core/contrib/diff-highlight:${PATH}"

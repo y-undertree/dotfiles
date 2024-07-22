@@ -61,6 +61,7 @@
 --exclude=vendor
 --exclude=.git
 --exclude=public
+--exclude=.y-kinoshita
 
 --recurse=yes
 --sort=yes
