@@ -859,7 +859,7 @@ local plugins = {
     config = function()
       local current_dir = vim.fn.getcwd()
       local current_branch = vim.fn.system("git rev-parse --abbrev-ref HEAD"):match("^%s*(.-)%s*$")
-      if not current_branch ~= "" then
+      if current_branch == nil or current_branch == '' then
         current_branch = "bookmarks"
       end
       local bookmark_paths = { "$HOME", ".bookmarks", current_dir }
