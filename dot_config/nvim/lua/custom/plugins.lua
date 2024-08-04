@@ -1588,7 +1588,7 @@ local plugins = {
   },
   {
     "oysandvik94/curl.nvim",
-    cmd = { "CurlOpen" },
+    cmd = { "CurlOpen", "CurlCollection" },
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
