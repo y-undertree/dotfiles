@@ -175,3 +175,17 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
   desc = 'Disable focus autoresize for FileType',
 })
+-- git find-pr
+vim.api.nvim_create_user_command("OpenGithubPr", function()
+  local line = vim.api.nvim_get_current_line()
+
+  local commit_id = line:match("commit%s*(%w+)")
+  if not commit_id then
+    print("No commit ID found on the current line")
+    return
+  end
+
+  local command = "git pr-find " .. commit_id
+  local handle = io.popen(command, 'r')
+  handle:close()
+end, {})
