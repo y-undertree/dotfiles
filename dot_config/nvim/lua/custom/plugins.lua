@@ -35,6 +35,14 @@ local plugins = {
     end,
   },
   {
+    "lewis6991/gitsigns.nvim",
+    opts = function()
+      local default_opts = require "plugins.configs.treesitter"
+      local opts = overrides.gitsigns
+      return vim.tbl_deep_extend("force", default_opts, opts)
+    end,
+  },
+  {
     "nvim-tree/nvim-tree.lua",
     opts = overrides.nvimtree,
   },
