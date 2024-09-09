@@ -693,11 +693,6 @@ local plugins = {
     "slim-template/vim-slim",
     ft = "slim",
   },
-  -- partial jumpの関係で必要
-  {
-    "tpope/vim-rails",
-    lazy = false,
-  },
   {
     "RRethy/nvim-treesitter-endwise",
     lazy = false,
@@ -964,12 +959,10 @@ local plugins = {
               "rdbg",
               "--nonstop",
               "--open",
-              "--port",
-              "${port}",
+              -- "--port",
+              -- "${port}",
               "--command",
               "--",
-              "bundle",
-              "exec",
               config.command,
               config.script,
             },
@@ -1002,17 +995,10 @@ local plugins = {
           request = "attach",
           localfs = true,
           debugPort = "127.0.0.1:12345",
-          command = "rails",
-          script = "server",
+          command = "bin/rails",
+          script = "server -p 3000",
         },
       }
-    end,
-  },
-  {
-    "suketa/nvim-dap-ruby",
-    dependencies = { "mfussenegger/nvim-dap" },
-    config = function()
-      require("dap-ruby").setup()
     end,
   },
   {
@@ -1042,45 +1028,6 @@ local plugins = {
   {
     "kchmck/vim-coffee-script",
     ft = { "coffee" },
-  },
-  -- {
-  --   "iberianpig/tig-explorer.vim",
-  --   cmd = { "TigBlame", "TigStatus" },
-  -- },
-  {
-    "FabijanZulj/blame.nvim",
-    lazy = false,
-    envet = "VeryLazy",
-    config = function()
-      require("blame").setup({
-        date_format = "%Y-%m-%d",
-        virtual_style = "right",
-        merge_consecutive = false,
-        max_summary_width = 50,
-        commit_detail_view = "vsplit",
-        mappings = {
-          commit_info = "i",
-          stack_push = ",",
-          stack_pop = "<",
-          show_commit = "<CR>",
-          close = { "<esc>", "q" },
-        }
-      })
-      -- git find-pr
-      vim.api.nvim_create_user_command("OpenGithubPr", function()
-        local line = vim.api.nvim_get_current_line()
-
-        local commit_id = line:match("commit%s*(%w+)")
-        if not commit_id then
-          print("No commit ID found on the current line")
-          return
-        end
-
-        local command = "git pr-find " .. commit_id
-        local handle = io.popen(command, 'r')
-        handle:close()
-      end, {})
-    end
   },
   {
     "kevinhwang91/nvim-hlslens",
@@ -1596,7 +1543,7 @@ local plugins = {
   },
   {
     "oysandvik94/curl.nvim",
-    cmd = { "CurlOpen", "CurlCollection" },
+    cmd = { "CurlOpen", "CurlCollection", "CurlClose" },
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
@@ -1686,6 +1633,11 @@ local plugins = {
     ---@module "quicker"
     ---@type quicker.SetupOptions
     opts = {},
+  },
+  -- partial jumpの関係で必要
+  {
+    "tpope/vim-rails",
+    lazy = false,
   },
 }
 
