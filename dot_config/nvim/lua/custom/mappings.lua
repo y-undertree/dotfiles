@@ -164,7 +164,7 @@ M.git = {
     ["<leader>gs"] = { ":Neogit cwd=%:p:h<CR>", "git stage by neo-git" },
     ["<leader>git"] = { [[<cmd>Neogit<CR>]], "neogit" },
     ["<leader>cf"] = { "<cmd> Easypick changed_files<cr>", "telescope changed files for git" },
-    ["<leader>tb"] = { "<cmd> BlameToggle<cr>", "toggle git blame" },
+    ["<leader>tb"] = { "<cmd> Gitsigins blame<cr>", "toggle git blame" },
     ["<leader>P"] = { "<cmd> OpenGithubPr<cr>", "open github pull request" },
   },
   x = {
@@ -252,7 +252,7 @@ M.debugger = {
     ["<leader>dbn"] = { [[:lua require"dap".step_over()<CR>]], "debugger step_over" },
     ["<leader>dbi"] = { [[:lua require"dap".step_into()<CR>]], "debugger step_into" },
     ["<leader>dbh"] = { [[:lua require"dap.ui.widgets".hover()<CR>]], "debugger hover" },
-    ["<leader>dbl"] = { [[:lua require"osv".launch({port = 8086})<CR>]], "debugger launch" },
+    ["<leader>dbruby"] = { [[:lua require"dap".run('ruby')<CR>]], "debugger ruby run" },
   },
 }
 
