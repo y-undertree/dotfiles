@@ -91,6 +91,8 @@ M.command_pallet = {
       [[:lua require("luasnip.loaders").edit_snippet_files()<CR>]],
       "edit snippet files",
     },
+    ["<leader>@quicker-expand"] = { [[:lua require("quicker").expand({ before = 2, after = 2, add_to_existing = true })<CR>]], "Expand quickfix context" },
+    ["<leader>@quicker-collapse"] = { [[:lua require("quicker").collapse()<CR>]], "Collapse quickfix context" },
   },
 }
 
