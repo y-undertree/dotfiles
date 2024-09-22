@@ -12,7 +12,7 @@ local servers = {
   -- "cssls",
   -- "eslint",
   "stylelint_lsp",
-  "tsserver",
+  "ts_ls",
   "volar",
   "solargraph",
   "ansiblels",
