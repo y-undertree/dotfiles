@@ -779,11 +779,9 @@ local plugins = {
       vim.o.sessionoptions = "buffers,curdir,tabpages,winsize,winpos,localoptions"
       require("auto-session").setup({
         log_level = "error",
-        auto_session_suppress_dirs = { "~/", "~/Downloads", "/" },
-        auto_session_enable_last_session = vim.loop.cwd() == vim.loop.os_homedir(),
-        auto_save_enabled = true,
-        auto_restore_enabled = true,
-        auto_session_use_git_branch = true,
+        use_git_branch = true,
+        suppressed_dirs = { '~/', '~/Downloads', '/' },
+        auto_restore_last_session = false,
         session_lens = {
           path_display = { "shorten" },
           theme = "ivy", -- default is dropdown
