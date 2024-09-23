@@ -150,12 +150,34 @@ M.telescope = {
     ["<leader>mh"] = { "<cmd> Telescope heading <CR>", "telescope markdown heading" },
     ["<leader>dd"] = { "<cmd> DevdocsOpen <CR>", "devdoc open" },
     ["<leader>mc"] = { "<cmd> Telescope macros <CR>", "macros list" },
-    ["<leader>yk"] = { "<cmd> Telescope yank_history <CR>", "yank history" },
+    ["<leader>yh"] = { "<cmd> Telescope yank_history <CR>", "yank history" },
     ["<leader>cz"] = { "<cmd> lua require('telescope').extensions.chezmoi.find_files()<cr>", "chezmoi find files" },
   },
   x = {
     ["gl"] = { [[:lua require("telescope-live-grep-args.shortcuts").grep_visual_selection()<cr>]], "live grep" },
   },
+}
+
+M.yanky = {
+  n = {
+    ["y"] = { "<Plug>(YankyYank)", "Yank text" },
+    ["p"] = { "<Plug>(YankyPutAfter)", "Put yanked text after cursor" },
+    ["P"] = { "<Plug>(YankyPutBefore)", "Put yanked text before cursor" },
+    ["gp"] = { "<Plug>(YankyGPutAfter)", "Put yanked text after selection" },
+    ["gP"] = { "<Plug>(YankyGPutBefore)", "Put yanked text before selection" },
+    ["<c-p>"] = { "<Plug>(YankyPreviousEntry)", "Select previous entry through yank history" },
+    -- ["<c-n>"] = { "<Plug>(YankyNextEntry)", "Select next entry through yank history" },
+    ["]p"] = { "<Plug>(YankyPutIndentAfterLinewise)", "Put indented after cursor (linewise)" },
+    ["[p"] = { "<Plug>(YankyPutIndentBeforeLinewise)", "Put indented before cursor (linewise)" },
+    ["]P"] = { "<Plug>(YankyPutIndentAfterLinewise)", "Put indented after cursor (linewise)" },
+    ["[P"] = { "<Plug>(YankyPutIndentBeforeLinewise)", "Put indented before cursor (linewise)" },
+    [">p"] = { "<Plug>(YankyPutIndentAfterShiftRight)", "Put and indent right" },
+    ["<p"] = { "<Plug>(YankyPutIndentAfterShiftLeft)", "Put and indent left" },
+    [">P"] = { "<Plug>(YankyPutIndentBeforeShiftRight)", "Put before and indent right" },
+    ["<P"] = { "<Plug>(YankyPutIndentBeforeShiftLeft)", "Put before and indent left" },
+    ["=p"] = { "<Plug>(YankyPutAfterFilter)", "Put after applying a filter" },
+    ["=P"] = { "<Plug>(YankyPutBeforeFilter)", "Put before applying a filter" },
+  }
 }
 
 M.git = {

@@ -437,6 +437,7 @@ local plugins = {
     branch = "0.2.x",
     dependencies = {
       "kkharji/sqlite.lua",
+      { "nvim-telescope/telescope.nvim" },
       { "nvim-telescope/telescope-fzf-native.nvim" },
     },
   },
@@ -1366,7 +1367,8 @@ local plugins = {
       require("yanky").setup {
         ring = {
           history_length = 3000,
-          storage = "shada" -- 状況次第ではsqliteに変えてもよさそう,
+          storage = "sqlite",
+          update_register_on_cycle = true
         },
       }
       vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
@@ -1375,6 +1377,7 @@ local plugins = {
       vim.keymap.set("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
       vim.keymap.set("n", "<c-n>", "<Plug>(YankyNextEntry)")
     end,
+    dependencies = { "kkharji/sqlite.lua" },
   },
   {
     "Wansmer/treesj",
