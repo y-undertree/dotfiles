@@ -201,8 +201,7 @@ local options = {
       },
     },
     smart_open = {
-      show_scores = true,
-      match_algorithm = "fzf",
+      match_algorithm = 'fzf',
     },
   },
 }
