@@ -1591,7 +1591,9 @@ local plugins = {
     config = function()
       vim.notify = require("notify")
       require("notify").setup {
-        -- your configurations
+        timeout = 2500,
+        max_width = 80,
+        stages = "static",
       }
     end
   },
