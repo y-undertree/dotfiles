@@ -9,9 +9,6 @@
 -- migrate. 後で整理する
 
 -- ------- default mapping -------
--- 入力モード中に素早くjjと入力した場合はESCとみなす
-vim.cmd "inoremap <silent> <C-]> <ESC>"
-vim.cmd "inoremap <silent> っｊ <ESC>"
 -- ESCを2回押すことでハイライトを消す
 -- vim.cmd "nnoremap <silent> <Esc><Esc> :nohlsearch<CR>"
 vim.cmd "nnoremap <silent> H ^"

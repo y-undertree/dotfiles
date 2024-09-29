@@ -175,7 +175,7 @@ local options = {
       mappings = {         -- extend mappings
         i = {
           -- ["<C-k>"] = lga_actions.quote_prompt(),
-          ["<C-i>"] = lga_actions.quote_prompt { postfix = " --iglob " },
+          -- ["<C-i>"] = lga_actions.quote_prompt { postfix = " --iglob " },
           -- ["<C-h>"] = lga_actions.quote_prompt({ postfix = " --hidden **/* " }),
         },
       },
