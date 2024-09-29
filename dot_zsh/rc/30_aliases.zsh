@@ -26,3 +26,4 @@ alias tb='tig blame'
 alias lzd='lazydocker'
 alias doc='tldr'
 alias yz=yazi
+alias cm=chezmoi
