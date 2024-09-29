@@ -1642,6 +1642,18 @@ local plugins = {
     "tpope/vim-rails",
     lazy = false,
   },
+  ---@type LazySpec
+  {
+    "mikavilpas/yazi.nvim",
+    event = "VeryLazy",
+    ---@type YaziConfig
+    opts = {
+      open_for_directories = false,
+      keymaps = {
+        show_help = '?',
+      },
+    },
+  }
 }
 
 return plugins

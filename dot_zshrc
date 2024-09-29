@@ -111,6 +111,7 @@ compinit
 # keybindでcallしたい場合や、引数の保管を使う場合は、.zfuncを使うのがよさそう
 fpath=( ~/.zfunc "${fpath[@]}" )
 autoload -Uz show_snippets
+autoload -Uz y
 
 # thefuck. recommend!! https://github.com/nvbn/thefuck
 eval $(thefuck --alias fix)

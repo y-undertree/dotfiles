@@ -278,6 +278,14 @@ M.debugger = {
   },
 }
 
+M.yazi = {
+  n = {
+    ["<leader>yz"] = { "<cmd>Yazi<CR>", "Open yazi at the current file" },
+    ["<leader>yZ"] = { "<cmd>Yazi cwd<CR>", "Open the file manager in nvim's working directory" },
+  },
+}
+
+
 M.ruby = {
   n = {
     ["<leader>rc"] = { [[:lua require('ror.commands').list_commands()<CR>]], "rails commands" },
