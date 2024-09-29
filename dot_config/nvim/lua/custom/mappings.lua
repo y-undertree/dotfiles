@@ -139,10 +139,6 @@ M.telescope = {
       "telescope highlight-annotate annotations",
     },
     ["<leader>fr"] = { "<cmd> Telescope telescope-alternate alternate_file<cr>", "telescope relation files" },
-    ["<leader>fb"] = {
-      "<cmd> Telescope file_browser path=%:p:h select_buffer=true<CR>",
-      "telescope file browser open current buffer path",
-    },
     ["<leader>cdg"] = { "<cmd> Telescope ghq list <CR>", "telescope ghq list" },
     ["<leader>hh"] = { "<cmd> Telescope help_tags <CR>", "help page" },
     ["<leader>hk"] = { "<cmd> Telescope keymaps <CR>", "find in keymappings" },

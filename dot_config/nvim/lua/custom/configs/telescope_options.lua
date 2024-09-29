@@ -94,7 +94,6 @@ local options = {
     "telescope-alternate",
     -- "harpoon",
     "highlight-annotate",
-    "file_browser",
     "session-lens",
     "media_files",
     "bookmarks",
@@ -184,21 +183,6 @@ local options = {
       -- theme = "dropdown", -- use dropdown theme
       -- theme = { }, -- use own theme spec
       -- layout_config = { mirror=true }, -- mirror preview pane
-    },
-    file_browser = {
-      -- theme = "ivy",
-      theme = "dropdown",
-      -- disables netrw and use telescope-file-browser in its place
-      hijack_netrw = true,
-      use_fd = true,
-      mappings = {
-        ["i"] = {
-          -- your custom insert mode mappings
-        },
-        ["n"] = {
-          -- your custom normal mode mappings
-        },
-      },
     },
     smart_open = {
       match_algorithm = 'fzf',
