@@ -126,7 +126,7 @@ M.telescope = {
     ["<leader>fd"] = { [[:lua require("telescope").extensions.smart_open.smart_open({ cwd_only = true })<CR>]], "find files by smart open" },
     ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "find all" },
     ["<leader>fg"] = { "<cmd> Telescope live_grep_args <CR>", "live grep" },
-    ["gl"] = { [[:lua require("telescope-live-grep-args.shortcuts").grep_word_under_cursor()<cr>]], "live grep" },
+    ["gl"] = { [[:lua require("telescope-live-grep-args.shortcuts").grep_word_under_cursor({ postfix='', quote=false })<cr>]], "live grep" },
     ["<leader>ff"] = { "<cmd> Telescope buffers <CR>", "find buffers" },
     ["<leader>fo"] = { "<cmd> Telescope oldfiles <CR>", "find oldfiles" },
     ["<leader>fc"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "find in current buffer" },
