@@ -17,6 +17,7 @@ vim.cmd "vnoremap <silent> H ^"
 vim.cmd "vnoremap <silent> L $"
 -- cmdlineで省略入力
 vim.cmd [[cnoremap <F2> \(.*\)]]
+vim.cmd [[inoremap jj <ESC>]]
 vim.cmd [[tnoremap <ESC> <C-\><C-n>]]
 vim.cmd [[cnoremap <C-p> <C-r><C-w>]]
 -- vim.cmd('cnoremap initr :<C-u>source $MYVIMRC<CR>')
