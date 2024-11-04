@@ -69,6 +69,8 @@ M.command_pallet = {
     },
     ["<leader>@quicker-expand"] = { [[:lua require("quicker").expand({ before = 2, after = 2, add_to_existing = true })<CR>]], "Expand quickfix context" },
     ["<leader>@quicker-collapse"] = { [[:lua require("quicker").collapse()<CR>]], "Collapse quickfix context" },
+    ["<leader>@tig-blame"] = { [[:!tmux split-window -h "tig blame $(echo %:p)"<CR>]], "tig blame current file" },
+    ["<leader>@mysql-cli"] = { [[:!tmux split-window -h "/usr/local/bin/mycli -h 127.0.0.1 -u root"<CR>]], "mysql cli" },
   },
 }
 
@@ -158,8 +160,8 @@ M.git = {
     ["<leader>gs"] = { ":Neogit cwd=%:p:h<CR>", "git stage by neo-git" },
     ["<leader>git"] = { [[<cmd>Neogit<CR>]], "neogit" },
     ["<leader>cf"] = { "<cmd> Easypick changed_files<cr>", "telescope changed files for git" },
-    ["<leader>tb"] = { "<cmd> Gitsigins blame<cr>", "toggle git blame" },
     ["<leader>P"] = { "<cmd> OpenGithubPr<cr>", "open github pull request" },
+    ["<leader>ts"] = { [[:!tmux split-window -h "tig status"<CR>]], "tig status" },
   },
   x = {
     ["<leader>ghl"] = { ":GetCommitLink<CR>", "github line link copy" },

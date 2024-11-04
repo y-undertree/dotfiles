@@ -58,6 +58,8 @@ local options = {
         ["<C-f>"] = actions.to_fuzzy_refine,
       },
       i = {
+        ["<C-l>"] = actions.send_to_qflist + actions.open_qflist,
+        ["<C-s>"] = actions.send_selected_to_qflist + actions.open_qflist,
         ["<C-j>"] = actions.cycle_history_next,
         ["<C-k>"] = actions.cycle_history_prev,
         ["<C-w>"] = lga_actions.quote_prompt(),
