@@ -120,6 +120,8 @@ autoload -Uz y
 
 # thefuck. recommend!! https://github.com/nvbn/thefuck
 eval $(thefuck --alias fix)
+# 1password
+eval "$(op completion zsh)"; compdef _op op
 
 # nnn
 export NNN_PLUG='p:preview-tui'
