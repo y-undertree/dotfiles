@@ -1528,10 +1528,6 @@ local plugins = {
     event = "VeryLazy",
   },
   {
-    "mg979/vim-visual-multi",
-    event = "VeryLazy",
-  },
-  {
     "oysandvik94/curl.nvim",
     cmd = { "CurlOpen", "CurlCollection", "CurlClose" },
     dependencies = {
