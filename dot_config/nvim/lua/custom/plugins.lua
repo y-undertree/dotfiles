@@ -1638,6 +1638,10 @@ local plugins = {
         show_help = '?',
       },
     },
+  },
+  {
+    "monaqa/dial.nvim",
+    event = "VeryLazy",
   }
 }
 
