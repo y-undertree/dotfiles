@@ -18,14 +18,14 @@
 --langmap=dockerfile:+(Dockerfile)
 --regex-dockerfile=/^(FROM|MAINTAINER|RUN|CMD|LABEL|EXPOSE|ENV|ADD|COPY|ENTRYPOINT|VOLUME|USER|WORKDIR|ARG|ONBUILD|STOPSIGNAL|HEALTHCHECK|SHELL)/\1/d,dockerfile,dockerfiles/
 
---regex-ruby=/(^|[:;])[ \t]*([A-Z][[:alnum:]_]+) *=/\2/c,class,constant/
---regex-ruby=/(^|[:;])[ \t]*([:upper:][[:alnum:]_]+) *=/\2/v,variable/
---regex-ruby=/(^|;)[ \t]*(has_many|belongs_to|has_one|has_and_belongs_to_many)\(? *:([[:alnum:]_]+)/\3/f/
---regex-ruby=/(^|;)[ \t]*(named_)?scope\(? *:([[:alnum:]_]+)/\3/f/
---regex-ruby=/(^|;)[ \t]*expose\(? *:([[:alnum:]_]+)/\2/f/
---regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2/f/
---regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2!/f/
---regex-ruby=/(^|;)[ \t]*event\(? *:([[:alnum:]_]+)/\2?/f/
+--regex-ruby=/\b(has_many|belongs_to|has_one|has_and_belongs_to_many)\s+:([a-zA-Z_]+)/\2/A,association/
+--regex-ruby=/\bscope\s+:([a-zA-Z_]+)/\1/s,scope/
+--regex-ruby=/\bdef\s+self\.([a-zA-Z_]\w*)/\1/c,method/
+--regex-ruby=/\b(before|after|around)_action\s+:([a-zA-Z_]+)/\2/a,callback/
+--regex-ruby=/\bmodule\s+([A-Z][a-zA-Z_]+)/\1/m,module/
+--regex-ruby=/\bclass\s+([A-Z][a-zA-Z_]+)/\1/c,class/
+--regex-ruby=/\b([A-Z][A-Z_0-9]*)\b/\1/C,const/
+--regex-ruby=/\btrait\s+:([a-zA-Z_]+)/\1/t,trait/
 
 --exclude=*.min.*
 --exclude=*.spec.*
