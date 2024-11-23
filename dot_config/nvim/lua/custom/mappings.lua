@@ -72,6 +72,7 @@ M.command_pallet = {
     ["<leader>@quicker-collapse"] = { [[:lua require("quicker").collapse()<CR>]], "Collapse quickfix context" },
     ["<leader>@tig-blame"] = { [[:!tmux split-window -h "tig blame $(echo %:p)"<CR>]], "tig blame current file" },
     ["<leader>@mysql-cli"] = { [[:!tmux split-window -h "/usr/local/bin/mycli -h 127.0.0.1 -u root"<CR>]], "mysql cli" },
+    ["<leader>@macro-menu"] = { [[:lua require('NeoComposer.ui').toggle_macro_menu()<CR>]], "macro menu open" },
   },
 }
 

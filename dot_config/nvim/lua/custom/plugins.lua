@@ -1475,9 +1475,9 @@ local plugins = {
     "ecthelionvi/NeoComposer.nvim",
     event = "VeryLazy",
     dependencies = { "kkharji/sqlite.lua" },
-    config = function()
-      require("NeoComposer").setup()
-    end,
+    config = {
+      queue_most_recent = true,
+    }
   },
   {
     "scottmckendry/cyberdream.nvim",
