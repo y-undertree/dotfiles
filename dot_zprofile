@@ -31,9 +31,6 @@ export VISUAL='nvim'
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
-# github
-export PATH="/usr/local/bin/git:$PATH"
-
 # anyenv
 # export RUBY_CONFIGURE_OPTS="--with-readline-dir=$(brew --prefix readline)"
 # export PATH="$HOME/.anyenv/bin:$PATH"
@@ -46,6 +43,7 @@ export PATH="/usr/local/bin/git:$PATH"
 #fi
 
 # asdf from anyenv
+export ASDF_GOLANG_MOD_VERSION_ENABLED=true
 . $(brew --prefix)/opt/asdf/libexec/asdf.sh
 
 # direnv
@@ -54,6 +52,9 @@ eval "$(direnv hook zsh)"
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="${HOME}/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+
+# brew
+export PATH="$(brew --prefix)/bin:$PATH"
 
 # pnpm
 export PNPM_HOME="${HOME}/Library/pnpm"
@@ -74,9 +75,10 @@ export PATH="${HOME}/.zsh/rc/scripts:$PATH"
 # cargo path for rust
 export PATH="${HOME}/.cargo/bin:$PATH"
 
+# git
 export PATH="$(brew --prefix git)/bin:${PATH}"
 export PATH="$(brew --prefix git)/share/git-core/contrib/diff-highlight:${PATH}"
-export ASDF_GOLANG_MOD_VERSION_ENABLED=true
 
+# other
 export VACUUM="${XDG_CONFIG_HOME}/vacuum/vacuum.conf.yaml"
 export RUBY_DEBUG_INIT_SCRIPT="${XDG_CONFIG_HOME}/rdbg/rdbgrc"
