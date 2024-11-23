@@ -220,7 +220,7 @@ M.gitsigns = {
     ignore_whitespace = false,
     virt_text_priority = 100,
   },
-  max_file_length = 20000,
+  max_file_length = 1000,
 }
 
 return M

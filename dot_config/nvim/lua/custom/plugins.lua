@@ -349,7 +349,6 @@ local plugins = {
       require("core.utils").lazy_load "vim-illuminate"
     end,
     config = function()
-      vim.g.Illuminate_highlightUnderCursor = 0
       require("illuminate").configure {
         providers = {
           "treesitter",
@@ -362,6 +361,7 @@ local plugins = {
         --   "markdown",
         --   "text",
         -- },
+        large_file_cutoff = 1000,
         min_count_to_highlight = 1,
         filetypes_denylist = {
           "telescope",
