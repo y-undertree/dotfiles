@@ -41,6 +41,7 @@ for _, lsp in ipairs(servers) do
       client.server_capabilities.documentRangeFormattingProvider = true
     end,
     capabilities = capabilities,
+    -- capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
   }
 end
 
