@@ -37,6 +37,7 @@ M.general = {
     ["<leader>diff"] = { [[:vert diffs ]], "diffsplit open to vertical" },
     ["<leader>ht"] = { [[:lua require('tsht').nodes()<CR>]], "Treehopper" },
     ["<leader>td"] = { "<cmd>DocsViewToggle<CR>", "toggle view docs" },
+    ["<leader>jj"] = { "<cmd>ArenaToggle<CR>", "toggle buffers list open for arena" },
   },
   x = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },

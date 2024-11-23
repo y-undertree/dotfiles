@@ -1647,6 +1647,27 @@ local plugins = {
   {
     "monaqa/dial.nvim",
     event = "VeryLazy",
+  {
+    "dzfrias/arena.nvim",
+    event = "BufWinEnter",
+    -- Calls `.setup()` automatically
+    config = {
+      max_items = 10,
+      ignore_current = true,
+      devicons = true,
+      window = {
+        width = 60,
+        height = 10,
+        border = "rounded",
+      },
+      algorithm = {
+        -- Multiplies the recency by a factor. Must be greater than zero.
+        -- A smaller number will mean less of an emphasis on recency!
+        recency_factor = 1,
+        -- Same as `recency_factor`, but for frequency!
+        frequency_factor = 0.5,
+      },
+    }
   }
 }
 
