@@ -189,6 +189,8 @@ M.rspec = {
   n = {
     ["<leader>rf"] = { [[:RspecCurrentFile<CR>]], "rspec current file" },
     ["<leader>rn"] = { [[:RspecCurrentLine<CR>]], "rspec nearest" },
+    ["<leader>crf"] = { [[:RspecCurrentFileCoverage<CR>]], "rspec current file and coverage" },
+    ["<leader>crn"] = { [[:RspecCurrentLineCoverage<CR>]], "rspec nearest and coverage" },
     -- ["<leader>rl"] = { ":call RunLastSpec()<CR>", "run rspec last" },
   },
 }
