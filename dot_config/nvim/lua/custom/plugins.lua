@@ -15,7 +15,6 @@ local plugins = {
           require "custom.configs.null-ls"
         end,
       },
-      { 'saghen/blink.cmp' }
     },
     config = function()
       require "plugins.configs.lspconfig"
@@ -57,7 +56,7 @@ local plugins = {
   },
   {
     "hrsh7th/nvim-cmp",
-    enabled = true,
+    enabled = false,
     event = { "InsertEnter", "CmdlineEnter" },
     opts = function()
       local default_opts = require "plugins.configs.cmp"
@@ -72,69 +71,44 @@ local plugins = {
       })
     end,
   },
-  -- nvim-cmpをblink.cmpに変えたい
-  -- 現状はbuffer読み込み過ぎなどで2回目以降表示されないなど問題がありそうなので調整が必要な状態
   {
-    'saghen/blink.cmp',
-    enabled = false,
-    lazy = false, -- lazy loading handled internally
-    -- optional: provides snippets for the snippet source
+    "iguanacucumber/magazine.nvim",
+    enabled = true,
+    name = "nvim-cmp",
     dependencies = {
-      'L3MON4D3/LuaSnip',
-      'saadparwaiz1/cmp_luasnip',
-      { 'saghen/blink.compat', opts = { impersonate_nvim_cmp = true } }
+      { "iguanacucumber/mag-nvim-lsp", name = "cmp-nvim-lsp", opts = {} },
+      { "iguanacucumber/mag-nvim-lua", name = "cmp-nvim-lua" },
+      { "iguanacucumber/mag-buffer",   name = "cmp-buffer" },
+      { "iguanacucumber/mag-cmdline",  name = "cmp-cmdline" },
     },
-    -- use a release tag to download pre-built binaries
-    version = 'v0.*',
-    -- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-    -- build = 'cargo build --release',
-    -- If you use nix, you can build from source using latest nightly rust with:
-    -- build = 'nix run .#build-plugin',
-
-    ---@module 'blink.cmp'
-    ---@type blink.cmp.Config
-    opts = {
-      -- 'default' for mappings similar to built-in completion
-      -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
-      -- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
-      -- see the "default configuration" section below for full documentation on how to define
-      -- your own keymap.
-      keymap = { preset = 'super-tab' },
-
-      highlight = {
-        use_nvim_cmp_as_default = true,
-      },
-      -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-      -- adjusts spacing to ensure icons are aligned
-      nerd_font_variant = 'mono',
-
-      accept = {
-        expand_snippet = function(snippet) require('luasnip').lsp_expand(snippet) end,
-        auto_brackets = { enabled = true }
-      },
-      trigger = { signature_help = { enabled = true } },
-      -- default list of enabled providers defined so that you can extend it
-      -- elsewhere in your config, without redefining it, via `opts_extend`
-      sources = {
-        completion = {
-          enabled_providers = { 'luasnip', 'lsp', 'path', 'snippets', 'buffer' },
-        },
-      },
-      providers = {
-        luasnip = {
-          name = 'luasnip',
-          module = 'blink.compat.source',
-
-          score_offset = -3,
-
-          opts = {
-            use_show_condition = false,
-            show_autosnippets = true,
-          },
-        },
-      },
-    },
-    opts_extend = { "sources.completion.enabled_providers" }
+    event = { "InsertEnter", "CmdlineEnter" },
+    opts = function()
+      local default_opts = require "plugins.configs.cmp"
+      local opts = require "custom.configs.cmp_options"
+      return vim.tbl_deep_extend("force", default_opts, opts)
+    end,
+    config = function(_, opts)
+      local cmp = require "cmp"
+      cmp.setup(opts)
+      cmp.setup.filetype("DressingInput", {
+        sources = cmp.config.sources { { name = "omni" } },
+      })
+      cmp.setup.cmdline({ '/', '?' }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = 'buffer' }
+        }
+      })
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+          { name = 'cmdline' }
+        }),
+        matching = { disallow_symbol_nonprefix_matching = false }
+      })
+    end,
   },
   {
     -- snippet plugin

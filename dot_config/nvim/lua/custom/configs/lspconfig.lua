@@ -4,6 +4,7 @@ local capabilities = require("plugins.configs.lspconfig").capabilities
 
 local lspconfig = require "lspconfig"
 local utils = require "core.utils"
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- if you just want default config for the servers then put them in a table
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
@@ -41,7 +42,6 @@ for _, lsp in ipairs(servers) do
       client.server_capabilities.documentRangeFormattingProvider = true
     end,
     capabilities = capabilities,
-    -- capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
   }
 end
 
