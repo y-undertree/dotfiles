@@ -18,7 +18,7 @@ local servers = {
   "solargraph",
   "ansiblels",
   "bashls",
-  "bufls",
+  "buf_ls",
   "jsonls",
   "rubocop",
   "yamlls",
