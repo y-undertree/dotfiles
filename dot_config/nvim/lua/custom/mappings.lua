@@ -12,11 +12,6 @@ M.disabled = {
 M.general = {
   n = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
-    ["g]"] = {
-      "<cmd>lua require('telescope').extensions.ctags_plus.jump_to_tag()<cr>",
-      "ctags jump list for telescope",
-      opts = { nowait = true },
-    },
     ["s"] = { "<cmd>HopPattern<CR>", "hop pattern" },
     ["<c-Up>"] = { ":resize +5<CR>", "resize window " },
     ["<c-Down>"] = { ":resize -5<CR>", "resize window down" },
@@ -28,7 +23,6 @@ M.general = {
     ["<leader>sbo"] = { ":!subl %:p<CR>", "sublime editor open" },
     ["<leader>vso"] = { ":!NODE_OPTIONS='' code %:p<CR>", "vscode open" },
     ["<leader>irbh"] = { ":edit ~/.config/irb/irb_history<CR>", "irb history open" },
-    ["<leader>tf"] = { [[<cmd>Lspsaga term_toggle<CR>]], "terminal open float for Lspsaga" },
     ["<leader>tt"] = { [[<cmd>ToggleTerm direction="horizontal" <CR>]], "toggle term" },
     ["<leader>ol"] = { "<cmd>AerialToggle<CR>", "outline toggle" },
     ["<leader>on"] = { "<cmd>AerialNavToggle<CR>", "outline navi toggle" },
@@ -37,7 +31,10 @@ M.general = {
     ["<leader>diff"] = { [[:vert diffs ]], "diffsplit open to vertical" },
     ["<leader>ht"] = { [[:lua require('tsht').nodes()<CR>]], "Treehopper" },
     ["<leader>td"] = { "<cmd>DocsViewToggle<CR>", "toggle view docs" },
-    ["<leader>jj"] = { "<cmd>ArenaToggle<CR>", "toggle buffers list open for arena" },
+    ["<leader>to"] = { "<cmd>NvimTreeToggle<CR>", "toggle neovim tree" },
+    ["<leader>tf"] = { "<cmd>NvimTreeFocus<CR>", "focus neovim tree" },
+    ["<leader>nn"] = { "<cmd>Yazi<CR>", "Open yazi at the current file" },
+    ["<leader>nN"] = { "<cmd>Yazi cwd<CR>", "Open the file manager in nvim's working directory" },
   },
   x = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
@@ -103,14 +100,14 @@ M.search = {
 M.telescope = {
   n = {
     -- find
-    ["<leader>ff"] = { [[:lua require("telescope").extensions.smart_open.smart_open({ cwd_only = true })<CR>]], "find files by smart open" },
+    ["<leader>fd"] = { [[:lua require("telescope").extensions.smart_open.smart_open({ cwd_only = true })<CR>]], "find files by smart open" },
     ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "find all" },
     ["<leader>fg"] = { "<cmd> Telescope live_grep_args <CR>", "live grep" },
     ["gl"] = { [[:lua require("telescope-live-grep-args.shortcuts").grep_word_under_cursor({ postfix='', quote=false })<cr>]], "live grep" },
-    ["<leader>fd"] = { "<cmd> Telescope buffers <CR>", "find buffers" },
+    ["<leader>ff"] = { "<cmd> Telescope buffers <CR>", "find buffers" },
     ["<leader>fo"] = { "<cmd> Telescope oldfiles <CR>", "find oldfiles" },
     ["<leader>fc"] = { "<cmd> Telescope current_buffer_fuzzy_find <CR>", "find in current buffer" },
-    ["<leader>fj"] = { "<cmd> Telescope jumplist <CR>", "telescope jumplist" },
+    ["<leader>jj"] = { "<cmd> Telescope jumplist <CR>", "telescope jumplist" },
     ["<leader>fq"] = { "<cmd> Telescope quickfixhistory <CR>", "telescope quickfixhistory" },
     ["<leader>fe"] = { "<cmd> Telescope diagnostics<CR>", "telescope diagnostics" },
     ["<leader>fs"] = { "<cmd> Telescope treesitter<CR>", "telescope symbol treesitter" },
@@ -119,15 +116,18 @@ M.telescope = {
       "telescope highlight-annotate annotations",
     },
     ["<leader>fr"] = { "<cmd> Telescope telescope-alternate alternate_file<cr>", "telescope relation files" },
-    ["<leader>cdg"] = { "<cmd> Telescope ghq list <CR>", "telescope ghq list" },
     ["<leader>hh"] = { "<cmd> Telescope help_tags <CR>", "help page" },
     ["<leader>hk"] = { "<cmd> Telescope keymaps <CR>", "find in keymappings" },
     ["<leader>sl"] = { "<cmd> Telescope session-lens <CR>", "telescope session list" },
     ["<leader>mh"] = { "<cmd> Telescope heading <CR>", "telescope markdown heading" },
-    ["<leader>dd"] = { "<cmd> DevdocsOpen <CR>", "devdoc open" },
     ["<leader>mc"] = { "<cmd> Telescope macros <CR>", "macros list" },
     ["<leader>yh"] = { "<cmd> Telescope yank_history <CR>", "yank history" },
     ["<leader>cz"] = { "<cmd> lua require('telescope').extensions.chezmoi.find_files()<cr>", "chezmoi find files" },
+    ["g]"] = {
+      "<cmd>lua require('telescope').extensions.ctags_plus.jump_to_tag()<cr>",
+      "ctags jump list for telescope",
+      opts = { nowait = true },
+    },
   },
   x = {
     ["gl"] = { [[:lua require("telescope-live-grep-args.shortcuts").grep_visual_selection()<cr>]], "live grep" },
@@ -255,14 +255,6 @@ M.debugger = {
     ["<leader>dbruby"] = { [[:lua require"dap".run('ruby')<CR>]], "debugger ruby run" },
   },
 }
-
-M.yazi = {
-  n = {
-    ["<leader>yz"] = { "<cmd>Yazi<CR>", "Open yazi at the current file" },
-    ["<leader>yZ"] = { "<cmd>Yazi cwd<CR>", "Open the file manager in nvim's working directory" },
-  },
-}
-
 
 M.ruby = {
   n = {
