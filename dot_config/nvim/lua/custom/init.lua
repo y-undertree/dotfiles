@@ -158,22 +158,6 @@ if vim.g.neovide then
   end)
 end
 
-vim.api.nvim_create_autocmd('TermOpen', {
-  group = augroup,
-  callback = function(_)
-    vim.b.focus_disable = true
-  end,
-  desc = 'Disable focus autoresize for TermOpen',
-})
-vim.api.nvim_create_autocmd('FileType', {
-  group = augroup,
-  pattern = { "qf" },
-  callback = function(_)
-    vim.b.focus_disable = true
-  end,
-  desc = 'Disable focus autoresize for FileType',
-})
--- git find-pr
 vim.api.nvim_create_user_command("OpenGithubPr", function()
   local line = vim.api.nvim_get_current_line()
 
