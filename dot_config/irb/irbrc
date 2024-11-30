@@ -9,31 +9,29 @@ def suggest(lib)
   end
 end
 
-# IRB settings
-suggest 'syntax_suggest'
-suggest 'irb'
-suggest 'irb/completion'
-suggest 'rubygems'
-suggest 'irbtools'
-suggest 'pp'
-suggest 'benchmark'
-suggest 'puts_debugger'
-suggest 'repl_type_completor'
+unless defined? Rails
+  # IRB settings
+  suggest 'syntax_suggest'
+  suggest 'irb'
+  suggest 'irb/completion'
+  suggest 'rubygems'
+  suggest 'irbtools'
+  suggest 'pp'
+  suggest 'benchmark'
+  suggest 'puts_debugger'
+  suggest 'repl_type_completor'
+end
 
-IRB.conf[:USE_AUTOCOMPLETE] = true
-IRB.conf[:IRB_USE_AUTOCOMPLETE] = true
-IRB.conf[:NO_COLOR] = false
+IRB.conf[:NO_COLOR] = true
 IRB.conf[:IRB_COMPLETOR] = 'type'
-IRB.conf[:AUTO_INDENT]  = true
 IRB.conf[:BACK_TRACE_LIMIT] = 16
-IRB.conf[:EVAL_HISTORY] = 50
+IRB.conf[:EVAL_HISTORY] = 1000
 IRB.conf[:INSPECT_MODE] = :pp
-IRB.conf[:SAVE_HISTORY] = 100000
-IRB.conf[:USE_READLINE] = true
-IRB.conf[:USE_TRACER] = true
-#IRB.conf[:VERBOSE] = true
-#IRB.conf[:DEBUG_LEVEL] = 1
-#IRB.conf[:ECHO] = nil
+IRB.conf[:SAVE_HISTORY] = 3000
+IRB.conf[:HISTORY_NO_DUP] = true
+IRB.conf[:USE_TRACER] = false
+IRB.conf[:VERBOSE] = true
+IRB.conf[:DEBUG_LEVEL] = 1
 
 # https://onk.hatenablog.jp/entry/2022/10/10/003542
 IRB::Context.prepend(Module.new{
@@ -50,7 +48,11 @@ relative_path = './'
 if defined? Rails
   IRB.conf[:PROMPT][:RAILS] = IRB.conf[:PROMPT][:DEFAULT].dup
   IRB.conf[:PROMPT][:RAILS].merge!({
-    :PROMPT_I => "#{Rails.env}(%m):%03n:%i>\n"
+    :PROMPT_I => "%N(%M)>> ",
+    :PROMPT_S => "%l>> ",
+    :PROMPT_C => ".. ",
+    :PROMPT_N => ".. ",
+    :RETURN => "=> %s\n"
   })
   IRB.conf[:PROMPT_MODE] = :RAILS
 
