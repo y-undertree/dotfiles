@@ -1214,111 +1214,6 @@ local plugins = {
     "kazhala/close-buffers.nvim",
     event = "VeryLazy",
   },
-  -- TODO: large file to slow...
-  -- {
-  --   "gelguy/wilder.nvim",
-  --   lazy = false,
-  --   config = function()
-  --     local wilder = require "wilder"
-  --     wilder.setup { modes = { "/", "?" }, enable_cmdline_enter = true }
-  --     wilder.set_option(
-  --       "renderer",
-  --       wilder.popupmenu_renderer(wilder.popupmenu_border_theme {
-  --         highlights = {
-  --           border = "Normal", -- highlight to use for the border
-  --         },
-  --         -- 'single', 'double', 'rounded' or 'solid'
-  --         -- can also be a list of 8 characters, see :h wilder#popupmenu_border_theme() for more details
-  --         border = "rounded",
-  --       })
-  --     )
-  --   end,
-  -- },
-  -- TODO: notify is render slow
-  -- {
-  --   "folke/noice.nvim",
-  --   event = "VeryLazy",
-  --   opts = {
-  --     throttle = 3000 / 30,
-  --     commands = {
-  --       history = {
-  --         view = "vsplit",
-  --       },
-  --     },
-  --     messages = {
-  --       enabled = true,              -- enables the Noice messages UI
-  --       view = "mini",               -- default view for messages
-  --       view_error = "notify",       -- view for errors
-  --       view_warn = "notify",        -- view for warnings
-  --       view_history = "messages",   -- view for :messages
-  --       view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
-  --     },
-  --     lsp = {
-  --       -- hover = {
-  --       --   enabled = true,
-  --       -- },
-  --       -- signature = {
-  --       --   enabled = true,
-  --       -- },
-  --       -- progress = {
-  --       --   enabled = false,
-  --       -- },
-  --       -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-  --       override = {
-  --         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-  --         ["vim.lsp.util.stylize_markdown"] = true,
-  --         ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
-  --       },
-  --     },
-  --     presets = {
-  --       bottom_search = true,
-  --       lsp_doc_border = true,
-  --     },
-  --     views = {
-  --       notify = {
-  --         level = 'error',
-  --         merge = true,
-  --         replace = true,
-  --       },
-  --       cmdline = 'bottom',
-  --       -- cmdline_popup = {
-  --       --   position = {
-  --       --     row = 20,
-  --       --     col = "50%",
-  --       --   },
-  --       --   size = {
-  --       --     width = 60,
-  --       --     height = "auto",
-  --       --   },
-  --       --   filter_options = {},
-  --       -- },
-  --       -- popupmenu = {
-  --       --   relative = "editor",
-  --       --   position = {
-  --       --     row = 22,
-  --       --     col = "50%",
-  --       --   },
-  --       --   size = {
-  --       --     width = 60,
-  --       --     height = 10,
-  --       --   },
-  --       --   border = {
-  --       --     style = "rounded",
-  --       --     padding = { 0, 1 },
-  --       --   },
-  --       --   win_options = {
-  --       --     winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },""
-  --       --   },
-  --       -- },
-  --     },
-  --   },
-  --   dependencies = {
-  --     "MunifTanjim/nui.nvim",
-  --     "rcarriga/nvim-notify",
-  --     "hrsh7th/nvim-cmp",
-  --     "nvim-treesitter/nvim-treesitter",
-  --   },
-  -- },
   {
     "AckslD/messages.nvim",
     event = "VeryLazy",
@@ -1520,23 +1415,6 @@ local plugins = {
     }
   },
   {
-    "scottmckendry/cyberdream.nvim",
-    enabled = false,
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require("cyberdream").setup({
-        -- Recommended - see "Configuring" below for more config options
-        transparent = true,
-        italic_comments = false,
-        hide_fillchars = false,
-        borderless_telescope = false,
-        terminal_colors = false,
-      })
-      vim.cmd("colorscheme cyberdream") -- set the colorscheme
-    end,
-  },
-  {
     "nvim-focus/focus.nvim",
     event = "VeryLazy",
     config = function()
@@ -1628,39 +1506,6 @@ local plugins = {
     end
   },
   {
-    'b0o/incline.nvim',
-    event = 'VeryLazy',
-    config = function()
-      local helpers = require 'incline.helpers'
-      local devicons = require 'nvim-web-devicons'
-      require('incline').setup {
-        window = {
-          padding = 0,
-          margin = { horizontal = 0 },
-        },
-        render = function(props)
-          local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ':t')
-          if filename == '' then
-            filename = '[No Name]'
-          end
-          local ft_icon, ft_color = devicons.get_icon_color(filename)
-          local modified = vim.bo[props.buf].modified
-          return {
-            ft_icon and { ' ', ft_icon, ' ', guibg = ft_color, guifg = helpers.contrast_color(ft_color) } or '',
-            ' ',
-            { filename, gui = modified and 'bold,italic' or 'bold' },
-            ' ',
-            guibg = '#44406e',
-          }
-        end,
-      }
-    end,
-    dependencies = {
-      { "SmiteshP/nvim-navic" },
-      { "nvim-tree/nvim-web-devicons" },
-    },
-  },
-  {
     'stevearc/quicker.nvim',
     event = "FileType qf",
     ---@module "quicker"
@@ -1688,28 +1533,6 @@ local plugins = {
     "monaqa/dial.nvim",
     event = "VeryLazy",
   },
-  {
-    "dzfrias/arena.nvim",
-    event = "BufWinEnter",
-    -- Calls `.setup()` automatically
-    config = {
-      max_items = 10,
-      ignore_current = true,
-      devicons = true,
-      window = {
-        width = 60,
-        height = 10,
-        border = "rounded",
-      },
-      algorithm = {
-        -- Multiplies the recency by a factor. Must be greater than zero.
-        -- A smaller number will mean less of an emphasis on recency!
-        recency_factor = 1,
-        -- Same as `recency_factor`, but for frequency!
-        frequency_factor = 0.5,
-      },
-    }
-  }
 }
 
 return plugins
