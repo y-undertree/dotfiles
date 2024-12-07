@@ -15,9 +15,13 @@ bind main    <Esc>K ?git cherry-pick -n %(commit)
 bind main     = ?git checkout %(branch)
 bind main    <Esc>= ?git checkout %(commit)
 bind main     T ?git tag "%(prompt Enter tag name: )" %(commit)
+bind main     F ?!git commit --fixup %(commit)
+bind main     S ?!git commit --squash %(commit)
 bind diff   	B !git rebase -i %(commit)
 bind diff     K ?git cherry-pick %(commit)
 bind diff    <Esc>K ?git cherry-pick -n %(commit)
+bind diff     F ?!git commit --fixup %(commit)
+bind diff     S ?!git commit --squash %(commit)
 bind refs     D ?git branch -d %(branch)
 bind refs     x ?sh -c "git branch --merged | grep -vE '^\\*|master$|develop$' | xargs -I % git branch -d %"
 bind refs	    =	?git checkout %(branch)
@@ -38,3 +42,11 @@ bind tree     D ?git rm %(file)
 bind blob     Y @bash -c "echo -n '%(file)' | pbcopy"
 bind reflog  	=	?git checkout %(branch)
 bind reflog  	!	?git reset --hard %(commit)
+# ファイル単位もしくはコミット単位で上下移動
+bind diff     <Ctrl-n> :/^@@
+bind diff     <Ctrl-p> :?^@@
+bind log      <Ctrl-n> :/^commit
+bind log      <Ctrl-p> :?^commit
+bind stage    <Ctrl-n> :/^@@
+bind stage    <Ctrl-p> :?^@@
+
