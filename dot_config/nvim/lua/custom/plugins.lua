@@ -1563,6 +1563,40 @@ local plugins = {
   {
     "monaqa/dial.nvim",
     event = "VeryLazy",
+  {
+    "shellRaining/hlchunk.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require("hlchunk").setup({
+        chunk = {
+          enable = true
+        },
+        indent = {
+          enable = true
+        },
+        blank = {
+          enable = true
+        },
+        line_num = {
+          enable = true
+        },
+        exclude_filetypes = {
+          aerial = true,
+          dashboard = true,
+          help = true,
+          gitcommit = true,
+          gitrebase = true,
+          hgcommit = true,
+          svn = true,
+          cvs = true,
+          telescope = true,
+          quickfix = true,
+          nvim_tree = true,
+          neo_tree = true,
+          notify = true,
+        }
+      })
+    end
   },
 }
 
