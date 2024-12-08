@@ -237,8 +237,8 @@ local plugins = {
     end,
   },
   {
-    "phaazon/hop.nvim",
-    keys = { "f", "F" },
+    "smoka7/hop.nvim",
+    version = "*",
     event = "VeryLazy",
     config = function()
       -- you can configure Hop the way you like here; see :h hop-config
@@ -258,7 +258,7 @@ local plugins = {
     event = "VeryLazy",
     dependencies = {
       { "nvim-treesitter/nvim-treesitter" },
-      { "phaazon/hop.nvim" }, -- for curl, log wrapper
+      { "smoka7/hop.nvim" }, -- for curl, log wrapper
     },
   },
   {

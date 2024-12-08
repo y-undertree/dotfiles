@@ -14,7 +14,6 @@ M.disabled = {
 M.general = {
   n = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
-    ["s"] = { "<cmd>HopPattern<CR>", "hop pattern" },
     ["<c-Up>"] = { ":resize +5<CR>", "resize window " },
     ["<c-Down>"] = { ":resize -5<CR>", "resize window down" },
     ["<c-left>"] = { ":vertical resize +5<CR>", "resize window left" },
@@ -31,7 +30,7 @@ M.general = {
     ["<leader>lt"] = { [[:lua require("lsp_lines").toggle() <CR>]], "diagnostic lines toggle" },
     ["<leader>an"] = { [[:lua require('neogen').generate() <CR>]], "generate annotatioin for neogen" },
     ["<leader>diff"] = { [[:vert diffs ]], "diffsplit open to vertical" },
-    ["<leader>ht"] = { [[:lua require('tsht').nodes()<CR>]], "Treehopper" },
+    ["<leader>th"] = { [[:lua require('tsht').nodes()<CR>]], "Treehopper" },
     ["<leader>td"] = { "<cmd>DocsViewToggle<CR>", "toggle view docs" },
     ["<leader>to"] = { "<cmd>NvimTreeToggle<CR>", "toggle neovim tree" },
     ["<leader>tf"] = { "<cmd>NvimTreeFocus<CR>", "focus neovim tree" },
@@ -41,6 +40,14 @@ M.general = {
   x = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
     ["<leader>sna"] = { [[:lua require("scissors").addNewSnippet() <CR>]], "add snippet" },
+  },
+}
+
+M.hop = {
+  n = {
+    ["ss"] = { "<cmd>HopWord<CR>", "hop word" },
+    ["sp"] = { "<cmd>HopPattern<CR>", "hop pattern" },
+    ["sl"] = { "<cmd>HopLineStart<CR>", "hop line" },
   },
 }
 
