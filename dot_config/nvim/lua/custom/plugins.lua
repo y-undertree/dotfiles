@@ -1556,6 +1556,7 @@ local plugins = {
   {
     "monaqa/dial.nvim",
     event = "VeryLazy",
+  },
   {
     "shellRaining/hlchunk.nvim",
     event = { "BufReadPre", "BufNewFile" },
