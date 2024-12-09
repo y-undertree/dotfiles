@@ -49,6 +49,11 @@ M.hop = {
     ["sp"] = { "<cmd>HopPattern<CR>", "hop pattern" },
     ["sl"] = { "<cmd>HopLineStart<CR>", "hop line" },
   },
+  x = {
+    ["<leader>ss"] = { "<cmd>HopWord<CR>", "hop word" },
+    ["<leader>sp"] = { "<cmd>HopPattern<CR>", "hop pattern" },
+    ["<leader>sl"] = { "<cmd>HopLineStart<CR>", "hop line" },
+  },
 }
 
 M.bookmark = {
@@ -79,6 +84,12 @@ M.command_pallet = {
     ["<leader>@tig-blame"] = { [[:!tmux split-window -h "tig blame $(echo %:p)"<CR>]], "tig blame current file" },
     ["<leader>@mysql-cli"] = { [[:!tmux split-window -h "/usr/local/bin/mycli -h 127.0.0.1 -u root"<CR>]], "mysql cli" },
     ["<leader>@macro-menu"] = { [[:lua require('NeoComposer.ui').toggle_macro_menu()<CR>]], "macro menu open" },
+    ["<leader>@search-spectre"] = { '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', "replace and search by spectre" },
+    ["<leader>@search-spectre-current-word"] = {
+      '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>',
+      "replace and search on current file by spectre",
+    },
+    ["<leader>@sessions"] = { "<cmd> Telescope session-lens <CR>", "telescope session list" },
   },
 }
 
@@ -86,23 +97,6 @@ M.obsidian = {
   n = {
     ["<leader>obf"] = { "<cmd>ObsidianQuickSwitch<CR>", "obsidian quick switch" },
     ["<leader>obo"] = { "<cmd>ObsidianOpen<CR>", "obsidian open" },
-  },
-}
-
-M.search = {
-  n = {
-    ["<leader>ss"] = { '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', "replace and search by spectre" },
-    ["<leader>sc"] = {
-      '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>',
-      "replace and search on current file by spectre",
-    },
-  },
-  x = {
-    ["<leader>ss"] = { '<esc><cmd>lua require("spectre").open_visual()<CR>', "Search current word" },
-    ["<leader>sc"] = {
-      '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>',
-      "replace and search on current file by spectre",
-    },
   },
 }
 
@@ -127,7 +121,6 @@ M.telescope = {
     ["<leader>fr"] = { "<cmd> Telescope telescope-alternate alternate_file<cr>", "telescope relation files" },
     ["<leader>hh"] = { "<cmd> Telescope help_tags <CR>", "help page" },
     ["<leader>hk"] = { "<cmd> Telescope keymaps <CR>", "find in keymappings" },
-    ["<leader>sl"] = { "<cmd> Telescope session-lens <CR>", "telescope session list" },
     ["<leader>mh"] = { "<cmd> Telescope heading <CR>", "telescope markdown heading" },
     ["<leader>mc"] = { "<cmd> Telescope macros <CR>", "macros list" },
     ["<leader>yh"] = { "<cmd> Telescope yank_history <CR>", "yank history" },
