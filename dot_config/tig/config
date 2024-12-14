@@ -3,7 +3,7 @@
 set diff-highlight = true
 
 # custom command
-bind generic	P !@git-pr-find %(commit)
+bind generic	o !@git-pr-find %(commit)
 bind generic	O !@gh browse %(commit)
 bind generic	+ !git commit --amend --verbose
 bind generic  - ?git checkout -
@@ -17,6 +17,7 @@ bind main    <Esc>= ?git checkout %(commit)
 bind main     T ?git tag "%(prompt Enter tag name: )" %(commit)
 bind main     F ?!git commit --fixup %(commit)
 bind main     S ?!git commit --squash %(commit)
+bind main    	P ?git push -u %(remote) %(repo:head)
 bind diff   	B !git rebase -i %(commit)
 bind diff     K ?git cherry-pick %(commit)
 bind diff    <Esc>K ?git cherry-pick -n %(commit)
@@ -32,6 +33,7 @@ bind stage  	C	!git commit --verbose
 bind status   Y @bash -c "echo -n '%(file)' | pbcopy"
 bind status   x ?git clean -d -f
 bind status   D ?git clean -d -f -- %(file)
+bind status  	P ?git push -u %(remote) %(repo:head)
 bind status  	C	!git commit --verbose
 bind stash    D ?git stash drop %(stash)
 bind stash    A	?git stash apply %(stash)
