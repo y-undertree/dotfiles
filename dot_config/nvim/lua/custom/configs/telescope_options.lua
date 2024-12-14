@@ -124,38 +124,51 @@ local options = {
           "app/models/(.*).rb",
           {
             { "app/controllers/**/*[1:pluralize]_controller.rb", "Controller" },
-            { "app/views/[1:pluralize]/*.html.erb",              "View" },
-            { "app/helpers/[1]_helper.rb",                       "Helper" },
-            { "app/serializers/**/*[1]_serializer.rb",           "Serializer" },
+            { "app/controllers/[1:pluralize]_controller.rb",     "Controller",        true },
+            { "app/helpers/**/[1]_helper.rb",                    "Helper" },
+            { "app/helpers/[1]_helper.rb",                       "Helper",            true },
+            { "app/serializers/**/[1]_serializer.rb",            "Serializer" },
+            { "app/serializers/[1]_serializer.rb",               "Serializer",        true },
             { "config/locales/**/model/[1].yml",                 "Locale" },
-            { "spec/models/[1]_spec.rb",                         "Model Test", true }
+            { "config/locales/ja/model/[1].yml",                 "Locale",            true },
+            { "spec/models/**/[1]_spec.rb",                      "Model Test" },
+            { "spec/models/[1]_spec.rb",                         "Model Test",        true },
+            { "spec/factories/**/[1:pluralize].rb",              "Factory Test Data" },
+            { "spec/factories/[1:pluralize].rb",                 "Factory Test Data", true }
           },
         },
         {
           "app/controllers/(.*)/(.*)_controller.rb",
           {
-            { "app/models/**/*[2:singularize].rb",     "Model" },
-            { "app/views/[1][2]/*.html.erb",           "View" },
-            { "app/helpers/**/*[2]_helper.rb",         "Helper" },
-            { "app/serializers/**/*[2]_serializer.rb", "Serializer" },
-            { "docker/swagger/paths/**/[2].yml",       "Swagger" },
-            { "swagger/**/[2:singularize].yaml",       "Swagger" },
-            { "spec/requests/[1]/[2]_spec.rb",         "Request Test", true },
-            { "spec/requests/[1]/[2]/*_spec.rb",        "Request Test"}
+            { "app/models/**/*[2:singularize].rb",       "Model" },
+            { "app/views/[1]/[2]/*",                     "View" },
+            { "app/views/[1]/[2]/index.html.erb",        "View",         true },
+            { "docker/swagger/paths/**/[2].*",           "Swagger" },
+            { "docker/swagger/paths/[1]/[2].yml",        "Swagger",      true },
+            { "swagger/**/[2:singularize].*",            "Swagger" },
+            { "swagger/[1]/[2:singularize].yaml",        "Swagger",      true },
+            { "spec/requests/[1]/[2]/*_spec.rb",         "Request Test" },
+            { "spec/requests/[1]/[2]_spec.rb",           "Request Test", true },
+            { "app/services/[2:singularize]_service.rb", "ServiceClass", true },
           },
         },
         {
           "app/views/(.*)/(.*).html.(.*)",
           {
             { "app/controllers/**/*[1]_controller.rb", "Controller" },
-            { "app/models/[1:singularize].rb",         "Model" },
-            { "app/helpers/**/*[1]_helper.rb",         "Helper" },
           },
         },
         {
           "config/locales/(.*)/(.*)/(.*).yml",
           {
             { "app/[2:pluralize]/[3].rb", "Implementation" },
+          },
+        },
+        {
+          "spec/factories/(.*).rb",
+          {
+            { "app/models/**/*[1:singularize].rb", "Model" },
+            { "app/models/[1:singularize].rb",     "Model", true },
           },
         },
         -- rspec
@@ -174,7 +187,7 @@ local options = {
     live_grep_args = {
       auto_quoting = false, -- enable/disable auto-quoting
       -- define mappings, e.g.
-      mappings = {         -- extend mappings
+      mappings = {          -- extend mappings
         i = {
           ["<tab>"] = lga_actions.quote_prompt { postfix = " --iglob " },
           ["<C-h>"] = lga_actions.quote_prompt({ postfix = " --hidden **/* " }),
