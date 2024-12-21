@@ -158,10 +158,17 @@ if vim.g.neovide then
   end)
 end
 
-vim.api.nvim_create_user_command("OpenGithubPr", function()
+vim.api.nvim_create_user_command("OpenGithubBlamePr", function()
   local line = vim.api.nvim_get_current_line()
-
   local commit_id = line:match("commit%s*(%w+)")
+  if not commit_id then
+    local commit_pattern = "%x%x%x%x%x%x%x[%x]*"
+    commit_id = line:match(commit_pattern)
+  end
+  if not commit_id then
+    local clipboard = vim.fn.getreg('+')
+    commit_id = clipboard
+  end
   if not commit_id then
     print("No commit ID found on the current line")
     return

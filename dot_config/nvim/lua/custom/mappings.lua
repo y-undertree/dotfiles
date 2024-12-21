@@ -160,11 +160,13 @@ M.yanky = {
 
 M.git = {
   n = {
-    ["<leader>ghl"] = { ":GetCommitLink<CR>", "github line link copy" },
-    ["<leader>gs"] = { ":Neogit cwd=%:p:h<CR>", "git stage by neo-git" },
-    ["<leader>git"] = { [[<cmd>Neogit<CR>]], "neogit" },
+    ["<leader>ghl"] = { ":GetCommitLink<CR>", "copy github code link" },
+    ["<leader>gho"] = { ":GitBlameOpenFileURL<CR>", "open github browse with file and line" },
+    ["<leader>ghp"] = { ":!gh pr view --web <CR>", "open github pr" },
     ["<leader>cf"] = { "<cmd> Easypick changed_files<cr>", "telescope changed files for git" },
-    ["<leader>P"] = { "<cmd> OpenGithubPr<cr>", "open github pull request" },
+    ["<leader>gby"] = { "<cmd> GitBlameCopySHA<cr>", "copy github blame commit SHA" },
+    ["<leader>gbo"] = { "<cmd> GitBlameOpenCommitURL<cr>", "open github blame commit" },
+    ["<leader>gbp"] = { "<cmd> OpenGithubBlamePr<cr>", "open github blame pull request" },
   },
   x = {
     ["<leader>ghl"] = { ":GetCommitLink<CR>", "github line link copy" },

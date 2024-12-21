@@ -197,7 +197,7 @@ local plugins = {
         },
         code_action = {
           show_server_name = true,
-          extend_gitsigns = true,
+          -- extend_gitsigns = true,
         },
       }
     end,
@@ -858,17 +858,6 @@ local plugins = {
   {
     "knsh14/vim-github-link",
     cmd = "GetCommitLink",
-  },
-  {
-    "NeogitOrg/neogit",
-    event = "VeryLazy",
-    dependencies = {
-      "nvim-lua/plenary.nvim",         -- required
-      "nvim-telescope/telescope.nvim", -- optional
-      "sindrets/diffview.nvim",        -- optional
-      "ibhagwan/fzf-lua",              -- optional
-    },
-    config = true,
   },
   {
     "folke/neodev.nvim",
@@ -1592,6 +1581,10 @@ local plugins = {
       })
     end
   },
+  {
+    'f-person/git-blame.nvim',
+    event = "VeryLazy",
+  }
 }
 
 return plugins
