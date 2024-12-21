@@ -1,5 +1,5 @@
 --languages=ruby,javascript,typescript,rspec,php,go
---ruby-kinds=-A
+--ruby-kinds=+A
 --rspec-kinds=-c-i
 --javascript-kinds=-p-G-S-M-g
 
@@ -18,13 +18,25 @@
 --langmap=dockerfile:+(Dockerfile)
 --regex-dockerfile=/^(FROM|MAINTAINER|RUN|CMD|LABEL|EXPOSE|ENV|ADD|COPY|ENTRYPOINT|VOLUME|USER|WORKDIR|ARG|ONBUILD|STOPSIGNAL|HEALTHCHECK|SHELL)/\1/d,dockerfile,dockerfiles/
 
---regex-ruby=/\b(has_many|belongs_to|has_one|has_and_belongs_to_many)\s+:([a-zA-Z_]+)/\2/A,association/
+# ❯ ctags --list-kinds=Ruby
+# c  classes
+# f  methods
+# m  modules
+# S  singleton methods
+# C  constants
+# A  accessors
+# a  aliases
+# L  libraries
+# s  scope
+# k  callback
+# t  trait
+--regex-ruby=/\b(has_many|belongs_to|has_one|has_and_belongs_to_many)\s+:([a-zA-Z_]+)/\2/A,accessor/
 --regex-ruby=/\bscope\s+:([a-zA-Z_]+)/\1/s,scope/
---regex-ruby=/\bdef\s+self\.([a-zA-Z_]\w*)/\1/c,method/
---regex-ruby=/\b(before|after|around)_action\s+:([a-zA-Z_]+)/\2/a,callback/
+--regex-ruby=/\bdef\s+self\.([a-zA-Z_]\w*)/\1/f,method/
+--regex-ruby=/\b(before|after|around)_action\s+:([a-zA-Z_]+)/\2/k,callback/
 --regex-ruby=/\bmodule\s+([A-Z][a-zA-Z_]+)/\1/m,module/
 --regex-ruby=/\bclass\s+([A-Z][a-zA-Z_]+)/\1/c,class/
---regex-ruby=/\b([A-Z][A-Z_0-9]*)\b/\1/C,const/
+--regex-ruby=/\b([A-Z][A-Z_0-9]*)\b/\1/C,constant/
 --regex-ruby=/\btrait\s+:([a-zA-Z_]+)/\1/t,trait/
 
 --exclude=*.min.*
