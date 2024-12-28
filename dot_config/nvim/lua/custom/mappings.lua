@@ -32,7 +32,7 @@ M.general = {
     ["<leader>tf"] = { "<cmd>NvimTreeFocus<CR>", "focus neovim tree" },
     ["<leader>nn"] = { "<cmd>Yazi<CR>", "Open yazi at the current file" },
     ["<leader>nN"] = { "<cmd>Yazi cwd<CR>", "Open the file manager in nvim's working directory" },
-    ["<leader>gs"] = { [[:silent !tmux new-window "tig status"<CR>]], "tig status" },
+    ["<leader>ts"] = { [[:silent !tmux new-window "tig status"<CR>]], "tig status" },
   },
   x = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
@@ -43,8 +43,8 @@ M.general = {
 M.hop = {
   n = {
     ["ss"] = { "<cmd>HopWord<CR>", "hop word" },
-    ["sp"] = { "<cmd>HopPattern<CR>", "hop pattern" },
-    ["sl"] = { "<cmd>HopLineStart<CR>", "hop line" },
+    ["s/"] = { "<cmd>HopPattern<CR>", "hop pattern" },
+    ["sl"] = { "<cmd>HopLineStarp<CR>", "hop line" },
   },
   x = {
     ["<leader>ss"] = { "<cmd>HopWord<CR>", "hop word" },
@@ -170,7 +170,7 @@ M.git = {
   n = {
     ["<leader>ghl"] = { ":GetCommitLink<CR>", "copy github code link" },
     ["<leader>gho"] = { ":GitBlameOpenFileURL<CR>", "open github browse with file and line" },
-    ["<leader>ghp"] = { ":!gh pr view --web <CR>", "open github pr" },
+    ["<leader>ghp"] = { ":silent !gh pr view --web <CR>", "open github pr" },
     ["<leader>cf"] = { "<cmd> Easypick changed_files<cr>", "telescope changed files for git" },
     ["<leader>gby"] = { "<cmd> GitBlameCopySHA<cr>", "copy github blame commit SHA" },
     ["<leader>gbo"] = { "<cmd> GitBlameOpenCommitURL<cr>", "open github blame commit" },
