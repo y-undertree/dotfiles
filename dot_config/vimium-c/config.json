@@ -1,7 +1,7 @@
 {
 	"name": "Vimium C",
-	"@time": "11/24/2024, 10:48:23 AM",
-	"time": 1732412903477,
+	"@time": "12/28/2024, 8:00:05 PM",
+	"time": 1735383605802,
 	"environment": {
 		"extension": "2.11.3",
 		"platform": "mac",
@@ -42,7 +42,7 @@
 		"esa: https://andpad-dev.esa.io/posts?q=%s",
 		"cs: https://cloudsearch.google.com/cloudsearch/search?q=%s",
 		"gd: https://drive.google.com/drive/search?q=%s",
-		"c: https://chatgpt.com/?q=%s&hints=search&ref=ext&temporary-chat=true",
+		"c: https://chatgpt.com/?q=%s&temporary-chat=true&hints=search&ref=ext",
 		"bi: https://cn.bing.com/search?q=$s",
 		"bi|bing: https://www.bing.com/search?q=%s \\",
 		"  blank=https://www.bing.com/ Bing",
