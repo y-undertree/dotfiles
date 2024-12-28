@@ -744,6 +744,7 @@ local plugins = {
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
+    enabled = false,
     lazy = false,
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
