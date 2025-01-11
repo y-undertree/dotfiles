@@ -31,15 +31,11 @@ M.treesitter = {
 
 M.mason = {
   ensure_installed = {
-    -- lua stuff
     "lua-language-server",
     "stylua",
-    -- "css-lsp",
     "stylelint",
     "html-lsp",
     "typescript-language-server",
-    -- "prettier",
-    -- "cspell",
     "cssmodules-language-server",
     "docker-compose-language-service",
     "erb-lint",
@@ -48,12 +44,11 @@ M.mason = {
     "json-lsp",
     "lua-language-server",
     "markdownlint",
-    -- "rubocop",
     "shfmt",
-    -- "solargraph",
     "sql-formatter",
     "sqlls",
     "vue-language-server",
+    "vetur-vls",
     "yaml-language-server",
     "yamlfmt",
   },

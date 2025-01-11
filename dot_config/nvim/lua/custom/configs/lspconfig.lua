@@ -11,10 +11,11 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local servers = {
   "html",
   -- "cssls",
-  -- "eslint",
+  "eslint",
   "stylelint_lsp",
   "ts_ls",
   "volar",
+  "vuels", -- slow...
   "solargraph",
   "ansiblels",
   "bashls",
@@ -76,15 +77,16 @@ lspconfig.lua_ls.setup {
   },
 }
 
-lspconfig.eslint.setup {
-  on_attach = function(client, bufnr)
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      buffer = bufnr,
-      command = "EslintFixAll",
-    })
-    on_attach(client, bufnr)
-    client.server_capabilities.documentFormattingProvider = true
-    client.server_capabilities.documentRangeFormattingProvider = true
-  end,
-  capabilities = capabilities,
-}
+-- lspconfig.eslint.setup {
+--   on_attach = function(client, bufnr)
+--     vim.api.nvim_create_autocmd("BufWritePre", {
+--       buffer = bufnr,
+--       command = "EslintFixAll",
+--     })
+--     on_attach(client, bufnr)
+--     client.server_capabilities.documentFormattingProvider = true
+--     client.server_capabilities.documentRangeFormattingProvider = true
+--   end,
+--   capabilities = capabilities,
+-- }
+
