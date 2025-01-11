@@ -21,6 +21,7 @@
   ci = commit -v
   cma = commit -a -v
   co = checkout
+  sw = switch
   cl = clone
   dc = diff --cached
   df = diff
@@ -108,3 +109,5 @@
   cmd = difft "$LOCAL" "$REMOTE"
 [init]
 	defaultBranch = main
+[blame]
+	ignoreRevsFile = .git-blame-ignore-revs
