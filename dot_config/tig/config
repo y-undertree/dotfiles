@@ -6,43 +6,40 @@ set diff-highlight = true
 bind generic	o !@git-pr-find %(commit)
 bind generic	O !@gh browse %(commit)
 bind generic	+ !git commit --amend --verbose
-bind generic  - ?git checkout -
-bind main   	B !git rebase -i %(commit)
+bind generic  - ?git switch -
+bind main   	B !git rebase --autosquash -i %(commit)
 bind main   	Y	!git pbcopy %(commit)
 bind main     ! ?git revert %(commit)
 bind main   	K	?git cherry-pick %(commit)
 bind main    <Esc>K ?git cherry-pick -n %(commit)
-bind main     = ?git checkout %(branch)
-bind main    <Esc>= ?git checkout %(commit)
+bind main     = ?git switch %(branch)
+bind main    <Esc>= ?git switch %(commit)
 bind main     T ?git tag "%(prompt Enter tag name: )" %(commit)
 bind main     F ?!git commit --fixup %(commit)
-bind main     S ?!git commit --squash %(commit)
 bind main    	P ?git push -u %(remote) %(repo:head)
-bind diff   	B !git rebase -i %(commit)
+bind diff   	B !git rebase --autosquash -i %(commit)
 bind diff     K ?git cherry-pick %(commit)
 bind diff    <Esc>K ?git cherry-pick -n %(commit)
 bind diff     F ?!git commit --fixup %(commit)
-bind diff     S ?!git commit --squash %(commit)
 bind refs     D ?git branch -d %(branch)
 bind refs     x ?sh -c "git branch --merged | grep -vE '^\\*|master$|develop$' | xargs -I % git branch -d %"
-bind refs	    =	?git checkout %(branch)
+bind refs	    =	?git switch %(branch)
 bind refs	    !	?git branch -D %(branch)
 bind refs     T ?git tag "%(prompt Enter tag name: )" %(branch)
 bind stage    Y @bash -c "echo -n '%(file)' | pbcopy"
 bind stage  	C	!git commit --verbose
+bind stage    <Ctrl-c> ?env SKIP="%(prompt Enter skip precommit: )" git commit --verbose
 bind status   Y @bash -c "echo -n '%(file)' | pbcopy"
 bind status   x ?git clean -d -f
 bind status   D ?git clean -d -f -- %(file)
 bind status  	P ?git push -u %(remote) %(repo:head)
 bind status  	C	!git commit --verbose
-bind stash    D ?git stash drop %(stash)
-bind stash    A	?git stash apply %(stash)
-bind stash    P	?git stash pop %(stash)
-bind stash    !	?git stash drop %(stash)
+bind status    <Ctrl-c> ?env SKIP="%(prompt Enter skip precommit: )" git commit --verbose
+bind status   S ?git stash push -u -m "%(prompt Enter stash message: )"
 bind tree     Y @bash -c "echo -n '%(file)' | pbcopy"
 bind tree     D ?git rm %(file)
 bind blob     Y @bash -c "echo -n '%(file)' | pbcopy"
-bind reflog  	=	?git checkout %(branch)
+bind reflog  	=	?git switch %(branch)
 bind reflog  	!	?git reset --hard %(commit)
 # ファイル単位もしくはコミット単位で上下移動
 bind diff     <Ctrl-n> :/^@@
