@@ -1393,7 +1393,7 @@ local plugins = {
     "ecthelionvi/NeoComposer.nvim",
     event = "VeryLazy",
     dependencies = { "kkharji/sqlite.lua" },
-    config = {
+    opts = {
       queue_most_recent = true,
     }
   },
@@ -1585,7 +1585,7 @@ local plugins = {
   {
     'danilamihailov/beacon.nvim',
     event = "VeryLazy",
-    config = {
+    opts = {
       enabled = true,                                --- (boolean | fun():boolean) check if enabled
       speed = 2,                                     --- integer speed at wich animation goes
       width = 60,                                    --- integer width of the beacon window
