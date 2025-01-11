@@ -1,4 +1,4 @@
---languages=ruby,javascript,typescript,rspec,php,go
+--languages=ruby,javascript,typescript,rspec,php,go,vue
 --ruby-kinds=+A
 --rspec-kinds=-c-i
 --javascript-kinds=-p-G-S-M-g
@@ -17,6 +17,13 @@
 --langdef=dockerfile
 --langmap=dockerfile:+(Dockerfile)
 --regex-dockerfile=/^(FROM|MAINTAINER|RUN|CMD|LABEL|EXPOSE|ENV|ADD|COPY|ENTRYPOINT|VOLUME|USER|WORKDIR|ARG|ONBUILD|STOPSIGNAL|HEALTHCHECK|SHELL)/\1/d,dockerfile,dockerfiles/
+
+--langdef=vue
+--langmap=vue:.vue
+--regex-vue=/\<template\>\s*\<\!\-\-\s*name:\s*([a-zA-Z0-9_]+)\s*\-\-\>/\1/t,template/
+--regex-vue=/\<script\>\s*export\s+default\s*{\s*name:\s*'([a-zA-Z0-9_]+)'/\1/c,class/
+--regex-vue=/\<script\>\s*export\s+default\s*{\s*name:\s*"([a-zA-Z0-9_]+)"/\1/c,class/
+--regex-vue=/\<script\>\s*export\s+default\s*{\s*components:\s*{\s*([a-zA-Z0-9_,\s]+)\s*}/\1/c,components/
 
 # ❯ ctags --list-kinds=Ruby
 # c  classes
@@ -80,3 +87,4 @@
 --append=yes
 --tag-relative=yes
 --extras=+{reference}
+
