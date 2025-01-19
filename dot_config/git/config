@@ -109,5 +109,3 @@
   cmd = difft "$LOCAL" "$REMOTE"
 [init]
 	defaultBranch = main
-[blame]
-	ignoreRevsFile = .git-blame-ignore-revs
