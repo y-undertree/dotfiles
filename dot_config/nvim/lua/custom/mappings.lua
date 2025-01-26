@@ -96,6 +96,11 @@ M.command_pallet = {
     ["<leader>@open-github"] = { ":silent !gh browse <CR>", "open github repository" },
     ["<leader>@suggest-diff-command"] = { [[:execute 'vert diffsplit' @+]], "suggest diffsplit command with clipboard" },
     ["<leader>@sessions"] = { "<cmd> Telescope session-lens <CR>", "telescope session list" },
+    ["<leader>@project-list"] = { "<cmd> Proot <CR>", "project list" },
+    ["<leader>@git-changed-files"] = { "<cmd> Easypick changed_files<cr>", "git changed files" },
+    ["<leader>@git-stage-files"] = { "<cmd> Easypick changed_files_stage<cr>", "git stage files" },
+    ["<leader>@git-diff-base-branch-files"] = { "<cmd> Easypick changed_files_compare_base_branch<cr>", "git diff base branch files" },
+    ["<leader>@lspsaga-finder"] = { "<cmd>Lspsaga finder <CR>", "lspsaga LSP finder" },
   },
 }
 
@@ -172,7 +177,6 @@ M.git = {
     ["<leader>ghl"] = { ":GetCommitLink<CR>", "copy github code link" },
     ["<leader>gho"] = { ":GitBlameOpenFileURL<CR>", "open github browse with file and line" },
     ["<leader>ghp"] = { ":silent !gh pr view --web <CR>", "open github pr" },
-    ["<leader>cf"] = { "<cmd> Easypick changed_files<cr>", "telescope changed files for git" },
     ["<leader>gby"] = { "<cmd> GitBlameCopySHA<cr>", "copy github blame commit SHA" },
     ["<leader>gbo"] = { "<cmd> GitBlameOpenCommitURL<cr>", "open github blame commit" },
     ["<leader>gbp"] = { "<cmd> OpenGithubBlamePr<cr>", "open github blame pull request" },
@@ -222,9 +226,8 @@ M.browser = {
 
 M.lsp_support = {
   n = {
-    -- ["gr"] = { "<cmd>Lspsaga finder <CR>", "lspsaga LSP finder - Find the symbol's definition" },
-    -- ["gj"] = { "<cmd>Lspsaga peek_definition<CR>", "lspsaga open peek_definition" },
-    -- ["gt"] = { "<cmd>Lspsaga peek_type_definition<CR>", "lspsaga peek_type_definition" },
+    ["gj"] = { "<cmd>Lspsaga peek_definition<CR>", "lspsaga open peek_definition" },
+    ["gt"] = { "<cmd>Lspsaga peek_type_definition<CR>", "lspsaga peek_type_definition" },
     ["<leader>dial"] = { "<cmd>Lspsaga show_line_diagnostics<CR>", "lspsaga show_line_diagnostics" },
     ["<leader>diab"] = { "<cmd>Lspsaga show_buf_diagnostics<CR>", "lspsaga show_buf_diagnostics" },
     ["<leader>diac"] = { "<cmd>Lspsaga show_cursor_diagnostics<CR>", "lspsaga show_cursor_diagnostics" },
@@ -235,8 +238,8 @@ M.lsp_support = {
     ["<leader>ra"] = { "<cmd>Lspsaga rename<CR>", "lspsaga rename" },
     ["gi"] = { "<cmd>Glance implementations<CR>", "Glance implementations" },
     ["gr"] = { "<cmd>Glance references<CR>", "Glance references" },
-    ["gj"] = { "<cmd>Glance definitions<CR>", "Glance definitions" },
-    ["gt"] = { "<cmd>Glance type_definitions <CR>", "Glance type_definitions" },
+    -- ["gj"] = { "<cmd>Glance definitions<CR>", "Glance definitions" },
+    -- ["gt"] = { "<cmd>Glance type_definitions <CR>", "Glance type_definitions" },
   },
   x = {
     ["<leader>wo"] = { "<Plug>(openbrowser-smart-search)", "search browser" },
