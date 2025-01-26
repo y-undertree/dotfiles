@@ -159,24 +159,24 @@ local plugins = {
     config = function()
       vim.diagnostic.config { virtual_text = false }
       require("lspsaga").setup {
-        -- finder = {
-        --   right_width = 0.7,
-        --   default = 'ref+imp',
-        --   keys = {
-        --     vsplit = 'v',
-        --     split = 's',
-        --     tabe = 'r',
-        --     tabnew = 't'
-        --   }
-        -- },
-        -- definition = {
-        --   keys = {
-        --     edit = 'o',
-        --     vsplit = 'v',
-        --     split = 's',
-        --     tabe = 't'
-        --   }
-        -- },
+        finder = {
+          right_width = 0.7,
+          default = 'tyd+def+imp+ref',
+          keys = {
+            vsplit = 'v',
+            split = 's',
+            tabe = 't',
+            tabnew = 'r'
+          }
+        },
+        definition = {
+          keys = {
+            edit = 'o',
+            vsplit = 'v',
+            split = 's',
+            tabe = 't'
+          }
+        },
         hover_doc = {
           open_link = 'wo',
         },
@@ -197,7 +197,7 @@ local plugins = {
         },
         code_action = {
           show_server_name = true,
-          -- extend_gitsigns = true,
+          extend_gitsigns = true,
         },
       }
     end,
@@ -210,6 +210,7 @@ local plugins = {
   {
     "dnlhc/glance.nvim",
     event = "VeryLazy",
+    enabled = false,
     config = function()
       local glance = require('glance')
       local actions = glance.actions
