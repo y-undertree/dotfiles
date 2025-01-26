@@ -1586,21 +1586,6 @@ local plugins = {
     end
   },
   {
-    'danilamihailov/beacon.nvim',
-    event = "VeryLazy",
-    opts = {
-      enabled = true,                                --- (boolean | fun():boolean) check if enabled
-      speed = 2,                                     --- integer speed at wich animation goes
-      width = 60,                                    --- integer width of the beacon window
-      winblend = 30,                                 --- integer starting transparency of beacon window :h winblend
-      fps = 60,                                      --- integer how smooth the animation going to be
-      min_jump = 10,                                 --- integer what is considered a jump. Number of lines
-      cursor_events = { 'CursorMoved' },             -- table<string> what events trigger check for cursor moves
-      window_events = { 'WinEnter', 'FocusGained' }, -- table<string> what events trigger cursor highlight
-      highlight = { bg = '#e6cc00', ctermbg = 15 },  -- vim.api.keyset.highlight table passed to vim.api.nvim_set_hl
-    }
-  },
-  {
     "aaronik/treewalker.nvim",
     event = "VeryLazy",
     opts = {
@@ -1610,6 +1595,34 @@ local plugins = {
   {
     'f-person/git-blame.nvim',
     event = "VeryLazy",
+  },
+  {
+    "zongben/proot.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+      "nvim-lua/plenary.nvim"
+    },
+    opts = {}
+  },
+  {
+    "j-hui/fidget.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- options
+    },
+  },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      { "github/copilot.vim" },                       -- or zbirenbaum/copilot.lua
+      { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+    },
+    build = "make tiktoken",                          -- Only on MacOS or Linux
+    opts = {
+      -- See Configuration section for options
+    },
   }
 }
 
