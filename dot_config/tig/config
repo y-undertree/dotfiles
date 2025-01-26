@@ -5,7 +5,7 @@ set diff-highlight = true
 # custom command
 bind generic	o !@git-pr-find %(commit)
 bind generic	O !@gh browse %(commit)
-bind generic	+ !git commit --amend --verbose
+bind generic	+ !env SKIP="" git commit --amend --verbose
 bind generic  - ?git switch -
 bind main   	B !git rebase --autosquash -i %(commit)
 bind main   	Y	!git pbcopy %(commit)
@@ -27,14 +27,14 @@ bind refs	    =	?git switch %(branch)
 bind refs	    !	?git branch -D %(branch)
 bind refs     T ?git tag "%(prompt Enter tag name: )" %(branch)
 bind stage    Y @bash -c "echo -n '%(file)' | pbcopy"
-bind stage  	C	!git commit --verbose
-bind stage    <Ctrl-c> ?env SKIP="%(prompt Enter skip precommit: )" git commit --verbose
+bind stage  	C	!env SKIP="" git commit --verbose
+bind stage    <Ctrl-c> !env SKIP="%(prompt Enter skip precommit: )" git commit --verbose
 bind status   Y @bash -c "echo -n '%(file)' | pbcopy"
 bind status   x ?git clean -d -f
 bind status   D ?git clean -d -f -- %(file)
 bind status  	P ?git push -u %(remote) %(repo:head)
 bind status  	C	!git commit --verbose
-bind status    <Ctrl-c> ?env SKIP="%(prompt Enter skip precommit: )" git commit --verbose
+bind status    <Ctrl-c> !env SKIP="%(prompt Enter skip precommit: )" git commit --verbose
 bind status   S ?git stash push -u -m "%(prompt Enter stash message: )"
 bind tree     Y @bash -c "echo -n '%(file)' | pbcopy"
 bind tree     D ?git rm %(file)
