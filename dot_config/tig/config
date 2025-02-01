@@ -36,6 +36,7 @@ bind status  	P ?git push -u %(remote) %(repo:head)
 bind status  	C	!git commit --verbose
 bind status    <Ctrl-c> !env SKIP="%(prompt Enter skip precommit: )" git commit --verbose
 bind status   S ?git stash push -u -m "%(prompt Enter stash message: )"
+bind status   A ?git add -A
 bind tree     Y @bash -c "echo -n '%(file)' | pbcopy"
 bind tree     D ?git rm %(file)
 bind blob     Y @bash -c "echo -n '%(file)' | pbcopy"
