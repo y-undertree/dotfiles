@@ -335,16 +335,16 @@ local plugins = {
       require("copilot").setup {
         suggestion = {
           enabled = false,
-          auto_trigger = true,
-          debounce = 75,
-          keymap = {
-            accept = "<C-]>",
-            accept_word = false,
-            accept_line = false,
-            next = "<C-n>",
-            prev = "<C-p>",
-            dismiss = "<C-e>",
-          },
+          -- auto_trigger = true,
+          -- debounce = 75,
+          -- keymap = {
+          --   accept = "<C-]>",
+          --   accept_word = false,
+          --   accept_line = false,
+          --   next = "<C-n>",
+          --   prev = "<C-p>",
+          --   dismiss = "<C-e>",
+          -- },
         },
         panel = { enabled = false },
         filetypes = {
@@ -363,6 +363,8 @@ local plugins = {
   },
   {
     "zbirenbaum/copilot-cmp",
+    event = { "InsertEnter", "LspAttach" },
+    fix_pairs = true,
     config = function()
       require("copilot_cmp").setup()
     end,
@@ -1609,7 +1611,67 @@ local plugins = {
     },
     build = "make tiktoken",                          -- Only on MacOS or Linux
     opts = {
-      -- See Configuration section for options
+      show_help = "yes",
+      prompts = {
+        Explain = {
+          prompt = "/COPILOT_EXPLAIN コードを日本語で説明してください",
+          mapping = '<leader>cce',
+          description = "コードの説明をお願いする",
+        },
+        Review = {
+          prompt = '/COPILOT_REVIEW コードを日本語でレビューしてください。',
+          mapping = '<leader>ccr',
+          description = "コードのレビューをお願いする",
+        },
+        Fix = {
+          prompt = "/COPILOT_FIX このコードには問題があります。バグを修正したコードを表示してください。説明は日本語でお願いします。",
+          mapping = '<leader>ccf',
+          description = "コードの修正をお願いする",
+        },
+        Optimize = {
+          prompt = "/COPILOT_REFACTOR 選択したコードを最適化し、パフォーマンスと可読性を向上させてください。説明は日本語でお願いします。",
+          mapping = '<leader>cco',
+          description = "コードの最適化をお願いする",
+        },
+        Docs = {
+          prompt = "/COPILOT_GENERATE 選択したコードに関するドキュメントコメントを日本語で生成してください。",
+          mapping = '<leader>ccd',
+          description = "コードのドキュメント作成をお願いする",
+        },
+        Tests = {
+          prompt = "/COPILOT_TESTS 選択したコードの詳細なユニットテストを書いてください。説明は日本語でお願いします。",
+          mapping = '<leader>cct',
+          description = "テストコード作成をお願いする",
+        },
+        FixDiagnostic = {
+          prompt = 'コードの診断結果に従って問題を修正してください。修正内容の説明は日本語でお願いします。',
+          mapping = '<leader>ccaf',
+          description = "コードの修正をお願いする",
+          -- selection = require('CopilotChat.select').diagnostics,
+        },
+        Commit = {
+          prompt =
+          '選択した差分のコミットメッセージを英語語で記述してください。',
+          mapping = '<leader>ccco',
+          description = "コミットメッセージの作成をお願いする",
+        },
+        CommitDiff = {
+          prompt =
+          '実装差分に対するコミットメッセージを英語語で記述してください。',
+          mapping = '<leader>cccd',
+          description = "コミットメッセージの作成をお願いする",
+          -- selection = require('CopilotChat.select').gitdiff,
+        },
+        CommitStaged = {
+          prompt =
+          'ステージ済みの変更に対するコミットメッセージを英語語で記述してください。',
+          mapping = '<leader>cccs',
+          description = "ステージ済みのコミットメッセージの作成をお願いする",
+          -- selection = function(source)
+          --   return require('CopilotChat.select').gitdiff(source, true)
+          -- end,
+        },
+      },
     },
   }
 }
