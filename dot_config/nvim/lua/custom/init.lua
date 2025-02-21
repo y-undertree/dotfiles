@@ -108,31 +108,35 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 -- endif
 -- ]]
 -- profile
-vim.api.nvim_create_user_command("Profilestart", function()
-  vim.api.nvim_command "profile start profile.log"
+vim.api.nvim_create_user_command("ProfileStart", function()
+  vim.api.nvim_command "profile start /tmp/profile.log"
   vim.api.nvim_command "profile func *"
   vim.api.nvim_command "profile file *"
 end, {})
-vim.api.nvim_create_user_command("Profileend", function()
+vim.api.nvim_create_user_command("ProfileEnd", function()
   vim.api.nvim_command "profile pause"
-  vim.api.nvim_command "edit profile.log"
+  vim.api.nvim_command "profile dump"
+  vim.api.nvim_command "edit /tmp/profile.log"
+end, {})
+vim.api.nvim_create_user_command("ProfileContinue", function()
+  vim.api.nvim_command "profile continue"
 end, {})
 
 -- dos'nt save register
-vim.cmd [[vnoremap x "_x]]
-vim.cmd [[nnoremap x "_x]]
-vim.cmd [[vnoremap s "_s]]
-vim.cmd [[nnoremap s "_s]]
+-- vim.cmd [[vnoremap x "_x]]
+-- vim.cmd [[nnoremap x "_x]]
+-- vim.cmd [[vnoremap s "_s]]
+-- vim.cmd [[nnoremap s "_s]]
 
-vim.cmd [[if executable('rg')
-    let &grepprg = 'rg --vimgrep'
-    set grepformat=%f:%l:%c:%m
-endif]]
+-- vim.cmd [[if executable('rg')
+--     let &grepprg = 'rg --vimgrep'
+--     set grepformat=%f:%l:%c:%m
+-- endif]]
 
-vim.cmd [[augroup GrepCmd
-    autocmd!
-    autocmd QuickFixCmdPost vim,grep,make,cfile,cbuffer if len(getqflist()) != 0 | cwindow | endif
-augroup END]]
+-- vim.cmd [[augroup GrepCmd
+--     autocmd!
+--     autocmd QuickFixCmdPost vim,grep,make,cfile,cbuffer if len(getqflist()) != 0 | cwindow | endif
+-- augroup END]]
 
 if vim.g.neovide then
   vim.g.neovide_cursor_vfx_mode = "railgun"

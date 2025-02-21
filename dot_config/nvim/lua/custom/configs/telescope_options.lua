@@ -103,9 +103,9 @@ local options = {
     "toggletasks",
     "macros",
     "smart_open",
-    "yank_history",
     "chezmoi",
     "notify",
+    "neoclip"
   },
   extensions = {
     ["telescope-alternate"] = {
