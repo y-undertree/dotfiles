@@ -1591,69 +1591,116 @@ local plugins = {
       { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
     },
     build = "make tiktoken",                          -- Only on MacOS or Linux
-    opts = {
-      show_help = "yes",
-      prompts = {
-        Explain = {
-          prompt = "/COPILOT_EXPLAIN コードを日本語で説明してください",
-          mapping = '<leader>cce',
-          description = "コードの説明をお願いする",
+    config = function()
+      require('CopilotChat').setup {
+        window = {
+          layout = 'float',
         },
-        Review = {
-          prompt = '/COPILOT_REVIEW コードを日本語でレビューしてください。',
-          mapping = '<leader>ccr',
-          description = "コードのレビューをお願いする",
+        settings = {
+          auto_save = true,
+          error_handling = "popup",
+          -- log_output = "/path/to/copilot.log",
         },
-        Fix = {
-          prompt = "/COPILOT_FIX このコードには問題があります。バグを修正したコードを表示してください。説明は日本語でお願いします。",
-          mapping = '<leader>ccf',
-          description = "コードの修正をお願いする",
+        show_help = "yes",
+        prompts = {
+          Explain = {
+            prompt = "/COPILOT_EXPLAIN コードを日本語で説明してください",
+            mapping = '<leader>cce',
+            description = "コードの説明をお願いする",
+          },
+          GenerateExample = {
+            prompt = "/COPILOT_EXAMPLE 選択したコードの使い方を示す具体的な例を日本語で生成してください。",
+            mapping = '<leader>ccex',
+            description = "コードの使い方の具体例をお願いする",
+          },
+          Review = {
+            prompt = '/COPILOT_REVIEW コードを日本語でレビューしてください。',
+            mapping = '<leader>ccr',
+            description = "コードのレビューをお願いする",
+          },
+          Fix = {
+            prompt = "/COPILOT_FIX このコードには問題があります。バグを修正したコードを表示してください。説明は日本語でお願いします。",
+            mapping = '<leader>ccf',
+            description = "コードの修正をお願いする",
+          },
+          SolveError = {
+            prompt = "/COPILOT_ERROR 選択したエラーメッセージに対する解決方法を日本語で教えてください。",
+            mapping = '<leader>cce',
+            description = "エラー解決のアドバイスをお願いする",
+          },
+          Optimize = {
+            prompt = "/COPILOT_REFACTOR 選択したコードを最適化し、パフォーマンスと可読性を向上させてください。説明は日本語でお願いします。",
+            mapping = '<leader>cco',
+            description = "コードの最適化をお願いする",
+          },
+          Docs = {
+            prompt = "/COPILOT_GENERATE 選択したコードに関するドキュメントコメントを日本語で生成してください。",
+            mapping = '<leader>ccd',
+            description = "コードのドキュメント作成をお願いする",
+          },
+          GenerateCode = {
+            prompt = "/COPILOT_GENERATE 特定の機能を実装するコードを生成してください。説明は日本語でお願いします。",
+            mapping = '<leader>ccg',
+            description = "機能実装のコード生成をお願いする",
+          },
+          Translate = {
+            prompt = "/COPILOT_TRANSLATE 選択したコードを別のプログラミング言語に変換してください。説明は日本語でお願いします。",
+            mapping = '<leader>cct',
+            description = "コードを別の言語に変換する",
+          },
+          SuggestRefactor = {
+            prompt = "/COPILOT_SUGGEST 選択したコードの改善提案をください。説明は日本語でお願いします。",
+            mapping = '<leader>ccs',
+            description = "リファクタリングの提案をお願いする",
+          },
+          Debug = {
+            prompt = "/COPILOT_DEBUG 選択したコードのバグを見つけてください。説明は日本語でお願いします。",
+            mapping = '<leader>ccd',
+            description = "コードのデバッグをお願いする",
+          },
+          Tests = {
+            prompt = "/COPILOT_TESTS 選択したコードの詳細なユニットテストを書いてください。説明は日本語でお願いします。",
+            mapping = '<leader>cct',
+            description = "テストコード作成をお願いする",
+          },
+          Commit = {
+            prompt = [[
+        以下の条件に基づいて、英語でコミットメッセージを生成してください:
+        1. [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) の形式を使用する。
+        2. 差分内容に基づき、適切なプレフィックス (e.g., feat, fix, chore, docs, refactor, test) を付与する。
+        3. 簡潔かつ具体的に変更内容と影響範囲を説明する。
+        4. 複雑な変更の場合は、改行して変更理由や補足情報も追加する。
+        ]],
+            mapping = '<leader>ccco',
+            description = "visualもしくは、bufferからコミットメッセージの作成をお願いする",
+          },
+          CommitDiff = {
+            prompt = [[
+        差分をもとに、英語でコミットメッセージを生成してください:
+        1. 変更のタイプ (追加、修正、削除、リファクタリングなど) を特定する。
+        2. [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) に従って、適切なプレフィックスを使用する。
+        3. 短くて明確なメッセージを心がける。
+        ]],
+            mapping = '<leader>cccd',
+            description = "indexの差分からコミットメッセージの作成をお願いする",
+            selection = require('CopilotChat.select').gitdiff,
+          },
+          CommitStaged = {
+            prompt = [[
+        stageの差分に基づき、英語でコミットメッセージを生成してください:
+        1. 適切な変更タイプ (e.g., feat, fix, docs, style, refactor, test, chore) を自動で判断してください。
+        2. 変更内容と目的を具体的に示し、可能であれば影響範囲も記述してください。
+        3. 必要ならば、補足情報を追加してください。
+        ]],
+            mapping = '<leader>cccs',
+            description = "stageの差分からコミットメッセージの作成をお願いする",
+            selection = function(source)
+              return require('CopilotChat.select').gitdiff(source, true)
+            end,
+          },
         },
-        Optimize = {
-          prompt = "/COPILOT_REFACTOR 選択したコードを最適化し、パフォーマンスと可読性を向上させてください。説明は日本語でお願いします。",
-          mapping = '<leader>cco',
-          description = "コードの最適化をお願いする",
-        },
-        Docs = {
-          prompt = "/COPILOT_GENERATE 選択したコードに関するドキュメントコメントを日本語で生成してください。",
-          mapping = '<leader>ccd',
-          description = "コードのドキュメント作成をお願いする",
-        },
-        Tests = {
-          prompt = "/COPILOT_TESTS 選択したコードの詳細なユニットテストを書いてください。説明は日本語でお願いします。",
-          mapping = '<leader>cct',
-          description = "テストコード作成をお願いする",
-        },
-        FixDiagnostic = {
-          prompt = 'コードの診断結果に従って問題を修正してください。修正内容の説明は日本語でお願いします。',
-          mapping = '<leader>ccaf',
-          description = "コードの修正をお願いする",
-          -- selection = require('CopilotChat.select').diagnostics,
-        },
-        Commit = {
-          prompt =
-          '選択した差分のコミットメッセージを英語語で記述してください。',
-          mapping = '<leader>ccco',
-          description = "コミットメッセージの作成をお願いする",
-        },
-        CommitDiff = {
-          prompt =
-          '実装差分に対するコミットメッセージを英語語で記述してください。',
-          mapping = '<leader>cccd',
-          description = "コミットメッセージの作成をお願いする",
-          -- selection = require('CopilotChat.select').gitdiff,
-        },
-        CommitStaged = {
-          prompt =
-          'ステージ済みの変更に対するコミットメッセージを英語語で記述してください。',
-          mapping = '<leader>cccs',
-          description = "ステージ済みのコミットメッセージの作成をお願いする",
-          -- selection = function(source)
-          --   return require('CopilotChat.select').gitdiff(source, true)
-          -- end,
-        },
-      },
-    },
+      }
+    end
   },
   {
     "AckslD/nvim-neoclip.lua",

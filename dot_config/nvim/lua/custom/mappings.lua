@@ -35,10 +35,12 @@ M.general = {
     ["<leader>nN"] = { "<cmd>Yazi cwd<CR>", "Open the file manager in nvim's working directory" },
     ["<leader>ts"] = { [[:silent !tmux new-window "tig status"<CR>]], "tig status" },
     ["<leader>v"] = { "<cmd>Telescope neoclip<CR>", "clipboard history" },
+    ["<leader>co"] = { "<cmd>CopilotChatToggle<CR>", "toggle copilot chat " },
   },
   x = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
     ["<leader>sna"] = { [[:lua require("scissors").addNewSnippet() <CR>]], "add snippet" },
+    ["<leader>co"] = { "<cmd>CopilotChatToggle<CR>", "toggle copilot chat " },
   },
   i = {
     ["<C-r>"] = { "<cmd>Telescope neoclip<CR>", "clipboard history" },
@@ -106,6 +108,7 @@ M.command_pallet = {
     ["<leader>@git-stage-files"] = { "<cmd> Easypick changed_files_stage<cr>", "git stage files" },
     ["<leader>@git-diff-base-branch-files"] = { "<cmd> Easypick changed_files_compare_base_branch<cr>", "git diff base branch files" },
     ["<leader>@lspsaga-finder"] = { "<cmd>Lspsaga finder <CR>", "lspsaga LSP finder" },
+    ["<leader>@copilot-actions"] = { [[:lua require("CopilotChat.integrations.telescope").pick(require("CopilotChat.actions").prompt_actions())<CR>]], "CopilotChat Propmpt Actions" },
   },
 }
 
