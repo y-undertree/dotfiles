@@ -13,7 +13,6 @@ tap "sanemat/font"
 tap "homebrew/cask-fonts"
 tap "dbcli/tap"
 mas "BetterSnapTool", id: 417375580
-mas "Things 3", id: 904280696
 mas "1password", id: 1333542190
 brew "ansible"
 # remove later. if like asdf
@@ -117,23 +116,15 @@ cask "visual-studio-code"
 cask "setapp"
 # cask "pushplaylabs-sidekick"
 cask "alfred"
-cask "raindropio"
 cask "slack"
 cask "alt-tab"
 cask "miro"
 cask "figma"
 cask "stoplight-studio"
-cask "mysqlworkbench"
-cask "karabiner-elements"
-cask "jasper"
 cask "microsoft-edge"
-#cask "deepl"
 cask "1password-cli"
 cask "flux"
 cask "aws-vault"
-
-# andpad only
-cask "gather"
 
 # development
 brew "imagemagick@6"
