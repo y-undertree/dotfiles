@@ -1,4 +1,3 @@
-import = ["/Users/kinoshityasunori/.alacritty-colorscheme/themes/dracula.toml"]
 
 [bell]
 color = "#ffffff"
@@ -119,7 +118,7 @@ history = 10000
 [selection]
 save_to_clipboard = true
 
-[shell]
+[terminal.shell]
 args = ["--login"]
 program = "/bin/zsh"
 
@@ -129,3 +128,8 @@ opacity = 0.95
 [window.padding]
 x = 20
 y = 20
+
+[general]
+import = ["~/.alacritty-colorscheme/themes/dracula.toml"]
+
+[terminal]
