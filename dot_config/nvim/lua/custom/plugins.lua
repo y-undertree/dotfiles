@@ -1565,6 +1565,12 @@ local plugins = {
   {
     'f-person/git-blame.nvim',
     event = "VeryLazy",
+    config = function()
+      -- vim.g.gitblame_display_virtual_text = 0
+      require('gitblame').setup {
+        enabled = false,
+      }
+    end
   },
   {
     "zongben/proot.nvim",
