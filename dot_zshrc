@@ -119,7 +119,7 @@ autoload -Uz show_snippets
 autoload -Uz y
 
 # thefuck. recommend!! https://github.com/nvbn/thefuck
-eval $(thefuck --alias fix)
+eval $(thefuck --alias)
 # 1password
 eval "$(op completion zsh)"; compdef _op op
 
