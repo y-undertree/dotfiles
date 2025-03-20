@@ -1635,7 +1635,7 @@ local plugins = {
             description = "エラー解決のアドバイスをお願いする",
           },
           Optimize = {
-            prompt = "/COPILOT_REFACTOR 選択したコードを最適化し、パフォーマンスと可読性を向上させてください。説明は日本語でお願いします。",
+            prompt = "/COPILOT_REFACTOR 選択したコードを最適化し、パフォーマンスと可読性（特にネーミング）を向上させてください。説明は日本語でお願いします。",
             mapping = '<leader>cco',
             description = "コードの最適化をお願いする",
           },
@@ -1674,18 +1674,19 @@ local plugins = {
         以下の条件に基づいて、英語でコミットメッセージを生成してください:
         1. [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) の形式を使用する。
         2. 差分内容に基づき、適切なプレフィックス (e.g., feat, fix, chore, docs, refactor, test) を付与する。
-        3. 簡潔かつ具体的に変更内容と影響範囲を説明する。
-        4. 複雑な変更の場合は、改行して変更理由や補足情報も追加する。
+        3. タイトルは簡潔的に、先頭を動詞かつ大文字で簡潔に記載する。
+        4. 本文は変更の目的や背景を文章で記載して、変更の概要を箇条書きで説明する。
         ]],
             mapping = '<leader>ccco',
             description = "visualもしくは、bufferからコミットメッセージの作成をお願いする",
           },
           CommitDiff = {
             prompt = [[
-        差分をもとに、英語でコミットメッセージを生成してください:
-        1. 変更のタイプ (追加、修正、削除、リファクタリングなど) を特定する。
-        2. [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) に従って、適切なプレフィックスを使用する。
-        3. 短くて明確なメッセージを心がける。
+        以下の条件に基づいて、英語でコミットメッセージを生成してください:
+        1. [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) の形式を使用する。
+        2. 差分内容に基づき、適切なプレフィックス (e.g., feat, fix, chore, docs, refactor, test) を付与する。
+        3. タイトルは簡潔的に、先頭を動詞かつ大文字で簡潔に記載する。
+        4. 本文は変更の目的や背景を文章で記載して、変更の概要を箇条書きで説明する。
         ]],
             mapping = '<leader>cccd',
             description = "indexの差分からコミットメッセージの作成をお願いする",
@@ -1693,10 +1694,11 @@ local plugins = {
           },
           CommitStaged = {
             prompt = [[
-        stageの差分に基づき、英語でコミットメッセージを生成してください:
-        1. 適切な変更タイプ (e.g., feat, fix, docs, style, refactor, test, chore) を自動で判断してください。
-        2. 変更内容と目的を具体的に示し、可能であれば影響範囲も記述してください。
-        3. 必要ならば、補足情報を追加してください。
+        stageの差分に基づいて、英語でコミットメッセージを生成してください:
+        1. [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) の形式を使用する。
+        2. 差分内容に基づき、適切なプレフィックス (e.g., feat, fix, chore, docs, refactor, test) を付与する。
+        3. タイトルは簡潔的に、先頭を動詞かつ大文字で簡潔に記載する。
+        4. 本文は変更の目的や背景を文章で記載して、変更の概要を箇条書きで説明する。
         ]],
             mapping = '<leader>cccs',
             description = "stageの差分からコミットメッセージの作成をお願いする",
