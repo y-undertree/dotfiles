@@ -24,6 +24,7 @@ M.blankline = {
 }
 
 M.luasnip = function(opts)
+  -- Warning!! not used
   require("luasnip").config.set_config(opts)
 
   -- vscode format

@@ -136,6 +136,17 @@ local plugins = {
       require("luasnip.loaders.from_lua").load()
       require("luasnip.loaders.from_lua").lazy_load { paths = vim.g.lua_snippets_path or "" }
 
+      local snippet_path = vim.fn.expand("~/.snippets/")
+      local filetypes = {
+        javascript = "javascript.lua",
+        ruby = "ruby.lua",
+      }
+
+      for ft, file in pairs(filetypes) do
+        local snippets = loadfile(snippet_path .. file)()
+        require("luasnip").add_snippets(ft, snippets)
+      end
+
       vim.api.nvim_create_autocmd("InsertLeave", {
         callback = function()
           if
