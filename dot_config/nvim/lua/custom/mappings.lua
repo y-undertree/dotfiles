@@ -122,8 +122,8 @@ M.obsidian = {
 M.telescope = {
   n = {
     -- find
-    ["<leader>ff"] = { [[:lua require("telescope").extensions.smart_open.smart_open({ cwd_only = true })<CR>]],
-      "find files by smart open" },
+    ["<leader>fs"] = { [[:lua require("telescope").extensions.smart_open.smart_open({ cwd_only = true })<CR>]], "find files by smart open" },
+    ["<leader>ff"] = { [[<cmd> Telescope git_files<CR>]], "find files by smart open" },
     ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "find all" },
     ["<leader>fg"] = { "<cmd> Telescope live_grep_args <CR>", "live grep" },
     ["gl"] = {
@@ -135,7 +135,6 @@ M.telescope = {
     ["<leader>jl"] = { "<cmd> Telescope jumplist <CR>", "telescope jumplist" },
     ["<leader>fq"] = { "<cmd> Telescope quickfixhistory <CR>", "telescope quickfixhistory" },
     ["<leader>fe"] = { "<cmd> Telescope diagnostics<CR>", "telescope diagnostics" },
-    ["<leader>fs"] = { "<cmd> Telescope treesitter<CR>", "telescope symbol treesitter" },
     ["<leader>fh"] = {
       "<cmd> Telescope highlight-annotate annotations<cr>",
       "telescope highlight-annotate annotations",

@@ -182,3 +182,4 @@ vim.api.nvim_create_user_command("OpenGithubBlamePr", function()
   local handle = io.popen(command, 'r')
   handle:close()
 end, {})
+

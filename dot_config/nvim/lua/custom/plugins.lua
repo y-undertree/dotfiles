@@ -441,34 +441,6 @@ local plugins = {
     dependencies = { "nvim-telescope/telescope.nvim" },
   },
   {
-    "crispgm/telescope-heading.nvim",
-    init = function()
-      require("core.utils").lazy_load "telescope-heading.nvim"
-    end,
-    dependencies = { "nvim-telescope/telescope.nvim" },
-  },
-  -- {
-  --   "prochri/telescope-all-recent.nvim",
-  --   event = "VeryLazy",
-  --   dependencies = { "kkharji/sqlite.lua", "nvim-telescope/telescope.nvim", "stevearc/dressing.nvim" },
-  --   config = function()
-  --     require("telescope-all-recent").setup {
-  --       default = {
-  --         disable = true, -- disable any unkown pickers (recommended)
-  --         use_cwd = true, -- differentiate scoring for each picker based on cwd
-  --         sorting = "frecency", -- sorting: options: 'recent' and 'frecency'
-  --       },
-  --       pickers = { -- allows you to overwrite the default settings for each picker
-  --         man_pages = { -- enable man_pages picker. Disable cwd and use frecency sorting.
-  --           disable = true,
-  --           use_cwd = false,
-  --           sorting = "frecency",
-  --         },
-  --       },
-  --     }
-  --   end,
-  -- },
-  {
     "danielfalk/smart-open.nvim",
     branch = "0.2.x",
     dependencies = {
@@ -483,13 +455,6 @@ local plugins = {
       require("core.utils").lazy_load "telescope-live-grep-args.nvim"
     end,
     dependencies = { "nvim-telescope/telescope.nvim" },
-  },
-  {
-    "nvim-telescope/telescope-smart-history.nvim",
-    init = function()
-      require("core.utils").lazy_load "telescope-smart-history.nvim"
-    end,
-    dependencies = { "kkharji/sqlite.lua", "nvim-telescope/telescope.nvim" },
   },
   {
     "nvim-telescope/telescope-media-files.nvim",
@@ -1786,7 +1751,7 @@ local plugins = {
         },
       })
     end,
-  }
+  },
 }
 
 return plugins

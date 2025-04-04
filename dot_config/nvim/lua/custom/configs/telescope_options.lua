@@ -73,8 +73,7 @@ local options = {
       case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
     },
     history = {
-      path = "~/.local/share/nvim/databases/telescope_history.sqlite3",
-      limit = 300,
+      limit = 100,
     },
   },
   pickers = {
@@ -85,13 +84,15 @@ local options = {
         },
       },
     },
+    git_files = {
+      sort_lastused = true
+    }
   },
   extensions_list = {
     "fzf",
     "themes",
     "terms",
     "ctags_plus",
-    "heading",
     "live_grep_args",
     "telescope-alternate",
     -- "harpoon",
@@ -105,7 +106,7 @@ local options = {
     "smart_open",
     "chezmoi",
     "notify",
-    "neoclip"
+    "neoclip",
   },
   extensions = {
     ["telescope-alternate"] = {
