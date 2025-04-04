@@ -7,7 +7,7 @@ alias sed='gsed'
 alias awsp='export AWS_PROFILE=$(sed -n "s/\[\(profile \)\?\|\]//gp" ~/.aws/config | fzf)'
 alias ctags="`brew --prefix`/opt/universal-ctags/bin/ctags"
 alias ctags-build="ctags -R -f .tags --fields=+ilnKz"
-alias ll='exa -la'
+alias ll='eza -la'
 # require zsh plugin = supercrabtree/k
 alias tailf='tail -f'
 alias mkdir='mkdir -p'
