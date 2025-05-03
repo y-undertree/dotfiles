@@ -65,6 +65,7 @@ vim.cmd "set wildmode=longest,list,full"
 vim.cmd "set shell=/bin/zsh"
 vim.cmd "let g:strip_whitespace_on_save = 1"
 vim.cmd "let g:nnn#set_default_mappings = 0"
+
 vim.cmd "set rnu!"
 -- QuickFix format
 vim.cmd [[set errorformat+=%f\|%l\ col\ %c\|\ %m"]]

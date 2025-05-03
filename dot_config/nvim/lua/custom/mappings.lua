@@ -306,13 +306,4 @@ M.lspconfig = {
   },
 }
 
-M.treewalker = {
-  n = {
-    ["}"] = { "<cmd>Treewalker Down<CR>", "Treewalker Down" },
-    ["{"] = { "<cmd>Treewalker Up<CR>", "Treewalker Up" },
-    -- ["<C-h>"] = { ":Treewalker Left<CR>", "Treewalker Left" },
-    -- ["<C-l>"] = { ":Treewalker Right<CR>", "Treewalker Right" }
-  },
-}
-
 return M

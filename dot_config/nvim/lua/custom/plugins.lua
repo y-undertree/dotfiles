@@ -1561,13 +1561,6 @@ local plugins = {
     end
   },
   {
-    "aaronik/treewalker.nvim",
-    event = "VeryLazy",
-    opts = {
-      highlight = true -- briefly highlight the node after jumping to it
-    },
-  },
-  {
     'f-person/git-blame.nvim',
     event = "VeryLazy",
     config = function()
