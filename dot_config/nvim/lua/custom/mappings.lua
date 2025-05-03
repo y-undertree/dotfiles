@@ -36,11 +36,21 @@ M.general = {
     ["<leader>ts"] = { [[:silent !tmux new-window "tig status"<CR>]], "tig status" },
     ["<leader>v"] = { "<cmd>Telescope neoclip<CR>", "clipboard history" },
     ["<leader>co"] = { "<cmd>CopilotChatToggle<CR>", "toggle copilot chat " },
+    ["<leader>tl"] = { "<cmd>Translate JA<CR>", "translate to ja" },
+    ["<leader>tre"] = { "<cmd>Translate EN -output=register<CR>", "translate to en, output register" },
+    ["[c"] = {
+      function()
+        require('treesitter-context').go_to_context(vim.v.count1)
+      end,
+      "jumping to context by treesitter context",
+    },
   },
   x = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
     ["<leader>sna"] = { [[:lua require("scissors").addNewSnippet() <CR>]], "add snippet" },
     ["<leader>co"] = { "<cmd>CopilotChatToggle<CR>", "toggle copilot chat " },
+    ["<leader>tl"] = { "<cmd>Translate JA<CR>", "translate to ja" },
+    ["<leader>tre"] = { "<cmd>Translate EN -output=register<CR>", "translate to en, output register" },
   },
   i = {
     ["<C-r>"] = { "<cmd>Telescope neoclip<CR>", "clipboard history" },
