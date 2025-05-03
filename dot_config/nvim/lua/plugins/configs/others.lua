@@ -2,7 +2,7 @@ local M = {}
 local utils = require "core.utils"
 
 M.blankline = {
-  plugin = false,
+  plugin = true,
   indentLine_enabled = 1,
   filetype_exclude = {
     "help",
@@ -21,6 +21,11 @@ M.blankline = {
   show_first_indent_level = false,
   show_current_context = true,
   show_current_context_start = true,
+  exclude = {
+    filetypes = { "help", "dashboard", "NvimTree" },
+    buftypes = { "terminal", "nofile" },
+  },
+  max_lines = 1000, -- 行数制限
 }
 
 M.luasnip = function(opts)
