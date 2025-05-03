@@ -841,33 +841,62 @@ local plugins = {
     cmd = "Luadev",
   },
   {
-    "tomasky/bookmarks.nvim",
-    event = "VimEnter",
+    "LintaoAmons/bookmarks.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      { "kkharji/sqlite.lua" },
+      { "nvim-telescope/telescope.nvim" },
+      { "stevearc/dressing.nvim" } -- optional: better UI
+    },
     config = function()
-      local current_dir = vim.fn.getcwd()
-      local current_branch = vim.fn.system("git rev-parse --abbrev-ref HEAD"):match("^%s*(.-)%s*$")
-      if current_branch == nil or current_branch == '' then
-        current_branch = "bookmarks"
-      end
-      local bookmark_paths = { "$HOME", ".bookmarks", current_dir }
-      local bookmark_dir = table.concat(bookmark_paths, "/")
-      local command = "mkdir -p " .. bookmark_dir
-      local result = os.execute(command)
+      local opts = {}
+      local bookmarks = require("bookmarks")
+      bookmarks.setup(opts)
 
-      if result then
-        vim.notify("Folder created successfully.", vim.log.levels.INFO)
-      else
-        vim.notify("Failed to create folder.", vim.log.levels.ERROR)
+      -- quick mark command
+      local function toggle_mark(input)
+        local Service = require("bookmarks.domain.service")
+        local Sign = require("bookmarks.sign")
+        local Tree = require("bookmarks.tree.operate")
+        Service.toggle_mark(input)
+        Sign.safe_refresh_signs()
+        pcall(Tree.refresh)
       end
-      require("bookmarks").setup {
-        save_file = vim.fn.expand(bookmark_dir .. "/" .. current_branch),
-        keywords = {
-          ["@t"] = "☑️ ", -- mark annotation startswith @t ,signs this icon as `Todo`
-          ["@w"] = "⚠️ ", -- mark annotation startswith @w ,signs this icon as `Warn`
-          ["@f"] = "⛏ ", -- mark annotation startswith @f ,signs this icon as `Fix`
-          ["@n"] = " ", -- mark annotation startswith @n ,signs this icon as `Note`
-        },
-      }
+      bookmarks.toggle_quick_mark = function()
+        toggle_mark("")
+      end
+      vim.api.nvim_create_user_command("BookmarksQuickMark", bookmarks.toggle_quick_mark, {
+        desc = "Toggle bookmark for the current line into active BookmarkList (no name).",
+      })
+      -- find_or_create_project_bookmark_group = function()
+      --   local project_root = require("project_nvim.project").get_project_root()
+      --   if not project_root then
+      --     return
+      --   end
+      --
+      --   local project_name = string.gsub(project_root, "^" .. os.getenv("HOME") .. "/", "")
+      --   local Service = require("bookmarks.domain.service")
+      --   local Repo = require("bookmarks.domain.repo")
+      --   local bookmark_list = nil
+      --
+      --   for _, bl in ipairs(Repo.find_lists()) do
+      --     if bl.name == project_name then
+      --       bookmark_list = bl
+      --       break
+      --     end
+      --   end
+      --
+      --   if not bookmark_list then
+      --     bookmark_list = Service.create_list(project_name)
+      --   end
+      --   Service.set_active_list(bookmark_list.id)
+      --   require("bookmarks.sign").safe_refresh_signs()
+      -- end
+      -- vim.api.nvim_create_autocmd({ "VimEnter", "BufEnter" }, {
+      --   group = vim.api.nvim_create_augroup("BookmarksGroup", {}),
+      --   pattern = { "*" },
+      --   callback = find_or_create_project_bookmark_group,
+      -- })
     end,
   },
   {

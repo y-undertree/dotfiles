@@ -62,14 +62,15 @@ M.hop = {
 
 M.bookmark = {
   n = {
-    ["mm"] = { [[:lua require("bookmarks").bookmark_toggle()<CR>]], "add or remove bookmark at current line" },
-    ["mi"] = { [[:lua require("bookmarks").bookmark_ann()<CR>]], "add or edit mark annotation at current line" },
-    ["mc"] = { [[:lua require("bookmarks").bookmark_clean()<CR>]], "clean all marks in local buffer" },
-    ["mn"] = { [[:lua require("bookmarks").bookmark_next()<CR>]], "jump to next mark in local buffer" },
-    ["mp"] = { [[:lua require("bookmarks").bookmark_prev()<CR>]], "jump to previous mark in local buffer" },
-    ["ml"] = { [[:lua require("bookmarks").bookmark_list()<CR>]], "show marked file list in quickfix window" },
-    ["mx"] = { [[:lua require("bookmarks").bookmark_clear_all()<CR>]], "removes all bookmarks" },
-    ["ms"] = { "<cmd> Telescope bookmarks list <CR>", "telescope bookmarks" },
+    ["mm"] = { "<cmd>BookmarksQuickMark<CR>", "add or remove quick bookmark at current line" },
+    ["mi"] = { "<cmd>BookmarksMark<CR>", "add or remove bookmark at current line" },
+    ["mc"] = { "<cmd>BookmarksDesc<CR>", "change description current line" },
+    ["mx"] = { [[:lua require("bookmarks.commands").delete_mark_of_current_file()<CR>]], "clean all bookmarks in local buffer" },
+    ["mn"] = { "<cmd>BookmarksGotoNext<CR>", "jump to next bookmark in local buffer" },
+    ["mp"] = { "<cmd>BookmarksGotoPrev<CR>", "jump to previous bookmark in local buffer" },
+    ["ml"] = { "<cmd>BookmarksLists<CR>", "show bookmarked file list in quickfix window" },
+    ["ms"] = { "<cmd>BookmarksGoto<CR>", "telescope bookmarks" },
+    ["mt"] = { "<cmd>BookmarksTree<CR>", "bookmark's tree view " },
   },
 }
 

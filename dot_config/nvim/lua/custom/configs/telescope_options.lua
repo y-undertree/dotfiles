@@ -99,7 +99,7 @@ local options = {
     "highlight-annotate",
     "session-lens",
     "media_files",
-    "bookmarks",
+    -- "bookmarks",
     "undo",
     "toggletasks",
     "macros",
