@@ -85,7 +85,8 @@ local options = {
       },
     },
     git_files = {
-      sort_lastused = true
+      sort_lastused = true,
+      show_untracked = true
     }
   },
   extensions_list = {
