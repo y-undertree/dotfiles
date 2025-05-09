@@ -1742,7 +1742,7 @@ local plugins = {
   {
     "uga-rosa/translate.nvim",
     event = "VeryLazy",
-    config = function ()
+    config = function()
       require("translate").setup({
         default = {
           command = "translate_shell",
