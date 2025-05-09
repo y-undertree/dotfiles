@@ -15,6 +15,7 @@ M.disabled = {
 M.general = {
   n = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
+    ["q;"] = { "q:", "command history sugar syntax", opts = { nowait = true } },
     ["<c-Up>"] = { ":resize +5<CR>", "resize window " },
     ["<c-Down>"] = { ":resize -5<CR>", "resize window down" },
     ["<c-left>"] = { ":vertical resize +5<CR>", "resize window left" },
@@ -101,6 +102,8 @@ M.command_pallet = {
     ["<leader>@tig-blame"] = { [[:silent !tmux new-window "tig blame $(echo %:p)"<CR>]], "tig blame current file" },
     ["<leader>@mysql-cli"] = { [[:silent !tmux new-window "/usr/local/bin/mycli -h 127.0.0.1 -u root"<CR>]], "mysql cli" },
     ["<leader>@macro-menu"] = { [[:lua require('NeoComposer.ui').toggle_macro_menu()<CR>]], "macro menu open" },
+    ["<leader>@macro-toggle"] = { [[:lua require('NeoComposer.ui').toggle_record()<CR>]], "macro toggle record" },
+    ["<leader>@macro-stop"] = { [[:lua require('NeoComposer.ui').stop_macro()<CR>]], "macro stop" },
     ["<leader>@search-spectre"] = { '<cmd>lua require("spectre").open_visual({select_word=true})<CR>',
       "replace and search by spectre" },
     ["<leader>@search-spectre-current-word"] = {

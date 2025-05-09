@@ -1376,6 +1376,15 @@ local plugins = {
     dependencies = { "kkharji/sqlite.lua" },
     opts = {
       queue_most_recent = true,
+      keymaps = {
+        play_macro = "<m-q>",
+        yank_macro = "<m-y>",
+        stop_macro = "<m-s>",
+        toggle_record = "<m-t>",
+        cycle_next = "<c-n>",
+        cycle_prev = "<c-p>",
+        toggle_macro_menu = "<m-q>",
+      },
     }
   },
   {
