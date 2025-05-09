@@ -323,12 +323,11 @@ local plugins = {
         local linenr = vim.api.nvim_win_get_cursor(0)[1]
         coverage_prefix = is_coverage and "COVERAGE=true " or ""
         require("toggleterm").exec(
-          coverage_prefix .. "bundle exec rspec " .. vim.fn.expand "%" .. ":" .. linenr .. ";beep", count,
-          20)
+          coverage_prefix .. "bundle exec rspec " .. vim.fn.expand "%" .. ":" .. linenr .. ";beep", count)
       end
       rspec_current_file = function(count, is_coverage)
         coverage_prefix = is_coverage and "COVERAGE=true " or ""
-        require("toggleterm").exec(coverage_prefix .. "bundle exec rspec " .. vim.fn.expand "%" .. ";beep", count, 20)
+        require("toggleterm").exec(coverage_prefix .. "bundle exec rspec " .. vim.fn.expand "%" .. ";beep", count)
       end
 
       vim.cmd [[command! -count=1 RspecCurrentLine lua rspec_current_line(<count>, false)]]
