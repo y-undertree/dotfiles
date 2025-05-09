@@ -22,8 +22,8 @@ M.blankline = {
   show_current_context = true,
   show_current_context_start = true,
   exclude = {
-    filetypes = { "help", "dashboard", "NvimTree" },
-    buftypes = { "terminal", "nofile" },
+    filetypes = { "help", "dashboard", "NvimTree", "gitrebase", "gitcommit", "hgcommit", "csv" },
+    buftypes = { "terminal", "nofile", "prompt", "popup", "quickfix", "help" },
   },
   max_lines = 1000, -- 行数制限
 }
@@ -47,8 +47,8 @@ M.luasnip = function(opts)
   vim.api.nvim_create_autocmd("InsertLeave", {
     callback = function()
       if
-        require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-        and not require("luasnip").session.jump_active
+          require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+          and not require("luasnip").session.jump_active
       then
         require("luasnip").unlink_current()
       end

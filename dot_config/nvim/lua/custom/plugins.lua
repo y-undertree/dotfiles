@@ -1391,8 +1391,8 @@ local plugins = {
     "nvim-focus/focus.nvim",
     event = "VeryLazy",
     config = function()
-      local ignore_filetypes = { "qf", "neo-tree", "neo-tree-popup", "notify" }
-      local ignore_buftypes = { 'nofile', 'prompt', 'popup', 'terminal' }
+      local ignore_filetypes = { "qf", "neo-tree", "neo-tree-popup", "notify", "help", "dashboard", "NvimTree" }
+      local ignore_buftypes = { 'nofile', 'prompt', 'popup', 'terminal', 'quickfix', 'help'}
 
       local augroup =
           vim.api.nvim_create_augroup('FocusDisable', { clear = true })
