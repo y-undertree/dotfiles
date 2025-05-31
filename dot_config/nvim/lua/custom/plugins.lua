@@ -1338,9 +1338,15 @@ local plugins = {
   },
   {
     "rachartier/tiny-inline-diagnostic.nvim",
-    event = "VeryLazy",
+    event = "LspAttach",
+    priority = 1000,
     config = function()
-      require('tiny-inline-diagnostic').setup()
+      require('tiny-inline-diagnostic').setup({
+        options = {
+          throttle = 250,
+        }
+      })
+      vim.diagnostic.config({ virtual_text = false })
     end
   },
   {
