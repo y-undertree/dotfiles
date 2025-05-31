@@ -148,7 +148,7 @@ local plugins = {
 
       for ft, file in pairs(filetypes) do
         local snippets = loadfile(snippet_path .. file)()
-        require("luasnip").add_snippets(ft, snippets)
+        -- require("luasnip").add_snippets(ft, snippets)
       end
 
       vim.api.nvim_create_autocmd("InsertLeave", {
@@ -982,42 +982,6 @@ local plugins = {
     ft = { "coffee" },
   },
   {
-    "kevinhwang91/nvim-hlslens",
-    lazy = false,
-    dependencies = { "rapan931/lasterisk.nvim" },
-    config = function()
-      require("hlslens").setup()
-      require("scrollbar.handlers.search").setup({})
-      local kopts = { noremap = true, silent = true }
-
-      vim.api.nvim_set_keymap(
-        "n",
-        "n",
-        [[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
-        kopts
-      )
-      vim.api.nvim_set_keymap(
-        "n",
-        "N",
-        [[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
-        kopts
-      )
-      vim.keymap.set("n", "*", function()
-        require("lasterisk").search()
-        require("hlslens").start()
-      end)
-
-      vim.keymap.set({ "n", "x" }, "g*", function()
-        require("lasterisk").search { is_whole = false }
-        require("hlslens").start()
-      end)
-
-      vim.cmd [[highlight HlSearchNear guifg=#0c171b guibg=#ecd28b]]
-      vim.cmd [[highlight HlSearchLens guifg=#0c171b guibg=#e9967e]]
-      vim.cmd [[highlight HlSearchLensNear guifg=#0c171b guibg=#ecd28b]]
-    end,
-  },
-  {
     "kevinhwang91/nvim-ufo",
     dependencies = { "kevinhwang91/promise-async", "nvim-treesitter/nvim-treesitter" },
     config = function()
@@ -1328,7 +1292,7 @@ local plugins = {
     event = "VeryLazy",
     config = function()
       local ignore_filetypes = { "qf", "neo-tree", "neo-tree-popup", "notify", "help", "dashboard", "NvimTree" }
-      local ignore_buftypes = { 'nofile', 'prompt', 'popup', 'terminal', 'quickfix', 'help'}
+      local ignore_buftypes = { 'nofile', 'prompt', 'popup', 'terminal', 'quickfix', 'help' }
 
       local augroup =
           vim.api.nvim_create_augroup('FocusDisable', { clear = true })
@@ -1378,13 +1342,6 @@ local plugins = {
     config = function()
       require('tiny-inline-diagnostic').setup()
     end
-  },
-  {
-    "petertriho/nvim-scrollbar",
-    event = "VeryLazy",
-    config = function()
-      require("scrollbar").setup()
-    end,
   },
   {
     "weizheheng/ror.nvim",
