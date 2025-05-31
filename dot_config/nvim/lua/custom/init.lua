@@ -109,6 +109,10 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 -- endif
 -- ]]
 -- profile
+-- :verbose autocmd CursorMoved
+-- :verbose autocmd CursorMovedI
+-- :verbose autocmd CursorHold
+-- :verbose autocmd CursorHoldI
 vim.api.nvim_create_user_command("ProfileStart", function()
   vim.api.nvim_command "profile start /tmp/profile.log"
   vim.api.nvim_command "profile func *"
@@ -184,3 +188,52 @@ vim.api.nvim_create_user_command("OpenGithubBlamePr", function()
   handle:close()
 end, {})
 
+local function open_in_direction(new_window)
+  local file = vim.fn.expand('<cfile>')
+  local line = nil
+
+  -- ファイル名:行番号対応（例: foo.py:42）
+  local current_line = vim.api.nvim_get_current_line()
+  local filename, lineno = string.match(current_line, "([^: ]+):(%d+)")
+  if filename and lineno then
+    file = filename
+    line = tonumber(lineno)
+  end
+
+  -- 入力を取得
+  print("方向を入力してください (h/j/k/l): ")
+  local char = vim.fn.getchar()
+  local key = vim.fn.nr2char(char)
+
+  -- 移動方向と分割コマンドのマッピング
+  local direction_map = {
+    h = { move = 'wincmd h', split = 'leftabove vsplit' },
+    j = { move = 'wincmd j', split = 'belowright split' },
+    k = { move = 'wincmd k', split = 'aboveleft split' },
+    l = { move = 'wincmd l', split = 'rightbelow vsplit' },
+  }
+
+  local direction = direction_map[key]
+  if not direction then
+    print("無効な入力: " .. key)
+    return
+  end
+
+  if new_window then
+    vim.cmd(direction.split)
+  else
+    vim.cmd(direction.move)
+  end
+
+  vim.cmd('edit ' .. file)
+  if line then
+    vim.cmd(tostring(line))
+  end
+end
+
+vim.api.nvim_create_user_command("OpenCurrentFileLine", function()
+  open_in_direction(false)
+end, {})
+vim.api.nvim_create_user_command("OpenCurrentFileLineNewWindow", function()
+  open_in_direction(true)
+end, {})

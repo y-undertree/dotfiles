@@ -45,6 +45,8 @@ M.general = {
       end,
       "jumping to context by treesitter context",
     },
+    ["<leader>gf"] = { "<cmd>OpenCurrentFileLine<CR>", "open file from current line" },
+    ["<leader>gF"] = { "<cmd>OpenCurrentFileLineNewWindow<CR>", "open file to new window from current line" },
   },
   x = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
