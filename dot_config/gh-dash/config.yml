@@ -41,6 +41,5 @@ repoPaths: # configure where to locate repos when checking out PRs
   dlvhdr/*: ~/code/repos/* # will match dlvhdr/repo-name to ~/code/repos/repo-name
   dlvhdr/gh-dash: ~/code/gh-dash # will not match wildcard and map to specified path
 keybindings: # optional, define custom keybindings - see more info below
-theme: # optional, see more info below
 pager:
   diff: delta # or delta for example
