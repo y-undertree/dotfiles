@@ -36,7 +36,6 @@ M.general = {
     ["<leader>nN"] = { "<cmd>Yazi cwd<CR>", "Open the file manager in nvim's working directory" },
     ["<leader>ts"] = { [[:silent !tmux new-window "tig status"<CR>]], "tig status" },
     ["<leader>v"] = { "<cmd>Telescope neoclip<CR>", "clipboard history" },
-    ["<leader>co"] = { "<cmd>CopilotChatToggle<CR>", "toggle copilot chat " },
     ["<leader>tl"] = { "<cmd>Translate JA<CR>", "translate to ja" },
     ["<leader>tre"] = { "<cmd>Translate EN -output=register<CR>", "translate to en, output register" },
     ["[c"] = {
@@ -47,16 +46,25 @@ M.general = {
     },
     ["<leader>gf"] = { "<cmd>OpenCurrentFileLine<CR>", "open file from current line" },
     ["<leader>gF"] = { "<cmd>OpenCurrentFileLineNewWindow<CR>", "open file to new window from current line" },
+    ["<leader>sn"] = { "<cmd>ScratchWithName<CR>", "scratch with name" },
   },
   x = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
-    ["<leader>sna"] = { [[:lua require("scissors").addNewSnippet() <CR>]], "add snippet" },
-    ["<leader>co"] = { "<cmd>CopilotChatToggle<CR>", "toggle copilot chat " },
     ["<leader>tl"] = { "<cmd>Translate JA<CR>", "translate to ja" },
     ["<leader>tre"] = { "<cmd>Translate EN -output=register<CR>", "translate to en, output register" },
   },
   i = {
     ["<C-r>"] = { "<cmd>Telescope neoclip<CR>", "clipboard history" },
+  },
+}
+
+M.codecompanion = {
+  n= {
+    ["<leader>co"] = { "<cmd>CodeCompanionChat Toggle<CR>", "toggle codecompanion chat " },
+    ["<leader>cca"] = { "<cmd>CodeCompanionActions<CR>", "codecompanion actions" },
+  },
+  x = {
+    ["<leader>co"] = { "<cmd>CodeCompanionChat Add<CR>", "add codecompanion chat" },
   },
 }
 
@@ -125,7 +133,6 @@ M.command_pallet = {
     ["<leader>@git-stage-files"] = { "<cmd> Easypick changed_files_stage<cr>", "git stage files" },
     ["<leader>@git-diff-base-branch-files"] = { "<cmd> Easypick changed_files_compare_base_branch<cr>", "git diff base branch files" },
     ["<leader>@lspsaga-finder"] = { "<cmd>Lspsaga finder <CR>", "lspsaga LSP finder" },
-    ["<leader>@copilot-actions"] = { [[:lua require("CopilotChat.integrations.telescope").pick(require("CopilotChat.actions").prompt_actions())<CR>]], "CopilotChat Propmpt Actions" },
   },
 }
 
@@ -139,8 +146,8 @@ M.obsidian = {
 M.telescope = {
   n = {
     -- find
-    ["<leader>fs"] = { [[:lua require("telescope").extensions.smart_open.smart_open({ cwd_only = true })<CR>]], "find files by smart open" },
-    ["<leader>ff"] = { [[<cmd> Telescope git_files<CR>]], "find files by smart open" },
+    ["<leader>ff"] = { [[:lua require("telescope").extensions.smart_open.smart_open({ cwd_only = true })<CR>]], "find files by smart open" },
+    ["<leader>fs"] = { [[<cmd> Telescope git_files<CR>]], "find files by smart open" },
     ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "find all" },
     ["<leader>fg"] = { "<cmd> Telescope live_grep_args <CR>", "live grep" },
     ["gl"] = {
@@ -162,6 +169,8 @@ M.telescope = {
     ["<leader>mh"] = { "<cmd> Telescope heading <CR>", "telescope markdown heading" },
     ["<leader>mc"] = { "<cmd> Telescope macros <CR>", "macros list" },
     ["<leader>cz"] = { "<cmd> lua require('telescope').extensions.chezmoi.find_files()<cr>", "chezmoi find files" },
+    ["<leader>so"] = { "<cmd> ScratchOpen<cr>", "scratch open" },
+    ["<leader>sf"] = { "<cmd> ScratchOpenFzf<cr>", "scratch fzf" },
     ["g]"] = {
       "<cmd>lua require('telescope').extensions.ctags_plus.jump_to_tag()<cr>",
       "ctags jump list for telescope",
@@ -185,7 +194,6 @@ M.git = {
   x = {
     ["<leader>ghl"] = { ":GetCommitLink<CR>", "github line link copy" },
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
-    ["<leader>sna"] = { [[:lua require("scissors").addNewSnippet() <CR>]], "add snippet" },
   },
 }
 

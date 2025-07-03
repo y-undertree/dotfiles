@@ -140,16 +140,16 @@ local plugins = {
       require("luasnip.loaders.from_lua").load()
       require("luasnip.loaders.from_lua").lazy_load { paths = vim.g.lua_snippets_path or "" }
 
-      local snippet_path = vim.fn.expand("~/.snippets/")
-      local filetypes = {
-        javascript = "javascript.lua",
-        ruby = "ruby.lua",
-      }
-
-      for ft, file in pairs(filetypes) do
-        local snippets = loadfile(snippet_path .. file)()
-        -- require("luasnip").add_snippets(ft, snippets)
-      end
+      -- local snippet_path = vim.fn.expand("~/.snippets/")
+      -- local filetypes = {
+      --   javascript = "javascript.lua",
+      --   ruby = "ruby.lua",
+      -- }
+      --
+      -- for ft, file in pairs(filetypes) do
+      --   local snippets = loadfile(snippet_path .. file)()
+      --   require("luasnip").add_snippets(ft, snippets)
+      -- end
 
       vim.api.nvim_create_autocmd("InsertLeave", {
         callback = function()
@@ -862,7 +862,7 @@ local plugins = {
       end
       require('bookmarks').setup {
         save_file = vim.fn.expand(bookmark_dir .. "/" .. current_branch),
-        keywords =  {
+        keywords = {
           ["@t"] = "☑️ ", -- mark annotation startswith @t ,signs this icon as `Todo`
           ["@w"] = "⚠️ ", -- mark annotation startswith @w ,signs this icon as `Warn`
           ["@f"] = "⛏ ", -- mark annotation startswith @f ,signs this icon as `Fix`
@@ -1337,19 +1337,6 @@ local plugins = {
     event = "VeryLazy",
   },
   {
-    "rachartier/tiny-inline-diagnostic.nvim",
-    event = "LspAttach",
-    priority = 1000,
-    config = function()
-      require('tiny-inline-diagnostic').setup({
-        options = {
-          throttle = 250,
-        }
-      })
-      vim.diagnostic.config({ virtual_text = false })
-    end
-  },
-  {
     "weizheheng/ror.nvim",
     event = "VeryLazy",
   },
@@ -1429,19 +1416,14 @@ local plugins = {
     event = "VeryLazy",
     config = function()
       -- vim.g.gitblame_display_virtual_text = 0
+      vim.g.gitblame_schedule_event = 'CursorHold'
+      vim.g.gitblame_clear_event = 'CursorHoldI'
       require('gitblame').setup {
-        enabled = false,
+        enabled = true,
+        message_template = " <date> | <summary> | <author>",
+        date_format = "%Y/%m/%d(%r)",
       }
     end
-  },
-  {
-    "zongben/proot.nvim",
-    event = "VeryLazy",
-    dependencies = {
-      "nvim-telescope/telescope.nvim",
-      "nvim-lua/plenary.nvim"
-    },
-    opts = {}
   },
   {
     "j-hui/fidget.nvim",
@@ -1451,125 +1433,405 @@ local plugins = {
     },
   },
   {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    branch = "main",
+    "olimorris/codecompanion.nvim",
     event = "VeryLazy",
     dependencies = {
-      { "github/copilot.vim" },                       -- or zbirenbaum/copilot.lua
-      { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "ravitemer/mcphub.nvim",
+      "j-hui/fidget.nvim"
     },
-    build = "make tiktoken",                          -- Only on MacOS or Linux
     config = function()
-      require('CopilotChat').setup {
-        window = {
-          layout = 'float',
+      require("codecompanion.fidget-spinner"):init()
+      require("codecompanion").setup({
+        language = "Japanese",
+        display = {
+          diff = {
+            enabled = true,
+            close_chat_at = 240,  -- Close an open chat buffer if the total columns of your display are less than...
+            layout = "vertical",  -- vertical|horizontal split for default provider
+            opts = { "internal", "filler", "closeoff", "algorithm:patience", "followwrap", "linematch:120" },
+            provider = "default", -- default|mini_diff
+          },
         },
-        settings = {
-          auto_save = true,
-          error_handling = "popup",
-          -- log_output = "/path/to/copilot.log",
+        strategies = {
+          chat = {
+            adapter = "copilot",
+            opts = {
+              ---Decorate the user message before it's sent to the LLM
+              ---@param message string
+              ---@param adapter CodeCompanion.Adapter
+              ---@param context table
+              ---@return string
+              prompt_decorator = function(message, adapter, context)
+                return string.format([[<prompt>%s</prompt>]], message)
+              end,
+              completion_provider = "cmp",
+            },
+            auto_scroll = false,
+            show_header_separator = true
+          },
+          inline = {
+            adapter = "copilot",
+          },
         },
-        show_help = "yes",
-        prompts = {
+        extensions = {
+          mcphub = {
+            callback = "mcphub.extensions.codecompanion",
+            opts = {
+              make_vars = true,
+              make_slash_commands = true,
+              show_result_in_chat = true
+            }
+          }
+        },
+        sources = {
+          per_filetype = {
+            codecompanion = { "codecompanion" },
+          }
+        },
+        prompt_library = {
+          GeneratePRDescription = {
+            strategy = "chat",
+            description = "Github Pull Requestの説明文を作成する",
+            opts = { short_name = "generate_pr_desc", is_slash_cmd = true },
+            references = {
+              {
+                type = "file",
+                path = { ".github/PULL_REQUEST_TEMPLATE.md" },
+              },
+            },
+            prompts = {
+              {
+                role = "user",
+                content = function()
+                  local pr = vim.fn.input("PR番号を入力してください: ")
+                  if pr == "" then
+                    vim.notify("PR番号が未入力です", vim.log.levels.ERROR)
+                    return nil
+                  end
+
+                  local commits = vim.fn.systemlist("gh pr view " .. pr .. " --json commits --jq '.commits[].oid'")
+                  if #commits == 0 then
+                    vim.notify("コミットが取得できませんでした", vim.log.levels.ERROR)
+                    return nil
+                  end
+
+                  local first = commits[1]
+                  local last = commits[#commits]
+                  local diff = vim.fn.systemlist("git diff " .. first .. "^.." .. last)
+
+                  return string.format([[
+                  以下の git diff に基づいて GitHub Pull Request の説明をすべて日本語で作成してください。
+                  目的、主な変更点、関連するコンテキストを含めてください。
+                  エンジニアがレビューしやすく、資産として残るような完璧な説明となるようにしてください。
+
+                  また、GitHub Pull Request の説明は、PULL_REQUEST_TEMPLATE.md をテンプレートとして活用してください。
+                  コミット内容の説明については、次に続くコミット情報を元に判断してください。
+
+                  # diff:
+                  %s
+
+                  # commits:
+                  %s
+                ]], table.concat(diff, "\n"), table.concat(commits, "\n"))
+                end,
+              },
+            },
+          },
+          GeneratePRReview = {
+            strategy = "chat",
+            description = "Github Pull RequestのPR Reviewをする",
+            opts = { short_name = "generate_pr_review", is_slash_cmd = true },
+            prompts = {
+              {
+                role = "system",
+                content = [[
+                  あなたは10年以上の経験を持つ上級Ruby on Railsエンジニアです。  
+                  以下のコードに対して、プロフェッショナルなコードレビューを行ってください。
+
+                  ## レビューの観点（必ずすべて網羅してください）
+
+                  1. **コードの意図が明確か**  
+                     - 命名の適切さ（モデル名、変数名、メソッド名）  
+                     - コメントの有無と内容の妥当性  
+
+                  2. **Railsのベストプラクティスに沿っているか**  
+                     - Fat Model / Skinny Controller  
+                     - ActiveRecordの使い方（N+1やスコープ）  
+                     - Strong Parametersやバリデーションの活用  
+
+                  3. **パフォーマンス面の懸念**  
+                     - 不要なクエリ、N+1の発生有無  
+                     - 無駄な処理やロジックの繰り返し  
+
+                  4. **保守性と再利用性**  
+                     - 冗長なコードの削減提案  
+                     - ヘルパーやConcernに切り出すべきロジックの指摘  
+
+                  5. **セキュリティ上の懸念点**  
+                     - SQLインジェクションやCSRF、XSSの可能性  
+                     - ユーザー入力の扱いの妥当性  
+
+                  6. **テストしやすいコードか**  
+                     - テスト容易性と関心の分離  
+                     - 不要な依存の排除提案  
+
+                  7. **書き換え案があれば具体的なコードで提示**  
+                     - diff形式またはbefore/after形式で示す  
+
+                  8. **影響範囲が広すぎないか**
+                     - 改修が影響する範囲を確認する(例: methodをgrepするなど)
+                     - 影響する範囲が広すぎる場合は、PRを分けるや、実装を調整するなどを具体的に提案する
+
+                  ## レビューの出力形式
+
+                  - 観点ごとに項目を分け、簡潔かつ網羅的に記載  
+                  - 否定的な指摘も、建設的かつ改善案付きで示す  
+                  - もし問題がなければ「特に問題なし」と明記
+                  - 問題のある部分は、強調する
+                ]]
+              },
+              {
+                role = "user",
+                content = function()
+                  local pr = vim.fn.input("PR番号を入力してください: ")
+                  if pr == "" then
+                    vim.notify("PR番号が未入力です", vim.log.levels.ERROR)
+                    return nil
+                  end
+
+                  local commits = vim.fn.systemlist("gh pr view " .. pr .. " --json commits --jq '.commits[].oid'")
+                  if #commits == 0 then
+                    vim.notify("コミットが取得できませんでした", vim.log.levels.ERROR)
+                    return nil
+                  end
+
+                  local first = commits[1]
+                  local last = commits[#commits]
+                  local diff = vim.fn.systemlist("git diff " .. first .. "^.." .. last)
+
+                  return string.format([[
+                    以下がレビュー対象のコードです:
+                    # diff:
+                    %s
+
+                    # commits:
+                    %s
+                  ]], table.concat(diff, "\n"), table.concat(commits, "\n"))
+                end,
+              },
+            },
+          },
           Explain = {
-            prompt = "/COPILOT_EXPLAIN コードを日本語で説明してください",
-            mapping = '<leader>cce',
-            description = "コードの説明をお願いする",
+            strategy = "chat",
+            description = "コードを日本語で説明する",
+            opts = { short_name = "explain", is_slash_cmd = true },
+            prompts = {
+              {
+                role = "user",
+                content = "このコードを日本語で説明してください。",
+              },
+            },
           },
           GenerateExample = {
-            prompt = "/COPILOT_EXAMPLE 選択したコードの使い方を示す具体的な例を日本語で生成してください。",
-            mapping = '<leader>ccex',
-            description = "コードの使い方の具体例をお願いする",
+            strategy = "chat",
+            description = "使い方の具体例を生成する",
+            opts = { short_name = "example", is_slash_cmd = true },
+            prompts = {
+              {
+                role = "user",
+                content = "このコードの使い方を示す具体的な例を日本語で生成してください。",
+              },
+            },
           },
           Review = {
-            prompt = '/COPILOT_REVIEW コードを日本語でレビューしてください。',
-            mapping = '<leader>ccr',
-            description = "コードのレビューをお願いする",
+            strategy = "chat",
+            description = "コードレビューを依頼する",
+            opts = { short_name = "review", is_slash_cmd = true },
+            prompts = {
+              {
+                role = "user",
+                content = "このコードを日本語でレビューしてください。",
+              },
+            },
           },
           Fix = {
-            prompt = "/COPILOT_FIX このコードには問題があります。バグを修正したコードを表示してください。説明は日本語でお願いします。",
-            mapping = '<leader>ccf',
-            description = "コードの修正をお願いする",
+            strategy = "chat",
+            description = "コードのバグ修正を依頼する",
+            opts = { short_name = "fix", is_slash_cmd = true },
+            prompts = {
+              {
+                role = "user",
+                content = "このコードには問題があります。バグを修正したコードを表示してください。説明は日本語でお願いします。",
+              },
+            },
           },
           SolveError = {
-            prompt = "/COPILOT_ERROR 選択したエラーメッセージに対する解決方法を日本語で教えてください。",
-            mapping = '<leader>cce',
-            description = "エラー解決のアドバイスをお願いする",
+            strategy = "chat",
+            description = "エラー解決のアドバイスをもらう",
+            opts = { short_name = "error", is_slash_cmd = true },
+            prompts = {
+              {
+                role = "user",
+                content = "選択したエラーメッセージに対する解決方法を日本語で教えてください。",
+              },
+            },
           },
           Optimize = {
-            prompt = "/COPILOT_REFACTOR 選択したコードを最適化し、パフォーマンスと可読性（特にネーミング）を向上させてください。説明は日本語でお願いします。",
-            mapping = '<leader>cco',
-            description = "コードの最適化をお願いする",
+            strategy = "chat",
+            description = "パフォーマンスと可読性の最適化",
+            opts = { short_name = "optimize", is_slash_cmd = true },
+            prompts = {
+              {
+                role = "user",
+                content = "選択したコードを最適化し、パフォーマンスと可読性（特にネーミング）を向上させてください。説明は日本語でお願いします。",
+              },
+            },
           },
           Docs = {
-            prompt = "/COPILOT_GENERATE 選択したコードに関するドキュメントコメントを日本語で生成してください。",
-            mapping = '<leader>ccd',
-            description = "コードのドキュメント作成をお願いする",
+            strategy = "chat",
+            description = "ドキュメントコメントを生成する",
+            opts = { short_name = "docs", is_slash_cmd = true },
+            prompts = {
+              {
+                role = "user",
+                content = "選択したコードに関するドキュメントコメントを日本語で生成してください。",
+              },
+            },
+          },
+          DocsAnnotation = {
+            strategy = "inline",
+            description = "methodのAnnotationを生成する",
+            opts = { short_name = "docs_annotation", is_slash_cmd = true },
+            prompts = {
+              {
+                role = "user",
+                content = "選択したコードに関するAnnotationを、コードリーディングがしやすくなるように生成してください。",
+              },
+            },
           },
           GenerateCode = {
-            prompt = "/COPILOT_GENERATE 特定の機能を実装するコードを生成してください。説明は日本語でお願いします。",
-            mapping = '<leader>ccg',
-            description = "機能実装のコード生成をお願いする",
+            strategy = "inline",
+            description = "機能実装コードを生成する",
+            opts = { short_name = "gen_code", is_slash_cmd = true },
+            prompts = {
+              {
+                role = "user",
+                content = "特定の機能を実装するコードを生成してください。説明は日本語でお願いします。",
+              },
+            },
           },
           Translate = {
-            prompt = "/COPILOT_TRANSLATE 選択したコードを別のプログラミング言語に変換してください。説明は日本語でお願いします。",
-            mapping = '<leader>cct',
-            description = "コードを別の言語に変換する",
+            strategy = "inline",
+            description = "コードを他言語に変換する",
+            opts = { short_name = "translate", is_slash_cmd = true },
+            prompts = {
+              {
+                role = "user",
+                content = "選択したコードを別のプログラミング言語に変換してください。説明は日本語でお願いします。",
+              },
+            },
           },
           SuggestRefactor = {
-            prompt = "/COPILOT_SUGGEST 選択したコードの改善提案をください。説明は日本語でお願いします。",
-            mapping = '<leader>ccs',
-            description = "リファクタリングの提案をお願いする",
+            strategy = "chat",
+            description = "改善提案をお願いする",
+            opts = { short_name = "suggest", is_slash_cmd = true },
+            prompts = {
+              {
+                role = "user",
+                content = "選択したコードの改善提案をください。説明は日本語でお願いします。",
+              },
+            },
           },
           Debug = {
-            prompt = "/COPILOT_DEBUG 選択したコードのバグを見つけてください。説明は日本語でお願いします。",
-            mapping = '<leader>ccd',
-            description = "コードのデバッグをお願いする",
+            strategy = "chat",
+            description = "バグの原因を探る",
+            opts = { short_name = "debug", is_slash_cmd = true },
+            prompts = {
+              {
+                role = "user",
+                content = "選択したコードのバグを見つけてください。説明は日本語でお願いします。",
+              },
+            },
           },
           Tests = {
-            prompt = "/COPILOT_TESTS 選択したコードの詳細なユニットテストを書いてください。説明は日本語でお願いします。",
-            mapping = '<leader>cct',
-            description = "テストコード作成をお願いする",
+            strategy = "chat",
+            description = "ユニットテストを生成する",
+            opts = { short_name = "tests", is_slash_cmd = true },
+            prompts = {
+              {
+                role = "user",
+                content = "選択したコードの詳細なユニットテストを書いてください。説明は日本語でお願いします。",
+              },
+            },
           },
           Commit = {
-            prompt = [[
-        以下の条件に基づいて、英語でコミットメッセージを生成してください:
-        1. [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) の形式を使用する。
-        2. 差分内容に基づき、適切なプレフィックス (e.g., feat, fix, chore, docs, refactor, test) を付与する。
-        3. タイトルは簡潔的に、先頭を動詞かつ大文字で簡潔に記載する。
-        4. 本文は変更の目的や背景を文章で記載して、変更の概要を箇条書きで説明する。
+            strategy = "chat",
+            description = "コミットメッセージを生成する",
+            opts = { short_name = "commit", is_slash_cmd = true },
+            prompts = {
+              {
+                role = "user",
+                content = [[
+以下の条件に基づいて、英語でコミットメッセージを生成してください:
+1. [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) の形式を使用する。
+2. 差分内容に基づき、適切なプレフィックス (e.g., feat, fix, chore, docs, refactor, test) を付与する。
+3. タイトルは簡潔的に、先頭を動詞かつ大文字で簡潔に記載する。
+4. 本文は変更の目的や背景を文章で記載して、変更の概要を箇条書きで説明する。
         ]],
-            mapping = '<leader>ccco',
-            description = "visualもしくは、bufferからコミットメッセージの作成をお願いする",
+              },
+            },
           },
           CommitDiff = {
-            prompt = [[
-        以下の条件に基づいて、英語でコミットメッセージを生成してください:
-        1. [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) の形式を使用する。
-        2. 差分内容に基づき、適切なプレフィックス (e.g., feat, fix, chore, docs, refactor, test) を付与する。
-        3. タイトルは簡潔的に、先頭を動詞かつ大文字で簡潔に記載する。
-        4. 本文は変更の目的や背景を文章で記載して、変更の概要を箇条書きで説明する。
-        ]],
-            mapping = '<leader>cccd',
-            description = "indexの差分からコミットメッセージの作成をお願いする",
-            selection = require('CopilotChat.select').gitdiff,
+            strategy = "chat",
+            description = "indexの差分からコミットメッセージを生成する",
+            opts = { short_name = "commitdiff", is_slash_cmd = true },
+            prompts = {
+              {
+                role = "user",
+                content = function()
+                  local diff = vim.fn.systemlist("git diff --cached")
+                  return string.format([[
+以下の条件に基づいて、英語でコミットメッセージを生成してください:
+1. [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) の形式を使用する。
+2. 差分内容に基づき、適切なプレフィックス (e.g., feat, fix, chore, docs, refactor, test) を付与する。
+3. タイトルは簡潔的に、先頭を動詞かつ大文字で簡潔に記載する。
+4. 本文は変更の目的や背景を文章で記載して、変更の概要を箇条書きで説明する。
+
+# diff:
+%s
+          ]], table.concat(diff, "\n"))
+                end,
+              },
+            },
           },
           CommitStaged = {
-            prompt = [[
-        stageの差分に基づいて、英語でコミットメッセージを生成してください:
-        1. [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) の形式を使用する。
-        2. 差分内容に基づき、適切なプレフィックス (e.g., feat, fix, chore, docs, refactor, test) を付与する。
-        3. タイトルは簡潔的に、先頭を動詞かつ大文字で簡潔に記載する。
-        4. 本文は変更の目的や背景を文章で記載して、変更の概要を箇条書きで説明する。
-        ]],
-            mapping = '<leader>cccs',
-            description = "stageの差分からコミットメッセージの作成をお願いする",
-            selection = function(source)
-              return require('CopilotChat.select').gitdiff(source, true)
-            end,
+            strategy = "chat",
+            description = "ステージ済み差分からコミットメッセージを生成する",
+            opts = { short_name = "commitstaged", is_slash_cmd = true },
+            prompts = {
+              {
+                role = "user",
+                content = function()
+                  local diff = vim.fn.systemlist("git diff --cached")
+                  return string.format([[
+以下の条件に基づいて、英語でコミットメッセージを生成してください:
+1. [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) の形式を使用する。
+2. 差分内容に基づき、適切なプレフィックス (e.g., feat, fix, chore, docs, refactor, test) を付与する。
+3. タイトルは簡潔的に、先頭を動詞かつ大文字で簡潔に記載する。
+4. 本文は変更の目的や背景を文章で記載して、変更の概要を箇条書きで説明する。
+
+# staged diff:
+%s
+          ]], table.concat(diff, "\n"))
+                end,
+              },
+            },
           },
         },
-      }
+      })
+      vim.cmd([[cab cc CodeCompanion]])
     end
   },
   {
@@ -1712,7 +1974,96 @@ local plugins = {
   {
     "wsdjeg/quickfix.nvim",
     ft = { "qf" },
-  }
+  },
+  {
+    "LintaoAmons/scratch.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      { "ibhagwan/fzf-lua" },              --optional: if you want to use fzf-lua to pick scratch file. Recommanded, since it will order the files by modification datetime desc. (require rg)
+      { "nvim-telescope/telescope.nvim" }, -- optional: if you want to pick scratch file by telescope
+      { "stevearc/dressing.nvim" }         -- optional: to have the same UI shown in the GIF
+    },
+    config = function()
+      require("scratch").setup({
+        -- scratch_file_dir = vim.fn.stdpath("cache") .. "/scratch.nvim",
+        scratch_file_dir = "~/Documents/andpad/50-Resource/Scratch",
+      })
+    end
+  },
+  {
+    "folke/trouble.nvim",
+    opts = {
+      throttle = {
+        refresh = 250,                           -- fetches new data when needed
+        update = 100,                            -- updates the window
+        render = 100,                            -- renders the window
+        follow = 250,                            -- follows the current item
+        preview = { ms = 100, debounce = true }, -- shows the preview for the current item
+      }
+    },
+    cmd = "Trouble",
+    keys = {
+      {
+        "<leader>xX",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>xx",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+      {
+        "<leader>cs",
+        "<cmd>Trouble symbols toggle focus=false<cr>",
+        desc = "Symbols (Trouble)",
+      },
+      {
+        "<leader>cl",
+        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+        desc = "LSP Definitions / references / ... (Trouble)",
+      },
+      {
+        "<leader>xL",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List (Trouble)",
+      },
+      {
+        "<leader>xQ",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List (Trouble)",
+      },
+    },
+  },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown", "codecompanion" }
+  },
+  {
+    "HakonHarnes/img-clip.nvim",
+    ft = { 'markdown', 'codecompanion' },
+    opts = {
+      filetypes = {
+        codecompanion = {
+          prompt_for_file_name = false,
+          template = "[Image]($FILE_PATH)",
+          use_absolute_path = true,
+        },
+      },
+    },
+  },
+  {
+    "echasnovski/mini.diff",
+    event = "VeryLazy",
+    config = function()
+      local diff = require("mini.diff")
+      diff.setup({
+        -- Disabled by default
+        source = diff.gen_source.none(),
+      })
+    end,
+  },
+
 }
 
 return plugins
