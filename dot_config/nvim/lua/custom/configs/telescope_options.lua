@@ -1,6 +1,8 @@
 -- cSpell:disable
 local actions = require "telescope.actions"
 local lga_actions = require "telescope-live-grep-args.actions"
+local open_with_trouble = require("trouble.sources.telescope").open
+
 local options = {
   defaults = {
     vimgrep_arguments = {
@@ -27,13 +29,14 @@ local options = {
         prompt_position = "top",
         preview_width = 0.55,
         results_width = 0.8,
+        preview_cutoff = 200,
       },
       vertical = {
         mirror = false,
       },
       width = 0.95,
       height = 0.95,
-      preview_cutoff = 120,
+      preview_cutoff = 200,
     },
     file_sorter = require("telescope.sorters").get_fuzzy_file,
     file_ignore_patterns = { ".git/", "node_modules/", "vendor/bundle/" },
@@ -52,18 +55,20 @@ local options = {
     mappings = {
       n = {
         ["q"] = require("telescope.actions").close,
-        ["<C-l>"] = actions.send_to_qflist + actions.open_qflist,
+        ["<C-a>"] = actions.send_to_qflist + actions.open_qflist,
         ["<C-s>"] = actions.send_selected_to_qflist + actions.open_qflist,
         ["<C-w>"] = lga_actions.quote_prompt(),
-        ["<C-f>"] = actions.to_fuzzy_refine,
+        ["<C-p>"] = actions.to_fuzzy_refine,
+        ["<C-t>"] = open_with_trouble,
+        ["<C-h>"] = actions.preview_scrolling_left,
+        ["<C-l>"] = actions.preview_scrolling_right,
+        ["h"] = actions.results_scrolling_left,
+        ["l"] = actions.results_scrolling_right,
       },
       i = {
-        ["<C-l>"] = actions.send_to_qflist + actions.open_qflist,
-        ["<C-s>"] = actions.send_selected_to_qflist + actions.open_qflist,
         ["<C-j>"] = actions.cycle_history_next,
         ["<C-k>"] = actions.cycle_history_prev,
         ["<C-w>"] = lga_actions.quote_prompt(),
-        ["<C-f>"] = actions.to_fuzzy_refine,
       },
     },
     fzf = {
@@ -96,11 +101,9 @@ local options = {
     "ctags_plus",
     "live_grep_args",
     "telescope-alternate",
-    -- "harpoon",
     "highlight-annotate",
     "session-lens",
     "media_files",
-    -- "bookmarks",
     "undo",
     "toggletasks",
     "macros",
@@ -108,6 +111,7 @@ local options = {
     "chezmoi",
     "notify",
     "neoclip",
+    "bookmarks",
   },
   extensions = {
     ["telescope-alternate"] = {
@@ -192,7 +196,7 @@ local options = {
       mappings = {          -- extend mappings
         i = {
           ["<tab>"] = lga_actions.quote_prompt { postfix = " --iglob " },
-          ["<C-h>"] = lga_actions.quote_prompt({ postfix = " --hidden **/* " }),
+          ["<C-x>"] = lga_actions.quote_prompt({ postfix = " --hidden **/* " }),
         },
       },
       -- ... also accepts theme settings, for example:
