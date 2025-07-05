@@ -5,10 +5,13 @@
 local M = {}
 
 ---@type Base46HLGroupsList
+-- これは反映される
 M.override = {
   Comment = {
     italic = true,
+    fg='#999999',
   },
+  ["@comment"] = { fg = "#7faa7f", italic = true },
 }
 
 ---@type HLTable
