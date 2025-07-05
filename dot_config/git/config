@@ -17,7 +17,6 @@
   sh = show
   sb = show-branch
   br = branch
-  rema = rebase origin/master master
   ci = commit -v
   cma = commit -a -v
   co = checkout
@@ -35,12 +34,13 @@
   ituja = log --patch -S
   pusho = push origin
   pullo = pull origin
-  nmerge = merge --no-ff
   tag = tag -ln
   pr = pull-request
   open = browse
-  merge-self-force = merge -X ours
-  merge-force = merge -X theirs
+  m = merge
+  mnoff = merge --no-ff
+  mf-self = merge -X ours
+  mf = merge -X theirs
   pbcopy = !printf "$1" | pbcopy
   dft = difftool
   dlog = "!f() { GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
