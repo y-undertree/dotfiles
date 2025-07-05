@@ -50,3 +50,4 @@ bind log      <Ctrl-p> :?^commit
 bind stage    <Ctrl-n> :/^@@
 bind stage    <Ctrl-p> :?^@@
 
+source ~/.config/tig/theme.tigrc
