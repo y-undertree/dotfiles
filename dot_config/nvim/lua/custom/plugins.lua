@@ -1473,10 +1473,12 @@ local plugins = {
       local copilot_token_path = vim.fn.expand("~/.config/github-copilot/hosts.json")
       local copilot_available = vim.fn.filereadable(copilot_token_path) == 1
       local adapter = 'copilot'
+      local adapter_model = "gpt-4.1"
       if copilot_available == true then
         adapter = 'copilot'
       elseif vim.fn.executable("op") == 1 then
         adapter = 'openai'
+        adapter_model = "gpt-4.1-nano"
         vim.notify("Use OpenAI adapter", vim.log.levels.WARN)
       else
         vim.notify("No available CodeCompanion adapter (OpenAI or Copilot)", vim.log.levels.ERROR)
@@ -1489,7 +1491,6 @@ local plugins = {
             return require("codecompanion.adapters").extend("openai", {
               env = {
                 api_key = "cmd:op read op://personal/OpenAI/apikey",
-                model = "gpt-4.1-nano",
               },
             })
           end,
@@ -1502,10 +1503,15 @@ local plugins = {
             opts = { "internal", "filler", "closeoff", "algorithm:patience", "followwrap", "linematch:120" },
             provider = "default", -- default|mini_diff
           },
+          chat = {
+            auto_scroll = false,
+            show_header_separator = true
+          }
         },
         strategies = {
           chat = {
             adapter = adapter,
+            model = adapter_model,
             opts = {
               ---Decorate the user message before it's sent to the LLM
               ---@param message string
@@ -1517,11 +1523,10 @@ local plugins = {
               end,
               completion_provider = "cmp",
             },
-            auto_scroll = false,
-            show_header_separator = true
           },
           inline = {
             adapter = adapter,
+            model = adapter_model,
           },
         },
         extensions = {
