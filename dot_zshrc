@@ -121,6 +121,7 @@ autoload -Uz y
 # thefuck. recommend!! https://github.com/nvbn/thefuck
 eval $(thefuck --alias)
 # 1password
+eval $(op signin)
 eval "$(op completion zsh)"; compdef _op op
 
 # nnn
