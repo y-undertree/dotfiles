@@ -1291,7 +1291,7 @@ local plugins = {
     "nvim-focus/focus.nvim",
     event = "VeryLazy",
     config = function()
-      local ignore_filetypes = { "qf", "neo-tree", "neo-tree-popup", "notify", "help", "dashboard", "NvimTree" }
+      local ignore_filetypes = { "qf", "neo-tree", "neo-tree-popup", "notify", "help", "dashboard", "NvimTree", "codecompanion" }
       local ignore_buftypes = { 'nofile', 'prompt', 'popup', 'terminal', 'quickfix', 'help' }
 
       local augroup =
@@ -1439,12 +1439,61 @@ local plugins = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
       "ravitemer/mcphub.nvim",
-      "j-hui/fidget.nvim"
+      "j-hui/fidget.nvim",
+      {
+        "MeanderingProgrammer/render-markdown.nvim",
+        ft = { "markdown", "codecompanion" }
+      },
+      {
+        "HakonHarnes/img-clip.nvim",
+        ft = { 'markdown', 'codecompanion' },
+        opts = {
+          filetypes = {
+            codecompanion = {
+              prompt_for_file_name = false,
+              template = "[Image]($FILE_PATH)",
+              use_absolute_path = true,
+            },
+          },
+        },
+      },
+      {
+        "Davidyz/VectorCode",
+        version = "*",      -- optional, depending on whether you're on nightly or release
+        dependencies = { "nvim-lua/plenary.nvim" },
+        cmd = "VectorCode", -- if you're lazy-loading VectorCode
+      },
+      {
+        "ravitemer/codecompanion-history.nvim"
+      }
     },
     config = function()
       require("codecompanion.fidget-spinner"):init()
+      require("codecompanion.fidget-progress-message"):init()
+      local copilot_token_path = vim.fn.expand("~/.config/github-copilot/hosts.json")
+      local copilot_available = vim.fn.filereadable(copilot_token_path) == 1
+      local adapter = 'copilot'
+      if copilot_available == true then
+        adapter = 'copilot'
+      elseif vim.fn.executable("op") == 1 then
+        adapter = 'openai'
+        vim.notify("Use OpenAI adapter", vim.log.levels.WARN)
+      else
+        vim.notify("No available CodeCompanion adapter (OpenAI or Copilot)", vim.log.levels.ERROR)
+        return
+      end
       require("codecompanion").setup({
         language = "Japanese",
+        adapters = {
+          openai = function()
+            return require("codecompanion.adapters").extend("openai", {
+              env = {
+                api_key = "cmd:op read op://personal/OpenAI/apikey",
+                model = "gpt-4.1-nano",
+              },
+            })
+          end,
+        },
         display = {
           diff = {
             enabled = true,
@@ -1456,7 +1505,7 @@ local plugins = {
         },
         strategies = {
           chat = {
-            adapter = "copilot",
+            adapter = adapter,
             opts = {
               ---Decorate the user message before it's sent to the LLM
               ---@param message string
@@ -1472,7 +1521,7 @@ local plugins = {
             show_header_separator = true
           },
           inline = {
-            adapter = "copilot",
+            adapter = adapter,
           },
         },
         extensions = {
@@ -1483,7 +1532,59 @@ local plugins = {
               make_slash_commands = true,
               show_result_in_chat = true
             }
-          }
+          },
+          history = {
+            enabled = true,
+            opts = {
+              -- Keymap to open history from chat buffer (default: gh)
+              keymap = "gh",
+              -- Keymap to save the current chat manually (when auto_save is disabled)
+              save_chat_keymap = "sc",
+              -- Save all chats by default (disable to save only manually using 'sc')
+              auto_save = true,
+              -- Number of days after which chats are automatically deleted (0 to disable)
+              expiration_days = 0,
+              -- Customize picker keymaps (optional)
+              picker_keymaps = {
+                rename = { n = "r", i = "<M-r>" },
+                delete = { n = "d", i = "<M-d>" },
+                duplicate = { n = "<C-y>", i = "<C-y>" },
+              },
+              ---Automatically generate titles for new chats
+              auto_generate_title = false,
+              ---On exiting and entering neovim, loads the last chat on opening chat
+              continue_last_chat = true,
+              ---When chat is cleared with `gx` delete the chat from history
+              delete_on_clearing_chat = true,
+              ---Directory path to save the chats
+              dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",
+              ---Enable detailed logging for history extension
+              enable_logging = false,
+
+              -- Summary system
+              summary = {
+                -- Keymap to generate summary for current chat (default: "gcs")
+                create_summary_keymap = "gcs",
+                -- Keymap to browse summaries (default: "gbs")
+                browse_summaries_keymap = "gbs",
+              },
+            }
+          },
+          -- required vectorcode cli
+          -- vectorcode = {
+          --   ---@type VectorCode.CodeCompanion.ExtensionOpts
+          --   opts = {
+          --     tool_group = {
+          --       -- this will register a tool group called `@vectorcode_toolbox` that contains all 3 tools
+          --       enabled = true,
+          --       -- a list of extra tools that you want to include in `@vectorcode_toolbox`.
+          --       -- if you use @vectorcode_vectorise, it'll be very handy to include
+          --       -- `file_search` here.
+          --       extras = {},
+          --       collapse = true, -- whether the individual tools should be shown in the chat
+          --     },
+          --   },
+          -- },
         },
         sources = {
           per_filetype = {
@@ -1547,38 +1648,38 @@ local plugins = {
               {
                 role = "system",
                 content = [[
-                  あなたは10年以上の経験を持つ上級Ruby on Railsエンジニアです。  
+                  あなたは10年以上の経験を持つ上級Ruby on Railsエンジニアです。
                   以下のコードに対して、プロフェッショナルなコードレビューを行ってください。
 
                   ## レビューの観点（必ずすべて網羅してください）
 
-                  1. **コードの意図が明確か**  
-                     - 命名の適切さ（モデル名、変数名、メソッド名）  
-                     - コメントの有無と内容の妥当性  
+                  1. **コードの意図が明確か**
+                     - 命名の適切さ（モデル名、変数名、メソッド名）
+                     - コメントの有無と内容の妥当性
 
-                  2. **Railsのベストプラクティスに沿っているか**  
-                     - Fat Model / Skinny Controller  
-                     - ActiveRecordの使い方（N+1やスコープ）  
-                     - Strong Parametersやバリデーションの活用  
+                  2. **Railsのベストプラクティスに沿っているか**
+                     - Fat Model / Skinny Controller
+                     - ActiveRecordの使い方（N+1やスコープ）
+                     - Strong Parametersやバリデーションの活用
 
-                  3. **パフォーマンス面の懸念**  
-                     - 不要なクエリ、N+1の発生有無  
-                     - 無駄な処理やロジックの繰り返し  
+                  3. **パフォーマンス面の懸念**
+                     - 不要なクエリ、N+1の発生有無
+                     - 無駄な処理やロジックの繰り返し
 
-                  4. **保守性と再利用性**  
-                     - 冗長なコードの削減提案  
-                     - ヘルパーやConcernに切り出すべきロジックの指摘  
+                  4. **保守性と再利用性**
+                     - 冗長なコードの削減提案
+                     - ヘルパーやConcernに切り出すべきロジックの指摘
 
-                  5. **セキュリティ上の懸念点**  
-                     - SQLインジェクションやCSRF、XSSの可能性  
-                     - ユーザー入力の扱いの妥当性  
+                  5. **セキュリティ上の懸念点**
+                     - SQLインジェクションやCSRF、XSSの可能性
+                     - ユーザー入力の扱いの妥当性
 
-                  6. **テストしやすいコードか**  
-                     - テスト容易性と関心の分離  
-                     - 不要な依存の排除提案  
+                  6. **テストしやすいコードか**
+                     - テスト容易性と関心の分離
+                     - 不要な依存の排除提案
 
-                  7. **書き換え案があれば具体的なコードで提示**  
-                     - diff形式またはbefore/after形式で示す  
+                  7. **書き換え案があれば具体的なコードで提示**
+                     - diff形式またはbefore/after形式で示す
 
                   8. **影響範囲が広すぎないか**
                      - 改修が影響する範囲を確認する(例: methodをgrepするなど)
@@ -1586,8 +1687,8 @@ local plugins = {
 
                   ## レビューの出力形式
 
-                  - 観点ごとに項目を分け、簡潔かつ網羅的に記載  
-                  - 否定的な指摘も、建設的かつ改善案付きで示す  
+                  - 観点ごとに項目を分け、簡潔かつ網羅的に記載
+                  - 否定的な指摘も、建設的かつ改善案付きで示す
                   - もし問題がなければ「特に問題なし」と明記
                   - 問題のある部分は、強調する
                 ]]
@@ -2035,35 +2136,6 @@ local plugins = {
       },
     },
   },
-  {
-    "MeanderingProgrammer/render-markdown.nvim",
-    ft = { "markdown", "codecompanion" }
-  },
-  {
-    "HakonHarnes/img-clip.nvim",
-    ft = { 'markdown', 'codecompanion' },
-    opts = {
-      filetypes = {
-        codecompanion = {
-          prompt_for_file_name = false,
-          template = "[Image]($FILE_PATH)",
-          use_absolute_path = true,
-        },
-      },
-    },
-  },
-  {
-    "echasnovski/mini.diff",
-    event = "VeryLazy",
-    config = function()
-      local diff = require("mini.diff")
-      diff.setup({
-        -- Disabled by default
-        source = diff.gen_source.none(),
-      })
-    end,
-  },
-
 }
 
 return plugins
