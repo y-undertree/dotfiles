@@ -1291,7 +1291,7 @@ local plugins = {
     "nvim-focus/focus.nvim",
     event = "VeryLazy",
     config = function()
-      local ignore_filetypes = { "qf", "neo-tree", "neo-tree-popup", "notify", "help", "dashboard", "NvimTree", "codecompanion" }
+      local ignore_filetypes = { "qf", "neo-tree", "neo-tree-popup", "notify", "help", "dashboard", "NvimTree" }
       local ignore_buftypes = { 'nofile', 'prompt', 'popup', 'terminal', 'quickfix', 'help' }
 
       local augroup =
@@ -1472,13 +1472,16 @@ local plugins = {
       require("codecompanion.fidget-progress-message"):init()
       local copilot_token_path = vim.fn.expand("~/.config/github-copilot/hosts.json")
       local copilot_available = vim.fn.filereadable(copilot_token_path) == 1
-      local adapter = 'copilot'
-      local adapter_model = "gpt-4.1"
+      local adapter = {
+        name = 'copilot',
+        model = 'claude-sonnet-4-20250514' -- 'gpt-4.1'
+      }
       if copilot_available == true then
-        adapter = 'copilot'
       elseif vim.fn.executable("op") == 1 then
-        adapter = 'openai'
-        adapter_model = "gpt-4.1-nano"
+        adapter = {
+          name = 'openai',
+          model = 'gpt-4.1-nano'
+        }
         vim.notify("Use OpenAI adapter", vim.log.levels.WARN)
       else
         vim.notify("No available CodeCompanion adapter (OpenAI or Copilot)", vim.log.levels.ERROR)
@@ -1487,11 +1490,25 @@ local plugins = {
       require("codecompanion").setup({
         language = "Japanese",
         adapters = {
+          copilot = function()
+            return require("codecompanion.adapters").extend("copilot", {
+              schema = {
+                model = {
+                  default = 'claude-sonnet-4-20250514'
+                }
+              }
+            })
+          end,
           openai = function()
             return require("codecompanion.adapters").extend("openai", {
               env = {
                 api_key = "cmd:op read op://personal/OpenAI/apikey",
               },
+              schema = {
+                model = {
+                  default = 'gpt-4.1-nano'
+                }
+              }
             })
           end,
         },
@@ -1505,13 +1522,15 @@ local plugins = {
           },
           chat = {
             auto_scroll = false,
-            show_header_separator = true
+            show_header_separator = true,
+            window = {
+              layout = "buffer", -- float|vertical|horizontal|buffer
+            },
           }
         },
         strategies = {
           chat = {
             adapter = adapter,
-            model = adapter_model,
             opts = {
               ---Decorate the user message before it's sent to the LLM
               ---@param message string
@@ -1526,7 +1545,6 @@ local plugins = {
           },
           inline = {
             adapter = adapter,
-            model = adapter_model,
           },
         },
         extensions = {
@@ -1560,7 +1578,7 @@ local plugins = {
               ---On exiting and entering neovim, loads the last chat on opening chat
               continue_last_chat = true,
               ---When chat is cleared with `gx` delete the chat from history
-              delete_on_clearing_chat = true,
+              delete_on_clearing_chat = false,
               ---Directory path to save the chats
               dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",
               ---Enable detailed logging for history extension
@@ -1576,20 +1594,20 @@ local plugins = {
             }
           },
           -- required vectorcode cli
-          -- vectorcode = {
-          --   ---@type VectorCode.CodeCompanion.ExtensionOpts
-          --   opts = {
-          --     tool_group = {
-          --       -- this will register a tool group called `@vectorcode_toolbox` that contains all 3 tools
-          --       enabled = true,
-          --       -- a list of extra tools that you want to include in `@vectorcode_toolbox`.
-          --       -- if you use @vectorcode_vectorise, it'll be very handy to include
-          --       -- `file_search` here.
-          --       extras = {},
-          --       collapse = true, -- whether the individual tools should be shown in the chat
-          --     },
-          --   },
-          -- },
+          vectorcode = {
+            ---@type VectorCode.CodeCompanion.ExtensionOpts
+            opts = {
+              tool_group = {
+                -- this will register a tool group called `@vectorcode_toolbox` that contains all 3 tools
+                enabled = true,
+                -- a list of extra tools that you want to include in `@vectorcode_toolbox`.
+                -- if you use @vectorcode_vectorise, it'll be very handy to include
+                -- `file_search` here.
+                extras = {},
+                collapse = true, -- whether the individual tools should be shown in the chat
+              },
+            },
+          },
         },
         sources = {
           per_filetype = {
@@ -1715,16 +1733,20 @@ local plugins = {
 
                   local first = commits[1]
                   local last = commits[#commits]
-                  local diff = vim.fn.systemlist("git diff " .. first .. "^.." .. last)
+                  local files = vim.fn.systemlist("git diff --name-only " .. first .. ".." .. last)
+                  local diff = vim.fn.systemlist("git diff " .. first .. ".." .. last)
 
                   return string.format([[
                     以下がレビュー対象のコードです:
-                    # diff:
+                    # files:
                     %s
 
                     # commits:
                     %s
-                  ]], table.concat(diff, "\n"), table.concat(commits, "\n"))
+
+                    # diff:
+                    %s
+                  ]], table.concat(files, "\n"), table.concat(commits, "\n"), table.concat(diff, "\n"))
                 end,
               },
             },
@@ -1876,12 +1898,18 @@ local plugins = {
             strategy = "chat",
             description = "コミットメッセージを生成する",
             opts = { short_name = "commit", is_slash_cmd = true },
+            references = {
+              {
+                type = "url",
+                url = "https://www.conventionalcommits.org/en/v1.0.0/",
+              },
+            },
             prompts = {
               {
                 role = "user",
                 content = [[
 以下の条件に基づいて、英語でコミットメッセージを生成してください:
-1. [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) の形式を使用する。
+1. Conventional Commits の形式を使用する。
 2. 差分内容に基づき、適切なプレフィックス (e.g., feat, fix, chore, docs, refactor, test) を付与する。
 3. タイトルは簡潔的に、先頭を動詞かつ大文字で簡潔に記載する。
 4. 本文は変更の目的や背景を文章で記載して、変更の概要を箇条書きで説明する。
@@ -1889,47 +1917,37 @@ local plugins = {
               },
             },
           },
-          CommitDiff = {
-            strategy = "chat",
-            description = "indexの差分からコミットメッセージを生成する",
-            opts = { short_name = "commitdiff", is_slash_cmd = true },
-            prompts = {
-              {
-                role = "user",
-                content = function()
-                  local diff = vim.fn.systemlist("git diff --cached")
-                  return string.format([[
-以下の条件に基づいて、英語でコミットメッセージを生成してください:
-1. [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) の形式を使用する。
-2. 差分内容に基づき、適切なプレフィックス (e.g., feat, fix, chore, docs, refactor, test) を付与する。
-3. タイトルは簡潔的に、先頭を動詞かつ大文字で簡潔に記載する。
-4. 本文は変更の目的や背景を文章で記載して、変更の概要を箇条書きで説明する。
-
-# diff:
-%s
-          ]], table.concat(diff, "\n"))
-                end,
-              },
-            },
-          },
           CommitStaged = {
             strategy = "chat",
             description = "ステージ済み差分からコミットメッセージを生成する",
             opts = { short_name = "commitstaged", is_slash_cmd = true },
+            -- references = {
+            --   {
+            --     type = "url",
+            --     url = "https://www.conventionalcommits.org/en/v1.0.0/",
+            --   },
+            -- },
             prompts = {
+              {
+                role = "system",
+                content = [[
+                以下の条件に基づいて、英語でコミットメッセージを生成してください:
+                1. Conventional Commits の形式を使用する。
+                2. 差分内容に基づき、適切なプレフィックス (e.g., feat, fix, chore, docs, refactor, test) を付与する。
+                3. タイトルは簡潔的に、先頭を動詞かつ大文字で簡潔に記載する。
+                4. 本文は変更の目的や背景を文章で記載して、変更の概要を箇条書きで説明する。
+                ]]
+              },
               {
                 role = "user",
                 content = function()
                   local diff = vim.fn.systemlist("git diff --cached")
                   return string.format([[
-以下の条件に基づいて、英語でコミットメッセージを生成してください:
-1. [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) の形式を使用する。
-2. 差分内容に基づき、適切なプレフィックス (e.g., feat, fix, chore, docs, refactor, test) を付与する。
-3. タイトルは簡潔的に、先頭を動詞かつ大文字で簡潔に記載する。
-4. 本文は変更の目的や背景を文章で記載して、変更の概要を箇条書きで説明する。
+以下のdiffの内容を元に適切なコミットメッセージを作成してください。
 
-# staged diff:
+```git
 %s
+```
           ]], table.concat(diff, "\n"))
                 end,
               },

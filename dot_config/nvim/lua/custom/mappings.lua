@@ -62,6 +62,7 @@ M.codecompanion = {
   n= {
     ["<leader>co"] = { "<cmd>CodeCompanionChat Toggle<CR>", "toggle codecompanion chat " },
     ["<leader>cca"] = { "<cmd>CodeCompanionActions<CR>", "codecompanion actions" },
+    ["<leader>ccco"] = { "<cmd>CodeCompanion /commitstaged<CR>", "generate commit message for codecompanion" },
   },
   x = {
     ["<leader>co"] = { "<cmd>CodeCompanionChat Add<CR>", "add codecompanion chat" },
