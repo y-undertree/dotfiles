@@ -1,9 +1,14 @@
 # cSpell:disable
+
 # Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+if [[ $TMUX ]]; then
+  export IS_TMUX=1
 fi
 
 source "${HOME}/.zsh/rc/00_secret_env.zsh"
@@ -18,13 +23,18 @@ export HOMEBREW_PREFIX=/usr/local/Homebrew/
 # ripgrep
 export RIPGREP_CONFIG_PATH=$XDG_CONFIG_HOME/ripgrep/config
 
+# asdf
+# append completions to fpath
+fpath=(${ASDF_DIR}/completions $fpath) # compinit の前に書く
+
 # ------- zinit -------
 # command to Homebrew. shell relation zinit
 #
 # plugin manager
-source /usr/local/opt/zinit/zinit.zsh
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
 
 # TODO: L, Hなどで末尾までの移動は対応しておきたい
 # vim keybind
@@ -49,20 +59,22 @@ zinit light jeffreytse/zsh-vi-mode
 zinit ice depth=1
 zinit light romkatv/powerlevel10k
 
+zinit ice lucid blockf
+zinit light zsh-users/zsh-completions
+
 # basic plugin
-zinit wait lucid for \
- atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
-    zdharma-continuum/fast-syntax-highlighting \
- blockf \
-    zsh-users/zsh-completions \
- atload"!_zsh_autosuggest_start" \
-    zsh-users/zsh-autosuggestions
+zinit wait"1" lucid for \
+  atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+  atload'eval "$(op completion zsh)"; compdef _op op' \
+  zdharma-continuum/fast-syntax-highlighting \
+  atload"!_zsh_autosuggest_start" \
+  zsh-users/zsh-autosuggestions
 
 zinit ice atclone'./init.sh' nocompile'!' wait'!0'
 zinit light b4b4r07/enhancd
 
-zinit ice wait lucid
-zinit load urbainvaes/fzf-marks
+# zinit ice wait lucid
+# zinit load urbainvaes/fzf-marks
 
 zinit ice wait lucid
 zinit load hlissner/zsh-autopair
@@ -106,12 +118,6 @@ zinit load zdharma-continuum/zinit-crasis
 
 # ------- end zinit -------
 
-# asdf
-# append completions to fpath
-fpath=(${ASDF_DIR}/completions $fpath) # compinit の前に書く
-autoload -Uz compinit
-compinit
-
 # custom function
 # keybindでcallしたい場合や、引数の保管を使う場合は、.zfuncを使うのがよさそう
 fpath=( ~/.zfunc "${fpath[@]}" )
@@ -119,14 +125,12 @@ autoload -Uz show_snippets
 autoload -Uz y
 
 # thefuck. recommend!! https://github.com/nvbn/thefuck
-eval $(thefuck --alias)
-# 1password
-eval $(op signin)
-eval "$(op completion zsh)"; compdef _op op
+# eval $(thefuck --alias)
+
 
 # nnn
-export NNN_PLUG='p:preview-tui'
-export NNN_OPENER="${XDG_CONFIG_HOME}/nnn/plugins/nuke"
+# export NNN_PLUG='p:preview-tui'
+# export NNN_OPENER="${XDG_CONFIG_HOME}/nnn/plugins/nuke"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -141,3 +145,6 @@ export NNN_OPENER="${XDG_CONFIG_HOME}/nnn/plugins/nuke"
 [[ ! -f ~/.zsh/rc/50_options.zsh ]] || source ~/.zsh/rc/50_options.zsh
 # Custom append script
 [[ ! -f ~/.zsh/rc/70_append_config.zsh ]] || source ~/.zsh/rc/70_append_config.zsh
+
+# direnv
+eval "$(direnv hook zsh)"

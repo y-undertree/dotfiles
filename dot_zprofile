@@ -46,9 +46,6 @@ export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export ASDF_GOLANG_MOD_VERSION_ENABLED=true
 . $(brew --prefix)/opt/asdf/libexec/asdf.sh
 
-# direnv
-eval "$(direnv hook zsh)"
-
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="${HOME}/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
