@@ -115,6 +115,11 @@ local plugins = {
     end,
   },
   {
+    "folke/snacks.nvim",
+    lazy = false,
+    priority = 1000
+  },
+  {
     -- snippet plugin
     "L3MON4D3/LuaSnip",
     version = "v2.*",
@@ -1434,7 +1439,7 @@ local plugins = {
   },
   {
     "olimorris/codecompanion.nvim",
-    event = "VeryLazy",
+    cmd = { 'CodeCompanion', 'CodeCompanionChat', 'CodeCompanionActions' },
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
@@ -1459,9 +1464,9 @@ local plugins = {
       },
       {
         "Davidyz/VectorCode",
-        version = "*",      -- optional, depending on whether you're on nightly or release
+        version = "*", -- optional, depending on whether you're on nightly or release
         dependencies = { "nvim-lua/plenary.nvim" },
-        cmd = "VectorCode", -- if you're lazy-loading VectorCode
+        cmd = "VectorCode"
       },
       {
         "ravitemer/codecompanion-history.nvim"
@@ -1474,7 +1479,8 @@ local plugins = {
       local copilot_available = vim.fn.filereadable(copilot_token_path) == 1
       local adapter = {
         name = 'copilot',
-        model = 'claude-sonnet-4-20250514' -- 'gpt-4.1'
+        model = 'gpt-4.1'
+        -- model = 'claude-sonnet-4-20250514' -- 'gpt-4.1'
       }
       if copilot_available == true then
       elseif vim.fn.executable("op") == 1 then
@@ -1524,7 +1530,7 @@ local plugins = {
             auto_scroll = false,
             show_header_separator = true,
             window = {
-              layout = "buffer", -- float|vertical|horizontal|buffer
+              layout = "float", -- float|vertical|horizontal|buffer
             },
           }
         },
@@ -1574,9 +1580,9 @@ local plugins = {
                 duplicate = { n = "<C-y>", i = "<C-y>" },
               },
               ---Automatically generate titles for new chats
-              auto_generate_title = false,
+              auto_generate_title = true,
               ---On exiting and entering neovim, loads the last chat on opening chat
-              continue_last_chat = true,
+              continue_last_chat = false,
               ---When chat is cleared with `gx` delete the chat from history
               delete_on_clearing_chat = false,
               ---Directory path to save the chats
@@ -1604,8 +1610,34 @@ local plugins = {
                 -- if you use @vectorcode_vectorise, it'll be very handy to include
                 -- `file_search` here.
                 extras = {},
-                collapse = true, -- whether the individual tools should be shown in the chat
+                collapse = false, -- whether the individual tools should be shown in the chat
               },
+              tool_opts = {
+                ---@type VectorCode.CodeCompanion.ToolOpts
+                ["*"] = {},
+                ---@type VectorCode.CodeCompanion.LsToolOpts
+                ls = {},
+                ---@type VectorCode.CodeCompanion.VectoriseToolOpts
+                vectorise = {},
+                ---@type VectorCode.CodeCompanion.QueryToolOpts
+                query = {
+                  max_num = { chunk = -1, document = -1 },
+                  default_num = { chunk = 50, document = 10 },
+                  include_stderr = false,
+                  use_lsp = truj,
+                  no_duplicate = true,
+                  chunk_mode = false,
+                  ---@type VectorCode.CodeCompanion.SummariseOpts
+                  summarise = {
+                    ---@type boolean|(fun(chat: CodeCompanion.Chat, results: VectorCode.QueryResult[]):boolean)|nil
+                    enabled = false,
+                    adapter = nil,
+                    query_augmented = true,
+                  }
+                },
+                files_ls = {},
+                files_rm = {}
+              }
             },
           },
         },
@@ -2047,8 +2079,6 @@ local plugins = {
     "mikavilpas/yazi.nvim",
     event = "VeryLazy",
     dependencies = {
-      -- check the installation instructions at
-      -- https://github.com/folke/snacks.nvim
       "folke/snacks.nvim"
     },
     ---@type YaziConfig | {}
