@@ -76,7 +76,6 @@ g.mapleader = " "
 g.ttimeout = true
 g.fileformats = { "unix", "dos", "mac" }
 g.fileencodings = { "utf-8", "sjis" }
-g.norelativenumber = false
 -- g.ttimeoutlen = 10
 opt.termguicolors = true
 opt.timeoutlen = 800
@@ -88,7 +87,9 @@ opt.signcolumn = "yes"
 opt.ignorecase = true
 opt.smartcase = true
 opt.hidden = true
+opt.lazyredraw = true
 opt.cursorline = false
+opt.relativenumber = false
 
 -- spell checking
 opt.spell = true
