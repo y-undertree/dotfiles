@@ -321,4 +321,14 @@ M.lspconfig = {
   },
 }
 
+M.octo = {
+  n = {
+    ["@octo-review-comment"] = { "<cmd>Octo review comment<CR>", "Add comment for Octo" },
+    ["@octo-review-start"] = { "<cmd>Octo review start<CR>", "Start review for Octo" },
+    ["@octo-review-resume"] = { "<cmd>Octo review resume<CR>", "Resume review for Octo" },
+    ["@octo-review-close"] = { "<cmd>Octo review close<CR>", "Close review for Octo" },
+    ["@octo-review-submit"] = { "<cmd>Octo review submit<CR>", "Submit review for Octo" },
+  },
+}
+
 return M
