@@ -95,6 +95,13 @@ opt.relativenumber = false
 opt.spell = true
 opt.spelllang = { "en_us" }
 
+-- https://github.com/sindrets/diffview.nvim/issues/546
+opt.fillchars:append("diff:╱")
+vim.api.nvim_set_hl(0, "DiffAdd", { bg = "#1e3b1e" })
+vim.api.nvim_set_hl(0, "DiffDelete", { bg = "#4a1e1e" })
+vim.api.nvim_set_hl(0, "DiffChange", { bg = "#1e2f49" })
+vim.api.nvim_set_hl(0, "DiffText", { bg = "#2b4f77", bold = true })
+
 -- ファイルを開いた時に、カーソルの場所を復元する
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   pattern = { "*" },
@@ -239,3 +246,4 @@ end, {})
 vim.api.nvim_create_user_command("OpenCurrentFileLineNewWindow", function()
   open_in_direction(true)
 end, {})
+
