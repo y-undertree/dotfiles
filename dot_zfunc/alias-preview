@@ -1,0 +1,23 @@
+#!/bin/zsh
+
+alias-preview() {
+  # 入力中の単語（末尾）を取得
+  local -a parts
+  parts=("${(z)LBUFFER}")
+  local word="${parts[-1]}"
+
+  # alias 一覧から選択、query に word を渡す
+  local selected=$(
+    { alias | fzf --query="$word" \
+                  --preview="echo {}" \
+                  --preview-window=up:3; } < /dev/tty
+  )
+
+  # 選択された alias を LBUFFER に差し替え
+  if [[ -n $selected ]]; then
+    local name="${selected%%=*}"
+    # 単語だけ差し替え
+    parts[-1]="$name"
+    LBUFFER="${(j: :)parts}"
+  fi
+}
