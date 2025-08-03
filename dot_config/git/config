@@ -13,37 +13,10 @@
   ui = true
 
 [alias]
-  st = status -sb
-  sh = show
-  sb = show-branch
-  br = branch
-  ci = commit -v
-  cma = commit -a -v
-  co = checkout
-  sw = switch
-  cl = clone
-  dc = diff --cached
-  df = diff
-  d = diff -C
-  ds = diff -C --stat
-  dsp = diff -C --stat -p
-  dw = diff -C --color-words
-  lg = log --graph --all --color --pretty='%x09%h %cn%x09%s %Cred%d'
-  log = log --stat
-  m = checkout master
-  ituja = log --patch -S
-  pusho = push origin
-  pullo = pull origin
-  tag = tag -ln
-  pr = pull-request
-  open = browse
-  m = merge
-  mnoff = merge --no-ff
-  mf-self = merge -X ours
-  mf = merge -X theirs
+  merge-no-ff = merge --no-ff
+  merge-ours = merge -X ours
+  merge-theirs = merge -X theirs
   pbcopy = !printf "$1" | pbcopy
-  dft = difftool
-  dlog = "!f() { GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
 
 [interactive]
   diffFilter = delta --color-only --features=interactive
