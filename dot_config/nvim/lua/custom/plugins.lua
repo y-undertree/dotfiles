@@ -1475,7 +1475,7 @@ local plugins = {
     config = function()
       require("codecompanion.fidget-spinner"):init()
       require("codecompanion.fidget-progress-message"):init()
-      local copilot_token_path = vim.fn.expand("~/.config/github-copilot/hosts.json")
+      local copilot_token_path = vim.fn.expand("~/.config/github-copilot/apps.json")
       local copilot_available = vim.fn.filereadable(copilot_token_path) == 1
       local adapter = {
         name = 'copilot',
