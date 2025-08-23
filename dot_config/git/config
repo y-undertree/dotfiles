@@ -13,6 +13,8 @@
   ui = true
 
 [alias]
+  br = branch
+  co = checkout
   merge-no-ff = merge --no-ff
   merge-ours = merge -X ours
   merge-theirs = merge -X theirs
