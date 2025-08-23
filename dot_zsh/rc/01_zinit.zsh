@@ -72,7 +72,7 @@ zinit light paoloantinori/hhighlighter
 
 # jq interactive
 zinit ice wait"2" lucid atload'\
-  bindkey "^J" jq-complete'
+  bindkey "^." jq-complete'
 zinit light reegnz/jq-zsh-plugin
 
 # docker aliasesa
