@@ -1297,7 +1297,7 @@ local plugins = {
     event = "VeryLazy",
     config = function()
       local ignore_filetypes = { "qf", "neo-tree", "neo-tree-popup", "notify", "help", "dashboard", "NvimTree" }
-      local ignore_buftypes = { 'nofile', 'prompt', 'popup', 'terminal', 'quickfix', 'help' }
+      local ignore_buftypes = { 'prompt', 'popup', 'terminal', 'quickfix', 'help' }
 
       local augroup =
           vim.api.nvim_create_augroup('FocusDisable', { clear = true })
@@ -1479,8 +1479,9 @@ local plugins = {
       local copilot_available = vim.fn.filereadable(copilot_token_path) == 1
       local adapter = {
         name = 'copilot',
-        model = 'gpt-4.1'
-        -- model = 'claude-sonnet-4-20250514' -- 'gpt-4.1'
+        -- model = 'claude-sonnet-4-20250514'
+        -- model = 'gpt-4.1'
+        model = 'gpt-5'
       }
       if copilot_available == true then
       elseif vim.fn.executable("op") == 1 then
@@ -1500,7 +1501,7 @@ local plugins = {
             return require("codecompanion.adapters").extend("copilot", {
               schema = {
                 model = {
-                  default = 'claude-sonnet-4-20250514'
+                  default = adapter.model
                 }
               }
             })
@@ -1522,15 +1523,13 @@ local plugins = {
           diff = {
             enabled = true,
             close_chat_at = 240,  -- Close an open chat buffer if the total columns of your display are less than...
-            layout = "vertical",  -- vertical|horizontal split for default provider
-            opts = { "internal", "filler", "closeoff", "algorithm:patience", "followwrap", "linematch:120" },
             provider = "default", -- default|mini_diff
           },
           chat = {
             auto_scroll = false,
             show_header_separator = true,
             window = {
-              layout = "float", -- float|vertical|horizontal|buffer
+              layout = "vertical", -- float|vertical|horizontal|buffer
             },
           }
         },
