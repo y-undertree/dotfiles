@@ -93,3 +93,6 @@ zinit light djui/alias-tips
 
 zinit ice wait'[[ -n ${ZLAST_COMMANDS[(r)cra*]} ]]' lucid
 zinit load zdharma-continuum/zinit-crasis
+
+zinit ice wait"2" lucid
+zinit light mollifier/zload
