@@ -44,4 +44,14 @@ return {
       },
     },
   },
+
+  concurrency = 5,
+  git = {
+    timeout = 180,                      -- タイムアウトを少し余裕に
+  },
+  checker = {
+    enabled = true,
+    concurrency = 5, -- チェックは逐次化
+    frequency = 3600,
+  },
 }
