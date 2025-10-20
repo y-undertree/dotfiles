@@ -147,9 +147,8 @@ M.obsidian = {
 M.telescope = {
   n = {
     -- find
-    ["<leader>ff"] = { [[:lua require("telescope").extensions.smart_open.smart_open({ cwd_only = true })<CR>]], "find files by smart open" },
-    ["<leader>fs"] = { [[<cmd> Telescope git_files<CR>]], "find files by smart open" },
-    ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "find all" },
+    ["<leader>fs"] = { [[:lua require("telescope").extensions.smart_open.smart_open({ cwd_only = true })<CR>]], "find files by smart open" },
+    ["<leader>ff"] = { [[<cmd> Telescope find_files follow=true hidden=true<CR>]], "find files" },
     ["<leader>fg"] = { "<cmd> Telescope live_grep_args <CR>", "live grep" },
     ["gl"] = {
       [[:lua require("telescope-live-grep-args.shortcuts").grep_word_under_cursor({ postfix='', quote=false })<cr>]],
