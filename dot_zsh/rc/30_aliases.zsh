@@ -23,3 +23,4 @@ alias cm=chezmoi
 alias nocolor='sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g"'
 alias beep='afplay /System/Library/Sounds/Hero.aiff'
 alias ghql='code "`ghq root`/`ghq list | fzf`"'
+alias rancher-volume='rdctl shell df -h /var/lib'
