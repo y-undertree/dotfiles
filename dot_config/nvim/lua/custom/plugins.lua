@@ -282,13 +282,6 @@ local plugins = {
       { "smoka7/hop.nvim" }, -- for curl, log wrapper
     },
   },
-  {
-    'echasnovski/mini.align',
-    event = "VeryLazy",
-    config = function()
-      require("mini.align").setup()
-    end,
-  },
   -- {
   --   "folke/flash.nvim",
   --   event = "VeryLazy",
