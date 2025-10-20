@@ -1479,9 +1479,11 @@ local plugins = {
       local copilot_available = vim.fn.filereadable(copilot_token_path) == 1
       local adapter = {
         name = 'copilot',
-        -- model = 'claude-sonnet-4-20250514'
-        -- model = 'gpt-4.1'
         model = 'gpt-5'
+      }
+      local inline_adapter = {
+        name = 'copilot',
+        model = 'gpt-4.1'
       }
       if copilot_available == true then
       elseif vim.fn.executable("op") == 1 then
@@ -1489,6 +1491,7 @@ local plugins = {
           name = 'openai',
           model = 'gpt-4.1-nano'
         }
+        inline_adapter = adapter
         vim.notify("Use OpenAI adapter", vim.log.levels.WARN)
       else
         vim.notify("No available CodeCompanion adapter (OpenAI or Copilot)", vim.log.levels.ERROR)
@@ -1522,14 +1525,16 @@ local plugins = {
         display = {
           diff = {
             enabled = true,
-            close_chat_at = 240,  -- Close an open chat buffer if the total columns of your display are less than...
-            provider = "default", -- default|mini_diff
+            -- close_chat_at = 240,  -- Close an open chat buffer if the total columns of your display are less than...
+            -- layout = "vertical", -- vertical|horizontal split for default provider
+            -- opts = { "internal", "filler", "closeoff", "algorithm:patience", "followwrap", "linematch:120" },
+            -- provider = "default", -- default|mini_diff
           },
           chat = {
-            auto_scroll = false,
+            auto_scroll = true,
             show_header_separator = true,
             window = {
-              layout = "vertical", -- float|vertical|horizontal|buffer
+              layout = "float", -- float|vertical|horizontal|buffer
             },
           }
         },
@@ -1549,7 +1554,7 @@ local plugins = {
             },
           },
           inline = {
-            adapter = adapter,
+            adapter = inline_adapter,
           },
         },
         extensions = {
