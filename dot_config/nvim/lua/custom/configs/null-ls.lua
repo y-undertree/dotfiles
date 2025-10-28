@@ -57,6 +57,7 @@ local sources = {
   -- b.diagnostics.reek,
   -- b.diagnostics.erb_lint,
   -- b.diagnostics.yamllint,
+  -- b.diagnostics.eslint,
   -- cspell
   cspell.code_actions.with({ config = cspell_config }),
   cspell.diagnostics.with({ config = cspell_config }),
