@@ -31,7 +31,8 @@ local options = {
   },
   sources = {
     { name = "copilot",  priority = 1 },
-    -- { name = "nvim_lsp_signature_help", priority = 1 },
+    { name = "nvim_lsp_signature_help", priority = 1 },
+    { name = "css-variables", priority = 1, keyword_length = 1, ft = 'css' },
     { name = "nvim_lsp", priority = 1, keyword_length = 2 },
     { name = "luasnip",  priority = 1, keyword_length = 2 },
     { name = "nvim_lua", priority = 1, keyword_length = 2, ft = "lua" },

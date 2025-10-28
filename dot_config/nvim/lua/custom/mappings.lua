@@ -35,7 +35,6 @@ M.general = {
     ["<leader>nn"] = { "<cmd>Yazi<CR>", "Open yazi at the current file" },
     ["<leader>nN"] = { "<cmd>Yazi cwd<CR>", "Open the file manager in nvim's working directory" },
     ["<leader>ts"] = { [[:silent !tmux new-window "tig status"<CR>]], "tig status" },
-    ["<leader>v"] = { "<cmd>Telescope neoclip<CR>", "clipboard history" },
     ["<leader>tl"] = { "<cmd>Translate JA<CR>", "translate to ja" },
     ["<leader>tre"] = { "<cmd>Translate EN -output=register<CR>", "translate to en, output register" },
     ["[c"] = {
@@ -54,7 +53,6 @@ M.general = {
     ["<leader>tre"] = { "<cmd>Translate EN -output=register<CR>", "translate to en, output register" },
   },
   i = {
-    ["<C-r>"] = { "<cmd>Telescope neoclip<CR>", "clipboard history" },
   },
 }
 
@@ -98,7 +96,6 @@ M.bookmark = {
 M.command_pallet = {
   n = {
     ["<leader>@treesj-toggle"] = { [[<cmd>TSJToggle<CR>]], "treesj toggle" },
-    ["<leader>@task-select"] = { [[<cmd>Telescope toggletasks spawn<CR>]], "task select to spawn" },
     ["<leader>@auto-save-toggle"] = { [[:ASToggle<CR>]], "auto save toggle" },
     ["<leader>@compare-diff"] = { [[:windo diffthis<CR>]], "compare file diff left and right" },
     ["<leader>@edit-snippet-files"] = {
@@ -112,9 +109,6 @@ M.command_pallet = {
     ["<leader>@tig-blame"] = { [[:silent !tmux new-window "tig blame $(echo %:p)"<CR>]], "tig blame current file" },
     ["<leader>@tig-log-in-file"] = { [[:silent !tmux new-window "tig $(echo %:p)"<CR>]], "tig log current file" },
     ["<leader>@mysql-cli"] = { [[:silent !tmux new-window "/usr/local/bin/mycli -h 127.0.0.1 -u root"<CR>]], "mysql cli" },
-    ["<leader>@macro-menu"] = { [[:lua require('NeoComposer.ui').toggle_macro_menu()<CR>]], "macro menu open" },
-    ["<leader>@macro-toggle"] = { [[:lua require('NeoComposer.ui').toggle_record()<CR>]], "macro toggle record" },
-    ["<leader>@macro-stop"] = { [[:lua require('NeoComposer.ui').stop_macro()<CR>]], "macro stop" },
     ["<leader>@search-spectre"] = { '<cmd>lua require("spectre").open_visual({select_word=true})<CR>',
       "replace and search by spectre" },
     ["<leader>@search-spectre-current-word"] = {
@@ -134,6 +128,7 @@ M.command_pallet = {
     ["<leader>@git-stage-files"] = { "<cmd> Easypick changed_files_stage<cr>", "git stage files" },
     ["<leader>@git-diff-base-branch-files"] = { "<cmd> Easypick changed_files_compare_base_branch<cr>", "git diff base branch files" },
     ["<leader>@lspsaga-finder"] = { "<cmd>Lspsaga finder <CR>", "lspsaga LSP finder" },
+    ["<leader>@docs-view"] = { "<cmd>DocsViewToggle<CR>", "Docs View Toggle" },
   },
 }
 
@@ -168,7 +163,6 @@ M.telescope = {
     ["<leader>hk"] = { "<cmd> Telescope keymaps <CR>", "find in keymappings" },
     ["<leader>mh"] = { "<cmd> Telescope heading <CR>", "telescope markdown heading" },
     ["<leader>mc"] = { "<cmd> Telescope macros <CR>", "macros list" },
-    ["<leader>cz"] = { "<cmd> lua require('telescope').extensions.chezmoi.find_files()<cr>", "chezmoi find files" },
     ["<leader>so"] = { "<cmd> ScratchOpen<cr>", "scratch open" },
     ["<leader>sf"] = { "<cmd> ScratchOpenFzf<cr>", "scratch fzf" },
     ["g]"] = {

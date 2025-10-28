@@ -103,16 +103,11 @@ local options = {
     "ctags_plus",
     "live_grep_args",
     "telescope-alternate",
-    "highlight-annotate",
     "session-lens",
     "media_files",
     "undo",
-    "toggletasks",
-    "macros",
     "smart_open",
-    "chezmoi",
     "notify",
-    "neoclip",
     "bookmarks",
   },
   extensions = {
@@ -208,6 +203,10 @@ local options = {
     },
     smart_open = {
       match_algorithm = 'fzf',
+    },
+    media_files = {
+      filetypes = {"png", "webp", "jpg", "jpeg", "pdf"},
+      find_cmd = "rg",
     },
   },
 }
