@@ -5,18 +5,18 @@ local capabilities = require("plugins.configs.lspconfig").capabilities
 -- if you just want default config for the servers then put them in a table
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 local servers = {
-  "html",
-  "cssls",
-  "stylelint_lsp",
-  "ts_ls",
-  "solargraph",
-  "ansiblels",
-  "bashls",
-  "buf_ls",
-  "jsonls",
-  "rubocop",
-  "yamlls",
-  "vacuum",
+  { "html",          { "html" } },
+  -- { "cssls",         {"css"} },
+  { "stylelint_lsp", { "css" } },
+  { "ts_ls",         { "ts" } },
+  { "bashls",        { "sh", "zsh" } },
+  { "buf_ls",        { "buf" } },
+  { "jsonls",        { "json" } },
+  { "solargraph",    { "rb" } },
+  { "rubocop",       { "rb" } },
+  { "yamlls",        { "yaml" } },
+  -- { "ansiblels",     {"yaml"} },
+  { "vacuum",        { "yaml" } },
 }
 
 -- vacuum
@@ -27,14 +27,18 @@ vim.filetype.add {
   },
 }
 
-for _, lsp in ipairs(servers) do
+local common_on_attach = function(client, bufnr)
+  on_attach(client, bufnr)
+  client.server_capabilities.documentFormattingProvider = true
+  client.server_capabilities.documentRangeFormattingProvider = true
+end
+
+for _, server in ipairs(servers) do
+  local lsp = server[1]
+  local filetypes = server[2]
   vim.lsp.config(lsp, {
-    -- on_attach = on_attach,
-    on_attach = function(client, bufnr)
-      on_attach(client, bufnr)
-      client.server_capabilities.documentFormattingProvider = true
-      client.server_capabilities.documentRangeFormattingProvider = true
-    end,
+    filetypes = filetypes,
+    on_attach = common_on_attach,
     capabilities = capabilities,
   })
   vim.lsp.enable(lsp)

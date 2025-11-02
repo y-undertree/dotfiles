@@ -9,14 +9,21 @@ local vue_plugin = {
   enableForWorkspaceTypeScriptVersions = true,
 }
 
--- local on_attach = require("plugins.configs.lspconfig").on_attach
--- local capabilities = require("plugins.configs.lspconfig").capabilities
+local on_attach = require("plugins.configs.lspconfig").on_attach
+local capabilities = require("plugins.configs.lspconfig").capabilities
+local function vtsls_on_attach(client, bufnr)
+  on_attach(client, bufnr)
+  client.server_capabilities.semanticTokensProvider.full = true
+end
 
 vim.lsp.config('vtsls', {
   filetypes = ts_filetypes,
-  settings = { vtsls = { tsserver = { globalPlugins = { vue_plugin } } } }
+  settings = { vtsls = { tsserver = { globalPlugins = { vue_plugin } } } },
+  on_attach = vtsls_on_attach,
+  capabilities = capabilities
 })
 vim.lsp.config('vue_ls', {
+  filetypes = 'vue',
   settings = {
     vue = {
       vueCompilerOptions = {
@@ -24,6 +31,8 @@ vim.lsp.config('vue_ls', {
       },
     },
   },
+  on_attach = on_attach,
+  capabilities = capabilities
 })
 vim.lsp.enable('vtsls')
 vim.lsp.enable('vue_ls')

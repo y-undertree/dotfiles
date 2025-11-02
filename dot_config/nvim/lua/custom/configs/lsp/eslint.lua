@@ -1,7 +1,9 @@
 local on_attach = require("plugins.configs.lspconfig").on_attach
 local capabilities = require("plugins.configs.lspconfig").capabilities
+local ts_filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' }
 
 vim.lsp.config('eslint', {
+  filetypes = ts_filetypes,
   on_attach = function(client, bufnr)
     if on_attach then on_attach(client, bufnr) end
 
@@ -18,7 +20,7 @@ vim.lsp.config('eslint', {
     --   disableRuleComment = { enable = true, location = "separateLine" },
     --   showDocumentation = { enable = true },
     -- },
-    format = { enable = true }, 
+    format = { enable = true },
     packageManager = "pnpm",
     rulesCustomizations = {},
   },
