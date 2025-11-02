@@ -165,6 +165,7 @@ M.telescope = {
     ["<leader>mc"] = { "<cmd> Telescope macros <CR>", "macros list" },
     ["<leader>so"] = { "<cmd> ScratchOpen<cr>", "scratch open" },
     ["<leader>sf"] = { "<cmd> ScratchOpenFzf<cr>", "scratch fzf" },
+    ["<leader>tn"] = { "<cmd> Telescope notify<cr>", "open notifies" },
     ["g]"] = {
       "<cmd>lua require('telescope').extensions.ctags_plus.jump_to_tag()<cr>",
       "ctags jump list for telescope",
