@@ -1,8 +1,7 @@
 local on_attach = require("plugins.configs.lspconfig").on_attach
 local capabilities = require("plugins.configs.lspconfig").capabilities
-local lspconfig = require "lspconfig"
 
-lspconfig.eslint.setup {
+vim.lsp.config('eslint', {
   on_attach = function(client, bufnr)
     if on_attach then on_attach(client, bufnr) end
 
@@ -23,4 +22,5 @@ lspconfig.eslint.setup {
     packageManager = "pnpm",
     rulesCustomizations = {},
   },
-}
+})
+vim.lsp.enable('eslint')

@@ -11,13 +11,12 @@ local vue_plugin = {
 
 -- local on_attach = require("plugins.configs.lspconfig").on_attach
 -- local capabilities = require("plugins.configs.lspconfig").capabilities
-local lspconfig = require "lspconfig"
 
-lspconfig.vtsls.setup({
+vim.lsp.config('vtsls', {
   filetypes = ts_filetypes,
   settings = { vtsls = { tsserver = { globalPlugins = { vue_plugin } } } }
 })
-lspconfig.vue_ls.setup({
+vim.lsp.config('vue_ls', {
   settings = {
     vue = {
       vueCompilerOptions = {
@@ -26,3 +25,5 @@ lspconfig.vue_ls.setup({
     },
   },
 })
+vim.lsp.enable('vtsls')
+vim.lsp.enable('vue_ls')
