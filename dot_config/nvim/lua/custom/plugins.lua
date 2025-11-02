@@ -37,7 +37,7 @@ local plugins = {
   {
     "lewis6991/gitsigns.nvim",
     opts = function()
-      local default_opts = require "plugins.configs.treesitter"
+      local default_opts = require "nvchad/configs/gitsigns"
       local opts = overrides.gitsigns
       return vim.tbl_deep_extend("force", default_opts, opts)
     end,
