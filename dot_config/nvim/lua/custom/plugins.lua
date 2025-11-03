@@ -17,7 +17,7 @@ local plugins = {
       },
     },
     config = function()
-      require "plugins.configs.lspconfig"
+      require "nvchad.configs.lspconfig"
       require "custom.configs.lspconfig"
     end, -- Override to setup mason-lspconfig
   },
@@ -29,7 +29,7 @@ local plugins = {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function()
-      local default_opts = require "plugins.configs.treesitter"
+      local default_opts = require "nvchad.configs.treesitter"
       local opts = overrides.treesitter
       return vim.tbl_deep_extend("force", default_opts, opts)
     end,
@@ -49,7 +49,7 @@ local plugins = {
   {
     "nvim-telescope/telescope.nvim",
     opts = function()
-      local default_opts = require "plugins.configs.telescope"
+      local default_opts = require "nvchad.configs.telescope"
       local opts = require "custom.configs.telescope_options"
       return vim.tbl_deep_extend("force", default_opts, opts)
     end,
@@ -58,8 +58,6 @@ local plugins = {
     "hrsh7th/nvim-cmp",
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
-      { 'hrsh7th/cmp-cmdline' },
-      { 'roginfarrer/cmp-css-variables' },
       {
         "zbirenbaum/copilot-cmp",
         event = { "InsertEnter", "LspAttach" },
@@ -68,11 +66,13 @@ local plugins = {
           require("copilot_cmp").setup()
         end,
       },
+      { 'hrsh7th/cmp-cmdline' },
+      { 'roginfarrer/cmp-css-variables' },
       { "ray-x/cmp-treesitter" },
     },
     opts = function()
-      local default_opts = require "plugins.configs.cmp"
-      local opts = require "custom.configs.cmp_options"
+      local default_opts = require "nvchad.configs.cmp"
+      local opts = require "custom.configs.cmp"
       return vim.tbl_deep_extend("force", default_opts, opts)
     end,
     config = function(_, opts)

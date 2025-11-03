@@ -1,6 +1,6 @@
 local vue_ls_path = vim.fn.stdpath('data')
   .. "/mason/packages/vue-language-server/node_modules/@vue/language-server"
-local ts_filetypes = { 'typescript','javascript','javascriptreact','typescriptreact','vue' }
+local filetypes = { 'typescript','javascript','javascriptreact','typescriptreact','vue' }
 local vue_plugin = {
   name = '@vue/typescript-plugin',
   location = vue_ls_path,
@@ -9,17 +9,20 @@ local vue_plugin = {
   enableForWorkspaceTypeScriptVersions = true,
 }
 
-local on_attach = require("plugins.configs.lspconfig").on_attach
-local capabilities = require("plugins.configs.lspconfig").capabilities
-local function vtsls_on_attach(client, bufnr)
-  on_attach(client, bufnr)
+local nvchad_on_attach = require("nvchad.configs.lspconfig").on_attach
+local nvchad_capabilities = require("nvchad.configs.lspconfig").capabilities
+local capabilities = vim.tbl_deep_extend("force", nvchad_capabilities, require('cmp_nvim_lsp').default_capabilities())
+local on_attach = function(client, bufnr)
+  nvchad_on_attach(client, bufnr)
+  client.server_capabilities.documentFormattingProvider = true
+  client.server_capabilities.documentRangeFormattingProvider = true
   client.server_capabilities.semanticTokensProvider.full = true
 end
 
 vim.lsp.config('vtsls', {
-  filetypes = ts_filetypes,
+  filetypes = filetypes,
   settings = { vtsls = { tsserver = { globalPlugins = { vue_plugin } } } },
-  on_attach = vtsls_on_attach,
+  on_attach = on_attach,
   capabilities = capabilities
 })
 vim.lsp.config('vue_ls', {

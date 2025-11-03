@@ -1,5 +1,12 @@
-local on_attach = require("plugins.configs.lspconfig").on_attach
-local capabilities = require("plugins.configs.lspconfig").capabilities
+local nvchad_on_attach = require("nvchad.configs.lspconfig").on_attach
+local nvchad_capabilities = require("nvchad.configs.lspconfig").capabilities
+local capabilities = vim.tbl_deep_extend("force", nvchad_capabilities, require('cmp_nvim_lsp').default_capabilities())
+local on_attach = function(client, bufnr)
+  nvchad_on_attach(client, bufnr)
+  client.server_capabilities.documentFormattingProvider = true
+  client.server_capabilities.documentRangeFormattingProvider = true
+  client.server_capabilities.semanticTokensProvider.full = true
+end
 
 vim.lsp.config('lua_ls', {
   filetypes = { "lua" },

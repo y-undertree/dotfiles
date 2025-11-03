@@ -1,6 +1,7 @@
 -- cSpell:disable
-local on_attach = require("plugins.configs.lspconfig").on_attach
-local capabilities = require("plugins.configs.lspconfig").capabilities
+local nvchad_on_attach = require("nvchad.configs.lspconfig").on_attach
+local nvchad_capabilities = require("nvchad.configs.lspconfig").capabilities
+local capabilities = vim.tbl_deep_extend("force", nvchad_capabilities, require('cmp_nvim_lsp').default_capabilities())
 
 -- if you just want default config for the servers then put them in a table
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
@@ -27,8 +28,8 @@ vim.filetype.add {
   },
 }
 
-local common_on_attach = function(client, bufnr)
-  on_attach(client, bufnr)
+local on_attach = function(client, bufnr)
+  nvchad_on_attach(client, bufnr)
   client.server_capabilities.documentFormattingProvider = true
   client.server_capabilities.documentRangeFormattingProvider = true
 end
@@ -38,7 +39,7 @@ for _, server in ipairs(servers) do
   local filetypes = server[2]
   vim.lsp.config(lsp, {
     filetypes = filetypes,
-    on_attach = common_on_attach,
+    on_attach = on_attach,
     capabilities = capabilities,
   })
   vim.lsp.enable(lsp)

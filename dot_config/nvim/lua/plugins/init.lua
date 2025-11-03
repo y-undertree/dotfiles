@@ -58,7 +58,7 @@ local default_plugins = {
     version = "2.20.7",
     event = "User FilePost",
     opts = function()
-      return require("plugins.configs.others").blankline
+      return require("nvchad.configs.others").blankline
     end,
     config = function(_, opts)
       require("core.utils").load_mappings "blankline"
@@ -73,7 +73,7 @@ local default_plugins = {
     cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
     build = ":TSUpdate",
     opts = function()
-      return require "plugins.configs.treesitter"
+      return require "nvchad.configs.treesitter"
     end,
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "syntax")
@@ -86,7 +86,7 @@ local default_plugins = {
     "lewis6991/gitsigns.nvim",
     event = "User FilePost",
     opts = function()
-      return require("plugins.configs.others").gitsigns
+      return require("nvchad.configs.others").gitsigns
     end,
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "git")
@@ -99,7 +99,7 @@ local default_plugins = {
     "williamboman/mason.nvim",
     cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
     opts = function()
-      return require "plugins.configs.mason"
+      return require "nvchad.configs.mason"
     end,
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "mason")
@@ -120,7 +120,7 @@ local default_plugins = {
     "neovim/nvim-lspconfig",
     event = "User FilePost",
     config = function()
-      require "plugins.configs.lspconfig"
+      require "nvchad.configs.lspconfig"
     end,
   },
 
@@ -135,7 +135,7 @@ local default_plugins = {
         dependencies = "rafamadriz/friendly-snippets",
         opts = { history = true, updateevents = "TextChanged,TextChangedI" },
         config = function(_, opts)
-          require("plugins.configs.others").luasnip(opts)
+          require("nvchad.configs.others").luasnip(opts)
         end,
       },
 
@@ -165,7 +165,7 @@ local default_plugins = {
       },
     },
     opts = function()
-      return require "plugins.configs.cmp"
+      return require "nvchad.configs.cmp"
     end,
     config = function(_, opts)
       require("cmp").setup(opts)
@@ -198,7 +198,7 @@ local default_plugins = {
       require("core.utils").load_mappings "nvimtree"
     end,
     opts = function()
-      return require "plugins.configs.nvimtree"
+      return require "nvchad.configs.nvimtree"
     end,
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "nvimtree")
@@ -214,7 +214,7 @@ local default_plugins = {
       require("core.utils").load_mappings "telescope"
     end,
     opts = function()
-      return require "plugins.configs.telescope"
+      return require "nvchad.configs.telescope"
     end,
     config = function(_, opts)
       dofile(vim.g.base46_cache .. "telescope")
