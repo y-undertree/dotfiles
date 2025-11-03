@@ -13,11 +13,15 @@ local servers = {
   { "bashls",        { "sh", "zsh" } },
   { "buf_ls",        { "buf" } },
   { "jsonls",        { "json" } },
-  { "solargraph",    { "rb" } },
-  { "rubocop",       { "rb" } },
   { "yamlls",        { "yaml" } },
   -- { "ansiblels",     {"yaml"} },
   { "vacuum",        { "yaml" } },
+  -- gem install solargraph
+  -- { "solargraph",    { "rb" } },
+  -- gem install ruby-lsp ruby-lsp-rails ruby-lsp-rspec
+  -- { "ruby-lsp",    { "rb" } },
+  -- gem install rubocop
+  -- { "rubocop",       { "rb" } },
 }
 
 -- vacuum
@@ -46,8 +50,12 @@ for _, server in ipairs(servers) do
 end
 
 require("custom.configs.lsp.lua_ls")
+-- javascript
 require("custom.configs.lsp.vtsls")
 require("custom.configs.lsp.eslint")
+-- ruby
+require("custom.configs.lsp.rubocop")
+require("custom.configs.lsp.ruby_lsp")
 
 -- plugin/workspace.lua（好きな場所で読み込み）
 local ws = (vim.lsp.buf.list_workspace_folders()[1]) or vim.fn.getcwd()
