@@ -51,13 +51,12 @@ M.general = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
     ["<leader>tl"] = { "<cmd>Translate JA<CR>", "translate to ja" },
     ["<leader>tre"] = { "<cmd>Translate EN -output=register<CR>", "translate to en, output register" },
-  },
-  i = {
+    ["<leader>wo"] = { "<Plug>(openbrowser-smart-search)", "search browser" },
   },
 }
 
 M.codecompanion = {
-  n= {
+  n = {
     ["<leader>co"] = { "<cmd>CodeCompanionChat Toggle<CR>", "toggle codecompanion chat " },
     ["<leader>cca"] = { "<cmd>CodeCompanionActions<CR>", "codecompanion actions" },
     ["<leader>ccco"] = { "<cmd>CodeCompanion /commitstaged<CR>", "generate commit message for codecompanion" },
@@ -129,6 +128,7 @@ M.command_pallet = {
     ["<leader>@git-diff-base-branch-files"] = { "<cmd> Easypick changed_files_compare_base_branch<cr>", "git diff base branch files" },
     ["<leader>@lspsaga-finder"] = { "<cmd>Lspsaga finder <CR>", "lspsaga LSP finder" },
     ["<leader>@docs-view"] = { "<cmd>DocsViewToggle<CR>", "Docs View Toggle" },
+    ["<leader>@defined-keymaps"] = { "<cmd> Telescope keymaps <CR>", "Defined Keymaps" },
   },
 }
 
@@ -160,7 +160,6 @@ M.telescope = {
     },
     ["<leader>fr"] = { "<cmd> Telescope telescope-alternate alternate_file<cr>", "telescope relation files" },
     ["<leader>hh"] = { "<cmd> Telescope help_tags <CR>", "help page" },
-    ["<leader>hk"] = { "<cmd> Telescope keymaps <CR>", "find in keymappings" },
     ["<leader>mh"] = { "<cmd> Telescope heading <CR>", "telescope markdown heading" },
     ["<leader>mc"] = { "<cmd> Telescope macros <CR>", "macros list" },
     ["<leader>so"] = { "<cmd> ScratchOpen<cr>", "scratch open" },
@@ -228,28 +227,6 @@ M.browser = {
   },
 }
 
-M.lsp_support = {
-  n = {
-    ["gj"] = { "<cmd>Lspsaga peek_definition<CR>", "lspsaga open peek_definition" },
-    ["gt"] = { "<cmd>Lspsaga peek_type_definition<CR>", "lspsaga peek_type_definition" },
-    ["<leader>dial"] = { "<cmd>Lspsaga show_line_diagnostics<CR>", "lspsaga show_line_diagnostics" },
-    ["<leader>diab"] = { "<cmd>Lspsaga show_buf_diagnostics<CR>", "lspsaga show_buf_diagnostics" },
-    ["<leader>diac"] = { "<cmd>Lspsaga show_cursor_diagnostics<CR>", "lspsaga show_cursor_diagnostics" },
-    ["[e"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "diagnostic_jump_prev" },
-    ["]e"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "diagnostic_jump_next" },
-    ["<leader>ca"] = { "<cmd>Lspsaga code_action<CR>", "lspsaga Code action" },
-    ["gK"] = { "<cmd>Lspsaga hover_doc ++keep<CR>", "lspsaga hover_doc keep" },
-    ["<leader>ra"] = { "<cmd>Lspsaga rename<CR>", "lspsaga rename" },
-    ["gi"] = { "<cmd>Glance implementations<CR>", "Glance implementations" },
-    ["gr"] = { "<cmd>Glance references<CR>", "Glance references" },
-    -- ["gj"] = { "<cmd>Glance definitions<CR>", "Glance definitions" },
-    -- ["gt"] = { "<cmd>Glance type_definitions <CR>", "Glance type_definitions" },
-  },
-  x = {
-    ["<leader>wo"] = { "<Plug>(openbrowser-smart-search)", "search browser" },
-  },
-}
-
 M.camelsnek = {
   n = {
     ["<leader>csn"] = { "<cmd>Snek<cr>", "convert snake case" },
@@ -314,6 +291,20 @@ M.lspconfig = {
     },
   },
 }
+
+-- lua/nvchad/configs/lspconfig.lua
+M.lsp_support = {
+  n = {
+    ["gj"] = { "<cmd>Lspsaga peek_definition<CR>", "lspsaga open peek_definition" },
+    ["gt"] = { "<cmd>Lspsaga peek_type_definition<CR>", "lspsaga peek_type_definition" },
+    ["ge"] = { "<cmd>Lspsaga show_cursor_diagnostics<CR>", "lspsaga show_cursor_diagnostics" },
+    ["gk"] = { "<cmd>Lspsaga hover_doc ++keep<CR>", "lspsaga hover_doc keep" },
+    ["[e"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "diagnostic_jump_prev" },
+    ["]e"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "diagnostic_jump_next" },
+    ["<leader>ca"] = { "<cmd>Lspsaga code_action<CR>", "lspsaga Code action" },
+  },
+}
+
 
 M.octo = {
   n = {
