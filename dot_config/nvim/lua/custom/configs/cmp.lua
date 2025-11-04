@@ -9,25 +9,22 @@ end
 
 local options = {
   mapping = {
-    ["<C-p>"] = cmp.mapping.select_prev_item(),
-    ["<C-n>"] = cmp.mapping.select_next_item(),
-    ["<Up>"] = cmp.mapping.select_prev_item(),
-    ["<Down>"] = cmp.mapping.select_next_item(),
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    ["<C-Space>"] = cmp.mapping.complete(),
-    ["<C-e>"] = cmp.mapping.abort(),
-    ["<CR>"] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Insert,
-      select = true,
-    },
+    -- ["<Tab>"] = vim.schedule_wrap(function(fallback)
+    --   if cmp.visible() and has_words_before() then
+    --     cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+    --   else
+    --     fallback()
+    --   end
+    -- end),
     ["<Tab>"] = vim.schedule_wrap(function(fallback)
       if cmp.visible() and has_words_before() then
         cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+      elseif require("luasnip").expand_or_jumpable() then
+        require("luasnip").expand_or_jump()
       else
         fallback()
       end
-    end),
+    end, { "i", "s" }),
   },
   sources = {
     { name = "copilot",  priority = 1 },
@@ -36,11 +33,7 @@ local options = {
     { name = "nvim_lsp", priority = 1, keyword_length = 2 },
     { name = "luasnip",  priority = 1, keyword_length = 2 },
     { name = "nvim_lua", priority = 1, keyword_length = 2, ft = "lua" },
-    {
-      name = "path",
-      group_index = 2,
-      priority = 5,
-    },
+    { name = "async_path" },
     {
       name = "buffer",
       priority = 1,
