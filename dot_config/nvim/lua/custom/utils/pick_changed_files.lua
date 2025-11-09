@@ -26,7 +26,7 @@ end
 local function index_files()
   local modified = systemlist('git diff --name-only')
   local staged   = systemlist('git diff --cached --name-only')
-  local all = {}
+  local all      = {}
   vim.list_extend(all, modified)
   vim.list_extend(all, staged)
   return uniq_existing(all)
@@ -45,12 +45,12 @@ function M.pick_changed_files(opts)
     return
   end
 
-  local pickers   = require('telescope.pickers')
-  local finders   = require('telescope.finders')
-  local conf      = require('telescope.config').values
-  local actions   = require('telescope.actions')
-  local action_st = require('telescope.actions.state')
-  local builtin   = require('telescope.builtin')
+  local pickers               = require('telescope.pickers')
+  local finders               = require('telescope.finders')
+  local conf                  = require('telescope.config').values
+  local actions               = require('telescope.actions')
+  local action_st             = require('telescope.actions.state')
+  local builtin               = require('telescope.builtin')
 
   -- devicons（無ければフォールバック）
   local ok_devicons, devicons = pcall(require, 'nvim-web-devicons')
@@ -79,11 +79,11 @@ function M.pick_changed_files(opts)
     end
 
     return {
-      value = path,          -- 実ファイルパス
-      ordinal = path,        -- ソート/フィルタ用キー
-      display = display,     -- 表示テキスト（アイコン + 相対パス）
+      value = path,      -- 実ファイルパス
+      ordinal = path,    -- ソート/フィルタ用キー
+      display = display, -- 表示テキスト（アイコン + 相対パス）
       display_highlights = display_highlights,
-      path = path,           -- 明示的に持たせておくと便利
+      path = path,       -- 明示的に持たせておくと便利
       icon = icon,
       icon_hl = icon_hl,
     }
@@ -119,8 +119,10 @@ function M.pick_changed_files(opts)
           table.insert(targets, e.value)
         end
         if #targets == 0 then
-          local single = action_st.get_selected_entry()
-          if single then table.insert(targets, single.value) end
+          -- Add all entries in the picker to targets
+          for _, entry in ipairs(entries) do
+            table.insert(targets, entry.value)
+          end
         end
         actions.close(prompt_bufnr)
         builtin.live_grep({
