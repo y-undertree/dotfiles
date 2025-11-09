@@ -1322,6 +1322,18 @@ local plugins = {
     'WeiTing1991/diagnostic-hover.nvim',
     event = "VeryLazy",
     opts = {}
+  },
+  {
+    "NeogitOrg/neogit",
+    cmd = "Neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim", -- required
+      "sindrets/diffview.nvim", -- optional - Diff integration
+      "nvim-telescope/telescope.nvim", -- optional
+      "ibhagwan/fzf-lua",            -- optional
+      "nvim-mini/mini.pick",         -- optional
+      "folke/snacks.nvim",           -- optional
+    },
   }
 }
 
