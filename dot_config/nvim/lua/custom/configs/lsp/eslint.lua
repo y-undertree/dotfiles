@@ -5,7 +5,7 @@ local on_attach = function(client, bufnr)
   nvchad_on_attach(client, bufnr)
   client.server_capabilities.documentFormattingProvider = true
   client.server_capabilities.documentRangeFormattingProvider = true
-  client.server_capabilities.semanticTokensProvider.full = true
+  -- client.server_capabilities.semanticTokensProvider.full = true
 end
 local filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' }
 

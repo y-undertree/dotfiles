@@ -26,7 +26,7 @@ vim.lsp.config('vtsls', {
   capabilities = capabilities
 })
 vim.lsp.config('vue_ls', {
-  filetypes = 'vue',
+  filetypes = { 'vue' },
   settings = {
     vue = {
       vueCompilerOptions = {
