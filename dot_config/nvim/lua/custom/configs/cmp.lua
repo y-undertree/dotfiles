@@ -27,16 +27,16 @@ local options = {
     end, { "i", "s" }),
   },
   sources = {
-    { name = "copilot",  priority = 1 },
-    { name = "nvim_lsp_signature_help", priority = 1 },
-    { name = "css-variables", priority = 1, keyword_length = 1, ft = 'css' },
-    { name = "nvim_lsp", priority = 1, keyword_length = 2 },
+    { name = "copilot",  priority = 5 },
+    { name = "nvim_lsp_signature_help", priority = 5 },
+    { name = "css-variables", priority = 3, keyword_length = 2, ft = { 'css', 'vue', 'scss', 'sass'} },
+    { name = "nvim_lsp", priority = 2, keyword_length = 2 },
     { name = "luasnip",  priority = 1, keyword_length = 2 },
     { name = "nvim_lua", priority = 1, keyword_length = 2, ft = "lua" },
     { name = "async_path" },
     {
       name = "buffer",
-      priority = 1,
+      priority = 2,
       option = {
         keyword_length = 3,
         get_bufnrs = function()
@@ -54,19 +54,16 @@ local options = {
         end,
       },
     },
-    -- { name = 'treesitter', priority = 2, max_item_count = 5 },
   },
   sorting = {
-    priority_weight = 2,
+    priority_weight = 3,
     comparators = {
       -- https://github.com/hrsh7th/nvim-cmp/pull/1537/files
       require("copilot_cmp.comparators").prioritize,
-      cmp.config.compare.offset,
-      cmp.config.compare.score,
-      cmp.config.compare.sort_text,
       cmp.config.compare.exact,
-      cmp.config.compare.recently_used,
       cmp.config.compare.locality,
+      cmp.config.compare.score,
+      cmp.config.compare.recently_used,
       cmp.config.compare.kind,
       cmp.config.compare.length,
       cmp.config.compare.order,
