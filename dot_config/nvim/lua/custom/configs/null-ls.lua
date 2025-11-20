@@ -1,7 +1,5 @@
 -- cSpell:disable
--- NOTE: to nvimtools/none-ls.nvim
 local present, null_ls = pcall(require, "null-ls")
-
 if not present then
   return
 end
@@ -31,33 +29,17 @@ if vim.fn.filereadable(cspell_files.user) ~= 1 then
 end
 
 
-local b = null_ls.builtins
-local cspell = require('cspell')
--- https://github.com/davidmh/cspell.nvim
+-- local b = null_ls.builtins
+local cspell = require('cspell') -- https://github.com/davidmh/cspell.nvim
 local cspell_config = {
   find_json = function()
     return cspell_files.user
   end,
 }
--- local cspell_config = {
---   find_json = function()
---     return cspell_files.config
---   end,
--- }
--- local cspell_config_for_action = {
---   find_json = function()
---     return cspell_files.user
---   end,
--- }
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
 local sources = {
-  -- b.diagnostics.jsonlint,
-  -- -- Ruby
-  -- -- gemがないとnull_lsでエラーがでるので注意
+  -- gemがないとnull_lsでエラーがでるので注意
   -- b.diagnostics.reek,
-  -- b.diagnostics.erb_lint,
-  -- b.diagnostics.yamllint,
-  -- b.diagnostics.eslint,
   -- cspell
   cspell.code_actions.with({ config = cspell_config }),
   cspell.diagnostics.with({ config = cspell_config }),
@@ -66,5 +48,5 @@ local sources = {
 null_ls.setup {
   debug = false,
   sources = sources,
-  timeout = 10000,
+  timeout = 5000,
 }
