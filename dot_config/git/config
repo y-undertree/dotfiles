@@ -8,6 +8,15 @@
   difftool = true
   pager = delta
   editor = /usr/local/bin/nvim
+  preloadindex = true           # indexの先読み
+  untrackedCache = true         # untracked fileキャッシュ
+  fsmonitor = true              # ファイル監視をキャッシュ
+
+[status]
+  showUntrackedFiles = normal   # 'all'は遅い
+
+[fetch]
+  prune = true
 
 [color]
   ui = true
@@ -73,6 +82,7 @@
   indentHeuristic = true
   colorMoved = default
   tool = difftastic
+  algorithm = patience ;histogram
 
 [difftool]
   prompt = false
