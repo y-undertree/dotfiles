@@ -34,6 +34,7 @@ Temporary Items
 .tags_sorted_by_file
 .irbrc
 .irb_history
+.rdbginit
 .favorites.json
 *.http
 .y-kinoshita/**
@@ -77,4 +78,14 @@ mkcert
 
 # rails
 Procfile
+
+# Redoc
+redoc-static.html
+
+# CodeCompanion
+codecompanion-workspace.json
+
+# mcp server
+.mcpenv
+.mcphub/
 
