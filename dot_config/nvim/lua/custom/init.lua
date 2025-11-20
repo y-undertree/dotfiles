@@ -249,3 +249,14 @@ vim.api.nvim_create_user_command("OpenCurrentFileLineNewWindow", function()
   open_in_direction(true)
 end, {})
 
+vim.api.nvim_create_autocmd({"BufReadPre"}, {
+  pattern = {"*.log", "*.txt"},
+  callback = function()
+    vim.cmd([[
+      syntax off
+      setlocal noswapfile noundofile nobackup
+      setlocal lazyredraw
+      setlocal foldmethod=manual
+    ]])
+  end
+})
