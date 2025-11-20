@@ -34,7 +34,6 @@ M.general = {
     ["<leader>tf"] = { "<cmd>NvimTreeFocus<CR>", "focus neovim tree" },
     ["<leader>nn"] = { "<cmd>Yazi<CR>", "Open yazi at the current file" },
     ["<leader>nN"] = { "<cmd>Yazi cwd<CR>", "Open the file manager in nvim's working directory" },
-    ["<leader>ts"] = { [[:silent !tmux new-window "tig status"<CR>]], "tig status" },
     ["<leader>tl"] = { "<cmd>Translate JA<CR>", "translate to ja" },
     ["<leader>tre"] = { "<cmd>Translate EN -output=register<CR>", "translate to en, output register" },
     ["[c"] = {
@@ -108,12 +107,7 @@ M.command_pallet = {
     ["<leader>@tig-blame"] = { [[:silent !tmux new-window "tig blame $(echo %:p)"<CR>]], "tig blame current file" },
     ["<leader>@tig-log-in-file"] = { [[:silent !tmux new-window "tig $(echo %:p)"<CR>]], "tig log current file" },
     ["<leader>@mysql-cli"] = { [[:silent !tmux new-window "/usr/local/bin/mycli -h 127.0.0.1 -u root"<CR>]], "mysql cli" },
-    ["<leader>@search-spectre"] = { '<cmd>lua require("spectre").open_visual({select_word=true})<CR>',
-      "replace and search by spectre" },
-    ["<leader>@search-spectre-current-word"] = {
-      '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>',
-      "replace and search on current file by spectre",
-    },
+    ["<leader>@find-and-replace"] = { '<cmd>GrugFar<CR>', "find and replace" },
     ["<leader>@open-finder"] = { ":silent !open %:p:h<CR>", "open finder" },
     ["<leader>@open-sublimetext"] = { ":silent !subl %:p<CR>", "open sublimetext" },
     ["<leader>@open-vscode-current-path"] = { ":silent !NODE_OPTIONS='' code %:p<CR>", "open vscode current path" },
@@ -126,6 +120,8 @@ M.command_pallet = {
     ["<leader>@lspsaga-finder"] = { "<cmd>Lspsaga finder <CR>", "lspsaga LSP finder" },
     ["<leader>@docs-view"] = { "<cmd>DocsViewToggle<CR>", "Docs View Toggle" },
     ["<leader>@defined-keymaps"] = { "<cmd> Telescope keymaps <CR>", "Defined Keymaps" },
+    ["<leader>@git-worktree"] = { "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", "git worktrees" },
+    ["<leader>@create-git-worktree"] = { "<cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>", "create git worktree" },
   },
 }
 
@@ -187,6 +183,13 @@ M.git = {
     ["<leader>gby"] = { "<cmd> GitBlameCopySHA<cr>", "copy github blame commit SHA" },
     ["<leader>gbo"] = { "<cmd> GitBlameOpenCommitURL<cr>", "open github blame commit" },
     ["<leader>gbp"] = { "<cmd> OpenGithubBlamePr<cr>", "open github blame pull request" },
+    ["<leader>]h"] = { "<cmd>lua require('gitsigns').next_hunk<cr>", "next hunk" },
+    ["<leader>[h"] = { "<cmd>lua require('gitsigns').prev_hunk<cr>", "prev hunk" },
+    ["<leader>hs"] = { "<cmd>lua require('gitsigns').stage_hunk<cr>", "state hunk" },
+    ["<leader>hr"] = { "<cmd>lua require('gitsigns').reset_hunk<cr>", "reset hunk" },
+    ["<leader>hp"] = { "<cmd>lua require('gitsigns').preview_hunk<cr>", "preview hunk" },
+    ["<leader>ti"] = { "<cmd>TigStatus<CR>", "tig status" },
+    ["<leader>gd"] = { "<cmd>GinDiff<cr>", "Git diff" },
   },
   x = {
     ["<leader>ghl"] = { ":GetCommitLink<CR>", "github line link copy" },
@@ -305,6 +308,7 @@ M.lsp_support = {
     ["[e"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "diagnostic_jump_prev" },
     ["]e"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "diagnostic_jump_next" },
     ["<leader>ca"] = { "<cmd>Lspsaga code_action<CR>", "lspsaga Code action" },
+    ["<leader>re"] = { [[<cmd>lua require("nvchad.renamer").open()<CR>]], "lsp rename" },
   },
 }
 

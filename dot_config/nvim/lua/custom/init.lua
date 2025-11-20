@@ -10,13 +10,14 @@
 
 -- ------- default mapping -------
 -- ESCを2回押すことでハイライトを消す
--- vim.cmd "nnoremap <silent> <Esc><Esc> :nohlsearch<CR>"
+vim.cmd "nnoremap <silent> <Esc><Esc> :nohlsearch<CR>"
 vim.cmd "nnoremap <silent> H ^"
 vim.cmd "nnoremap <silent> L $"
 vim.cmd "vnoremap <silent> H ^"
 vim.cmd "vnoremap <silent> L $"
 -- cmdlineで省略入力
 vim.cmd [[cnoremap <F2> \(.*\)]]
+vim.cmd [[inoremap jq <ESC>]]
 vim.cmd [[inoremap jj <ESC>]]
 vim.cmd [[tnoremap <ESC> <C-\><C-n>]]
 vim.cmd [[cnoremap <C-p> <C-r><C-w>]]
@@ -73,6 +74,7 @@ vim.cmd [[set errorformat+=%f\|%l\ col\ %c\|\ %m"]]
 local opt = vim.opt
 local g = vim.g
 g.mapleader = " "
+g.maplocalleader = ','
 g.ttimeout = true
 g.fileformats = { "unix", "dos", "mac" }
 g.fileencodings = { "utf-8", "sjis" }
