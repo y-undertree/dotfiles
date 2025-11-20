@@ -1,14 +1,22 @@
 # custom setings
 
 set diff-highlight = true
+# 差分やログを軽量化
+set diff-context = 1           # 通常3行→1行に
+set show-changes = no          # 開始時にdiffを描かない
+set line-graphics = ascii      # 描画を軽く
+
+# ロード制限
+set blame-options = -w         # 空白差分無視
+set status-show-untracked-dirs = no # 未追跡フォルダを再帰探索しない
 
 # custom command
 bind generic	o !@git-pr-find %(commit)
 bind generic	O !@gh browse %(commit)
 bind generic	+ !env SKIP="" git commit --amend --verbose
 bind generic  - ?git switch -
-bind main   	B !git rebase --autosquash -i %(commit)
-bind main   	Y	!git pbcopy %(commit)
+bind main   	B !git rebase --rebase-merge --autosquash -i %(commit)
+bind main   	Y	!@git pbcopy %(commit)
 bind main     ! ?git revert %(commit)
 bind main   	K	?git cherry-pick %(commit)
 bind main    <Esc>K ?git cherry-pick -n %(commit)
@@ -17,10 +25,11 @@ bind main    <Esc>= ?git switch %(commit)
 bind main     T ?git tag "%(prompt Enter tag name: )" %(commit)
 bind main     F ?!git commit --fixup %(commit)
 bind main    	P ?git push -u %(remote) %(repo:head)
-bind diff   	B !git rebase --autosquash -i %(commit)
+bind diff   	B !git rebase --rebase-merge --autosquash -i %(commit)
 bind diff     K ?git cherry-pick %(commit)
 bind diff    <Esc>K ?git cherry-pick -n %(commit)
 bind diff     F ?!git commit --fixup %(commit)
+bind diff   	Y	!@git pbcopy %(commit)
 bind refs     D ?git branch -d %(branch)
 bind refs     x ?sh -c "git branch --merged | grep -vE '^\\*|master$|develop$' | xargs -I % git branch -d %"
 bind refs	    =	?git switch %(branch)
