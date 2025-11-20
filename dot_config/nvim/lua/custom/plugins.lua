@@ -58,17 +58,18 @@ local plugins = {
     "hrsh7th/nvim-cmp",
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
+      { 'hrsh7th/cmp-cmdline' },
+      { "hrsh7th/cmp-nvim-lsp-signature-help" },
+      { 'roginfarrer/cmp-css-variables' },
+      { "ray-x/cmp-treesitter" },
       {
         "zbirenbaum/copilot-cmp",
-        event = { "InsertEnter", "LspAttach" },
-        fix_pairs = true,
+        -- event = { "InsertEnter", "LspAttach" },
+        -- fix_pairs = true,
         config = function()
           require("copilot_cmp").setup()
         end,
       },
-      { 'hrsh7th/cmp-cmdline' },
-      { 'roginfarrer/cmp-css-variables' },
-      { "ray-x/cmp-treesitter" },
     },
     opts = function()
       local default_opts = require "nvchad.configs.cmp"
@@ -247,24 +248,39 @@ local plugins = {
     event = "VeryLazy",
     config = function()
       require("toggleterm").setup {
-        start_in_insert = false,
+        start_in_insert = true,
       }
       -- rspec
-      rspec_current_line = function(count, is_coverage)
+      _rspec_current_line = function(count, is_coverage)
         local linenr = vim.api.nvim_win_get_cursor(0)[1]
         coverage_prefix = is_coverage and "COVERAGE=true " or ""
         require("toggleterm").exec(
           coverage_prefix .. "bundle exec rspec " .. vim.fn.expand "%" .. ":" .. linenr .. ";beep", count)
       end
-      rspec_current_file = function(count, is_coverage)
+      _rspec_current_file = function(count, is_coverage)
         coverage_prefix = is_coverage and "COVERAGE=true " or ""
         require("toggleterm").exec(coverage_prefix .. "bundle exec rspec " .. vim.fn.expand "%" .. ";beep", count)
       end
 
-      vim.cmd [[command! -count=1 RspecCurrentLine lua rspec_current_line(<count>, false)]]
-      vim.cmd [[command! -count=1 RspecCurrentFile lua rspec_current_file(<count>, false)]]
-      vim.cmd [[command! -count=1 RspecCurrentLineCoverage lua rspec_current_line(<count>, true)]]
-      vim.cmd [[command! -count=1 RspecCurrentFileCoverage lua rspec_current_file(<count>, true)]]
+      local Terminal      = require('toggleterm.terminal').Terminal
+      local tig_status    = Terminal:new({
+        start_in_insert = true,
+        insert_mappings = false,
+        cmd = "tig status",
+        dir = "git_dir",
+        hidden = true,
+        direction = "float",
+        close_on_exit = false,
+      })
+      _tig_status         = function()
+        tig_status:toggle()
+      end
+
+      vim.cmd [[command! -count=1 TigStatus lua _tig_status()]]
+      vim.cmd [[command! -count=1 RspecCurrentLine lua _rspec_current_line(<count>, false)]]
+      vim.cmd [[command! -count=1 RspecCurrentFile lua _rspec_current_file(<count>, false)]]
+      vim.cmd [[command! -count=1 RspecCurrentLineCoverage lua _rspec_current_line(<count>, true)]]
+      vim.cmd [[command! -count=1 RspecCurrentFileCoverage lua _rspec_current_file(<count>, true)]]
     end,
   },
   {
@@ -273,11 +289,11 @@ local plugins = {
   },
   {
     "zbirenbaum/copilot.lua",
-    event = "InsertEnter",
-    cmd = "Copilot",
+    event = { "InsertEnter", "LspAttach" },
     enabled = true,
     config = function()
       require("copilot").setup {
+        copilot_node_command = vim.fn.expand("$HOME") .. '/.asdf/installs/nodejs/24.11.1/bin/node',
         suggestion = {
           enabled = false,
           -- auto_trigger = true,
@@ -338,6 +354,10 @@ local plugins = {
   },
   {
     "otavioschwanck/telescope-alternate",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+  },
+  {
+    'ThePrimeagen/git-worktree.nvim',
     dependencies = { "nvim-telescope/telescope.nvim" },
   },
   {
@@ -410,13 +430,6 @@ local plugins = {
     },
     config = function()
       require("octo").setup()
-    end,
-  },
-  {
-    "nvim-pack/nvim-spectre",
-    cmd = "Spectre",
-    config = function()
-      require("spectre").setup()
     end,
   },
   {
@@ -1195,7 +1208,8 @@ local plugins = {
     "mikavilpas/yazi.nvim",
     event = "VeryLazy",
     dependencies = {
-      "folke/snacks.nvim"
+      "folke/snacks.nvim",
+      "MagicDuck/grug-far.nvim"
     },
     ---@type YaziConfig | {}
     opts = {
@@ -1203,6 +1217,22 @@ local plugins = {
       open_for_directories = true,
       keymaps = {
         show_help = "<f1>",
+        send_to_quickfix_list = "<c-l>",
+        grep_in_directory = "<c-g>",
+        replace_in_directory = "<c-r>",
+      },
+      integrations = {
+        resolve_relative_path_implementation = function(args, get_relative_path)
+          -- By default, the path is resolved from the file/dir yazi was focused on
+          -- when it was opened. Here, we change it to resolve the path from
+          -- Neovim's current working directory (cwd) to the target_file.
+          local cwd = vim.fn.getcwd()
+          local path = get_relative_path({
+            selected_file = args.selected_file,
+            source_dir = cwd,
+          })
+          return path
+        end,
       },
     },
     -- 👇 if you use `open_for_directories=true`, this is recommended
@@ -1324,17 +1354,20 @@ local plugins = {
     opts = {}
   },
   {
-    "NeogitOrg/neogit",
-    cmd = "Neogit",
+    'fei6409/log-highlight.nvim',
+    ft = { "log" },
+    opts = {},
+  },
+  {
+    'lambdalisue/vim-gin',
+    event = "VeryLazy",
     dependencies = {
-      "nvim-lua/plenary.nvim", -- required
-      "sindrets/diffview.nvim", -- optional - Diff integration
-      "nvim-telescope/telescope.nvim", -- optional
-      "ibhagwan/fzf-lua",            -- optional
-      "nvim-mini/mini.pick",         -- optional
-      "folke/snacks.nvim",           -- optional
-    },
-  }
+      {
+        'vim-denops/denops.vim',
+        event = "VeryLazy",
+      }
+    }
+  },
 }
 
 return plugins

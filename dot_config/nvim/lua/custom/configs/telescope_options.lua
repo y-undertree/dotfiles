@@ -109,6 +109,7 @@ local options = {
     "smart_open",
     "notify",
     "bookmarks",
+    "git_worktree"
   },
   extensions = {
     ["telescope-alternate"] = {
