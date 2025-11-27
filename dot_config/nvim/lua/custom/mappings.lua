@@ -67,9 +67,9 @@ M.codecompanion = {
 
 M.hop = {
   n = {
-    ["ss"] = { "<cmd>HopWord<CR>", "hop word" },
-    ["s/"] = { "<cmd>HopPattern<CR>", "hop pattern" },
-    ["sl"] = { "<cmd>HopLineStarp<CR>", "hop line" },
+    ["ff"] = { "<cmd>HopWord<CR>", "hop word" },
+    ["f/"] = { "<cmd>HopPattern<CR>", "hop pattern" },
+    ["fl"] = { "<cmd>HopLineStart<CR>", "hop line" },
   },
   x = {
     ["<leader>ss"] = { "<cmd>HopWord<CR>", "hop word" },
