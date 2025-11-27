@@ -32,6 +32,8 @@ vim.cmd "set showmatch"
 --let php_sql_query=1
 --let php_htmlInStrings=1
 --let php_folding=1
+vim.cmd "set hlsearch"
+vim.cmd [[nnoremap <silent> * :let @/ = '\<' . expand('<cword>') . '\>'<CR> :set hlsearch<CR>]]
 
 -- window split
 vim.cmd "set splitbelow"
