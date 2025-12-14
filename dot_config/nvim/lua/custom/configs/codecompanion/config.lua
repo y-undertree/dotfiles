@@ -3,6 +3,7 @@ local copilot_available = vim.fn.filereadable(copilot_token_path) == 1
 local adapter = {
   name = 'copilot',
   model = 'gpt-4.1'
+  -- model = 'gpt-5'
 }
 local inline_adapter = {
   name = 'copilot',
@@ -59,7 +60,7 @@ local M = {
       -- provider = "default", -- default|mini_diff
     },
     chat = {
-      auto_scroll = true,
+      auto_scroll = false,
       show_header_separator = true,
       window = {
         layout = "float", -- float|vertical|horizontal|buffer
