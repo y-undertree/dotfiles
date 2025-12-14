@@ -19,7 +19,7 @@ local M = {
       -- Save all chats by default (disable to save only manually using 'sc')
       auto_save = true,
       -- Number of days after which chats are automatically deleted (0 to disable)
-      expiration_days = 0,
+      expiration_days = 14,
       -- Customize picker keymaps (optional)
       picker_keymaps = {
         rename = { n = "r", i = "<M-r>" },
@@ -27,7 +27,7 @@ local M = {
         duplicate = { n = "<C-y>", i = "<C-y>" },
       },
       ---Automatically generate titles for new chats
-      auto_generate_title = true,
+      auto_generate_title = false,
       ---On exiting and entering neovim, loads the last chat on opening chat
       continue_last_chat = false,
       ---When chat is cleared with `gx` delete the chat from history
