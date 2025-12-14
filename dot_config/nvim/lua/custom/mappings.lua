@@ -308,7 +308,7 @@ M.lsp_support = {
     ["[e"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "diagnostic_jump_prev" },
     ["]e"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "diagnostic_jump_next" },
     ["<leader>ca"] = { "<cmd>Lspsaga code_action<CR>", "lspsaga Code action" },
-    ["<leader>re"] = { [[<cmd>lua require("nvchad.renamer").open()<CR>]], "lsp rename" },
+    ["<leader>re"] = { [[<cmd>Lspsaga rename<CR>]], "lsp rename" },
   },
 }
 
