@@ -1,14 +1,15 @@
 {
 	"name": "Vimium C",
-	"@time": "11/27/2025, 10:46:50 PM",
-	"time": 1764251210590,
+	"@time": "12/14/2025, 4:35:15 PM",
+	"time": 1765697715326,
 	"environment": {
 		"extension": "2.12.2",
 		"platform": "mac",
-		"chromium": 142
+		"chromium": 143
 	},
 	"allBrowserUrls": true,
-	"keyLayout": 2,
+	"exclusionRules": [],
+	"keyLayout": 26,
 	"keyMappings": [
 		"#!no-check",
 		"map p Vomnibar.activate",
@@ -28,6 +29,7 @@
 	],
 	"linkHintCharacters": "adjklewcmghqz",
 	"regexFindMode": true,
+	"scrollStepSize": 140,
 	"searchEngines": [
 		"jira: https://88-oct.atlassian.net/issues/?jql=text%20~%20%22%s%22",
 		"conflu: https://88-oct.atlassian.net/wiki/search?text=%s",
@@ -434,5 +436,7 @@
 		"/* #find:selection */",
 		""
 	],
-	"vimSync": true
+	"vimSync": true,
+	"ignoreKeyboardLayout": 1,
+	"ignoreCapsLock": 2
 }
