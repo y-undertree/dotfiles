@@ -33,7 +33,7 @@ local options = {
     { name = "nvim_lsp", priority = 2, keyword_length = 2 },
     { name = "luasnip",  priority = 1, keyword_length = 2 },
     { name = "nvim_lua", priority = 1, keyword_length = 2, ft = "lua" },
-    { name = "async_path" },
+    { name = "async_path", priority = 1, keyword_length = 5 },
     {
       name = "buffer",
       priority = 2,
@@ -60,10 +60,10 @@ local options = {
     comparators = {
       -- https://github.com/hrsh7th/nvim-cmp/pull/1537/files
       require("copilot_cmp.comparators").prioritize,
-      cmp.config.compare.exact,
-      cmp.config.compare.locality,
       cmp.config.compare.score,
       cmp.config.compare.recently_used,
+      cmp.config.compare.locality,
+      cmp.config.compare.exact,
       cmp.config.compare.kind,
       cmp.config.compare.length,
       cmp.config.compare.order,
