@@ -326,9 +326,7 @@ local plugins = {
   },
   {
     "RRethy/vim-illuminate",
-    init = function()
-      require("core.utils").lazy_load "vim-illuminate"
-    end,
+    event = "VeryLazy",
     config = function()
       require("illuminate").configure {
         providers = {
@@ -562,9 +560,6 @@ local plugins = {
   {
     "RRethy/nvim-treesitter-endwise",
     lazy = false,
-    -- init = function()
-    --   require("core.utils").lazy_load "nvim-treesitter-endwise"
-    -- end,
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
@@ -616,9 +611,7 @@ local plugins = {
   },
   {
     "tyru/open-browser.vim",
-    init = function()
-      require("core.utils").lazy_load "open-browser.vim"
-    end,
+    event = "VeryLazy",
   },
   {
     'rmagatti/auto-session',
@@ -650,17 +643,11 @@ local plugins = {
     "rhysd/committia.vim",
     lazy = false,
     ft = "gitcommit",
-    -- init = function()
-    --   require("core.utils").lazy_load "committia.vim"
-    -- end,
   },
   {
     "hotwatermorning/auto-git-diff",
     lazy = false,
     ft = "gitrebase",
-    -- init = function()
-    --   require("core.utils").lazy_load "auto-git-diff"
-    -- end,
   },
   {
     "knsh14/vim-github-link",
