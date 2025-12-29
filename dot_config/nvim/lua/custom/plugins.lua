@@ -269,8 +269,8 @@ local plugins = {
         cmd = "tig status",
         dir = "git_dir",
         hidden = true,
-        direction = "float",
-        close_on_exit = false,
+        direction = "tab",
+        close_on_exit = true,
       })
       _tig_status         = function()
         tig_status:toggle()
@@ -1165,7 +1165,7 @@ local plugins = {
       }
     },
     config = function()
-      require("codecompanion.fidget-spinner"):init()
+      -- require("codecompanion.fidget-spinner"):init()
       require("codecompanion.fidget-progress-message"):init()
       local opts = require "custom.configs.codecompanion.config"
       require("codecompanion").setup(opts)
@@ -1347,6 +1347,7 @@ local plugins = {
   },
   {
     'lambdalisue/vim-gin',
+    cmd = { "Gin", "GinDiff", "GinLog", "GinStatus" },
     event = "VeryLazy",
     dependencies = {
       {

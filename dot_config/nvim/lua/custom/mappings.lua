@@ -14,6 +14,7 @@ M.disabled = {
 
 M.general = {
   n = {
+    ["ss"] = { "<cmd> w <CR>", "Save file" },
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
     ["q;"] = { "q:", "command history sugar syntax", opts = { nowait = true } },
     ["<c-Up>"] = { ":resize +5<CR>", "resize window " },
@@ -30,12 +31,15 @@ M.general = {
     ["<leader>an"] = { [[:lua require('neogen').generate() <CR>]], "generate annotatioin for neogen" },
     ["<leader>th"] = { [[:lua require('tsht').nodes()<CR>]], "Treehopper" },
     ["<leader>td"] = { "<cmd>DocsViewToggle<CR>", "toggle view docs" },
-    ["<leader>to"] = { "<cmd>NvimTreeToggle<CR>", "toggle neovim tree" },
+    ["<leader>nt"] = { "<cmd>NvimTreeToggle<CR>", "toggle neovim tree" },
     ["<leader>tf"] = { "<cmd>NvimTreeFocus<CR>", "focus neovim tree" },
     ["<leader>nn"] = { "<cmd>Yazi<CR>", "Open yazi at the current file" },
     ["<leader>nN"] = { "<cmd>Yazi cwd<CR>", "Open the file manager in nvim's working directory" },
     ["<leader>tl"] = { "<cmd>Translate JA<CR>", "translate to ja" },
     ["<leader>tre"] = { "<cmd>Translate EN -output=register<CR>", "translate to en, output register" },
+    ["<leader>tn"] = { [[:lua require("neotest").run.run() <CR>]], "test run" },
+    ["<leader>tp"] = { [[:lua require("neotest").output_panel.toggle() <CR>]], "toggle test output panel" },
+    ["<leader>to"] = { [[:lua require("neotest").output.open({ enter = true }) <CR>]], "open test output popup" },
     ["[c"] = {
       function()
         require('treesitter-context').go_to_context(vim.v.count1)
@@ -122,6 +126,9 @@ M.command_pallet = {
     ["<leader>@defined-keymaps"] = { "<cmd> Telescope keymaps <CR>", "Defined Keymaps" },
     ["<leader>@git-worktree"] = { "<cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<CR>", "git worktrees" },
     ["<leader>@create-git-worktree"] = { "<cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>", "create git worktree" },
+    ["<leader>@test-run-file"] = { [[:lua require("neotest").run.run(vim.fn.expand("%")) <CR>]], "test run in file" },
+    ["<leader>@test-summary"] = { [[:lua require("neotest").summary.toggle() <CR>]], "test summary toggle" },
+    ["<leader>@open-notifies"] = { "<cmd> Telescope notify<cr>", "open notifies" },
   },
 }
 
@@ -163,7 +170,6 @@ M.telescope = {
     ["<leader>mc"] = { "<cmd> Telescope macros <CR>", "macros list" },
     ["<leader>so"] = { "<cmd> ScratchOpen<cr>", "scratch open" },
     ["<leader>sf"] = { "<cmd> ScratchOpenFzf<cr>", "scratch fzf" },
-    ["<leader>tn"] = { "<cmd> Telescope notify<cr>", "open notifies" },
     ["g]"] = {
       "<cmd>lua require('telescope').extensions.ctags_plus.jump_to_tag()<cr>",
       "ctags jump list for telescope",
