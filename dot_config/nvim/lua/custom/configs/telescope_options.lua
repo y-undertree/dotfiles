@@ -184,9 +184,36 @@ local options = {
             { "app/controllers/[1]/[2]/[3]_controller.rb", "Original", true },
             { "app/controllers/[1]/[2]_controller.rb",     "Original", true }
           },
-        }
+        },
+        -- 1. Components (.vue) からの遷移
+        {
+            'components/(.*).vue', {
+            { 'test/components/[1].test.ts',  'Test',                   true },
+            { 'src/composable/[1].ts',        'Composable (Direct)',    true },
+            { 'src/components/[1].stories.ts','Storybook',              true },
+            { 'stories/[1].stories.ts',       'Storybook (External)',   true },
+          },
+        },
+        -- 2. Composable (.ts) からの遷移
+        {
+          'composable/(.*).ts', {
+            { 'test/composable/[1].test.ts', 'Test',      true },
+            { 'src/components/[1].vue',            'Component', true },
+            { 'src/components/use[1].vue',         'Component (usePrefix)', true },
+          }
+        },
+        -- 3. Test (.test.ts) からの遷移
+        {
+          'test/components/(.*).test.ts', {
+            { 'src/components/[2].vue', 'Source Component', true }
+          }
+        },
+        {
+          'test/composable/(.*).test.ts', {
+            { 'composable/[1].ts', 'Source Composable', true }
+          },
+        },
       },
-      -- presets = { "rails", "rspec" },
     },
     live_grep_args = {
       auto_quoting = false, -- enable/disable auto-quoting
@@ -206,7 +233,7 @@ local options = {
       match_algorithm = 'fzf',
     },
     media_files = {
-      filetypes = {"png", "webp", "jpg", "jpeg", "pdf"},
+      filetypes = { "png", "webp", "jpg", "jpeg", "pdf" },
       find_cmd = "rg",
     },
   },
