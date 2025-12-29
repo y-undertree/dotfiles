@@ -1356,6 +1356,46 @@ local plugins = {
       }
     }
   },
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "marilari88/neotest-vitest",
+      "olimorris/neotest-rspec",
+    },
+    config = function()
+      require("neotest").setup({
+        adapters = {
+          require("neotest-vitest"),
+          require("neotest-rspec")({
+            rspec_cmd = function(position_type)
+              if position_type == "file" then
+                return vim.tbl_flatten({
+                  "COVERAGE=true",
+                  "bundle",
+                  "exec",
+                  "rspec",
+                  "--fail-fast"
+                })
+              else
+                return vim.tbl_flatten({
+                  "bundle",
+                  "exec",
+                  "rspec",
+                })
+              end
+            end
+          })
+        },
+        filter_dir = function(name, rel_path, root)
+          return name ~= "node_modules"
+        end
+      })
+    end,
+  }
 }
 
 return plugins
