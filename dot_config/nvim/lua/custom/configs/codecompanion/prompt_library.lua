@@ -1,8 +1,8 @@
 local M = {
-  GeneratePRDescription = {
+  PrDescription = {
     strategy = "chat",
     description = "Github Pull Requestの説明文を作成する",
-    opts = { short_name = "prDescription", is_slash_cmd = true },
+    opts = { is_slash_cmd = true },
     references = {
       {
         type = "file",
@@ -47,10 +47,10 @@ local M = {
       },
     },
   },
-  GeneratePRReviewForRuby = {
+  PrReviewRuby = {
     strategy = "chat",
     description = "Github Pull RequestのPR Reviewをする",
-    opts = { short_name = "prReviewRuby", is_slash_cmd = true },
+    opts = { is_slash_cmd = true },
     prompts = {
       {
         role = "system",
@@ -138,10 +138,10 @@ local M = {
       },
     },
   },
-  GeneratePRReviewForVue = {
+  PrReviewVueOld = {
     strategy = "chat",
     description = "Github Pull RequestのPR Reviewをする",
-    opts = { short_name = "prReviewVue2.7", is_slash_cmd = true },
+    opts = { is_slash_cmd = true },
     prompts = {
       {
         role = "system",
@@ -243,10 +243,10 @@ local M = {
       },
     },
   },
-  GeneratePRReviewForNuxt = {
+  PrReviewNuxt = {
     strategy = "chat",
     description = "Github Pull RequestのPR Reviewをする",
-    opts = { short_name = "prReviewNuxt", is_slash_cmd = true },
+    opts = { is_slash_cmd = true },
     prompts = {
       {
         role = "system",
@@ -510,10 +510,10 @@ local M = {
       },
     },
   },
-  CommitStaged = {
+  CommitMessage = {
     strategy = "chat",
     description = "ステージ済み差分からコミットメッセージを生成する",
-    opts = { short_name = "commitMessage", is_slash_cmd = true },
+    opts = { is_slash_cmd = true },
     -- references = {
     --   {
     --     type = "url",
