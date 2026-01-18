@@ -997,7 +997,7 @@ local plugins = {
       require("focus").setup({
         autoresize = {
           enable = true,
-          minwidth = 10,  -- Force minimum width for the unfocused window
+          minwidth = 80,  -- Force minimum width for the unfocused window
           minheight = 10, -- Force minimum height for the unfocused window
           height_quickfix = 5
         },
