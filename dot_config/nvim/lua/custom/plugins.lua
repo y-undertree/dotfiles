@@ -200,6 +200,7 @@ local plugins = {
         },
         lightbulb = {
           virtual_text = false,
+          sign = false,
           debounce = 400,
         },
         diagnostic = {
