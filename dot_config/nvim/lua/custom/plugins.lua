@@ -1369,6 +1369,10 @@ local plugins = {
         end
       })
     end,
+  },
+  {
+    'danymat/neogen',
+    config = true,
   }
 }
 
