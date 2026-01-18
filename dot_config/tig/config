@@ -29,14 +29,14 @@ bind diff   	B !git rebase --rebase-merge --autosquash -i %(commit)
 bind diff     K ?git cherry-pick %(commit)
 bind diff    <Esc>K ?git cherry-pick -n %(commit)
 bind diff     F ?!git commit --fixup %(commit)
-bind diff   	Y	!@git pbcopy %(commit)
+bind diff     Y ?@sh -c "git show %(commit) | pbcopy"
 bind refs     D ?git branch -d %(branch)
 bind refs     x ?sh -c "git branch --merged | grep -vE '^\\*|master$|develop$' | xargs -I % git branch -d %"
 bind refs	    =	?git switch %(branch)
 bind refs	    !	?git branch -D %(branch)
 bind refs     T ?git tag "%(prompt Enter tag name: )" %(branch)
 bind stage    Y @bash -c "echo -n '%(file)' | pbcopy"
-bind stage  	C	!env SKIP="" git commit --verbose
+bind stage  	C	!git commit --verbose
 bind stage    <Ctrl-c> !env SKIP="%(prompt Enter skip precommit: )" git commit --verbose
 bind status   Y @bash -c "echo -n '%(file)' | pbcopy"
 bind status   x ?git clean -d -f
@@ -51,12 +51,13 @@ bind tree     D ?git rm %(file)
 bind blob     Y @bash -c "echo -n '%(file)' | pbcopy"
 bind reflog  	=	?git switch %(branch)
 bind reflog  	!	?git reset --hard %(commit)
+bind stash    Y ?@sh -c "git show %(file) | pbcopy"
+bind stage    <Ctrl-p> :?^@@
 # ファイル単位もしくはコミット単位で上下移動
 bind diff     <Ctrl-n> :/^@@
 bind diff     <Ctrl-p> :?^@@
 bind log      <Ctrl-n> :/^commit
 bind log      <Ctrl-p> :?^commit
 bind stage    <Ctrl-n> :/^@@
-bind stage    <Ctrl-p> :?^@@
 
 source ~/.config/tig/theme.tigrc
