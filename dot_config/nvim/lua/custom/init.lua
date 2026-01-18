@@ -1,3 +1,5 @@
+--  cSpell:disable
+
 -- local autocmd = vim.api.nvim_create_autocmd
 
 -- Auto resize panes when resizing nvim window
@@ -98,6 +100,10 @@ opt.relativenumber = false
 -- spell checking
 opt.spell = true
 opt.spelllang = { "en_us" }
+
+-- ruler
+opt.ruler = true
+opt.colorcolumn = "100" -- Add a ruler at column 80
 
 -- https://github.com/sindrets/diffview.nvim/issues/546
 opt.fillchars:append("diff:╱")
