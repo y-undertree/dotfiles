@@ -262,21 +262,6 @@ local plugins = {
         require("toggleterm").exec(coverage_prefix .. "bundle exec rspec " .. vim.fn.expand "%" .. ";beep", count)
       end
 
-      local Terminal      = require('toggleterm.terminal').Terminal
-      local tig_status    = Terminal:new({
-        start_in_insert = true,
-        insert_mappings = false,
-        cmd = "tig status",
-        dir = "git_dir",
-        hidden = true,
-        direction = "tab",
-        close_on_exit = true,
-      })
-      _tig_status         = function()
-        tig_status:toggle()
-      end
-
-      vim.cmd [[command! -count=1 TigStatus lua _tig_status()]]
       vim.cmd [[command! -count=1 RspecCurrentLine lua _rspec_current_line(<count>, false)]]
       vim.cmd [[command! -count=1 RspecCurrentFile lua _rspec_current_file(<count>, false)]]
       vim.cmd [[command! -count=1 RspecCurrentLineCoverage lua _rspec_current_line(<count>, true)]]
@@ -1344,17 +1329,6 @@ local plugins = {
     'fei6409/log-highlight.nvim',
     ft = { "log" },
     opts = {},
-  },
-  {
-    'lambdalisue/vim-gin',
-    cmd = { "Gin", "GinDiff", "GinLog", "GinStatus" },
-    event = "VeryLazy",
-    dependencies = {
-      {
-        'vim-denops/denops.vim',
-        event = "VeryLazy",
-      }
-    }
   },
   {
     "nvim-neotest/neotest",

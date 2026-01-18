@@ -194,8 +194,6 @@ M.git = {
     ["<leader>hs"] = { "<cmd>lua require('gitsigns').stage_hunk<cr>", "state hunk" },
     ["<leader>hr"] = { "<cmd>lua require('gitsigns').reset_hunk<cr>", "reset hunk" },
     ["<leader>hp"] = { "<cmd>lua require('gitsigns').preview_hunk<cr>", "preview hunk" },
-    ["<leader>ti"] = { "<cmd>TigStatus<CR>", "tig status" },
-    ["<leader>gd"] = { "<cmd>GinDiff<cr>", "Git diff" },
   },
   x = {
     ["<leader>ghl"] = { ":GetCommitLink<CR>", "github line link copy" },
